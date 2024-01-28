@@ -11,7 +11,8 @@ const app = express();
 app.use(express.json());
 
 
-app.set('port', config.app.port);
+app.set('port', process.env.PORT || config.app.port);
+
 
 
 const clientRoute = require('./routes/clientRoute');
