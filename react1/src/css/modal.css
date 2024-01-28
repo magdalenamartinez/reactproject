@@ -1,0 +1,73 @@
+.custom-modal-overlay {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+.custom-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    background: #611668d3;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.contenedor_modal {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.title_modal {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.paragraph_modal {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.button_modal {
+    color: #FFFFFF;
+    font-size: 24px;
+    background: linear-gradient(to right, #89d8ff, #611668);
+    margin: 0 auto;
+    border: none;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 50%;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: background 0.5s, box-shadow 0.6s;
+}
+
+
+.button_modal:hover {
+    background: #89d8ff;
+    box-shadow: 0 0 20px #89d8ff;
+}
+
+.cerrar_modal{
+    color: #FFFFFF;
+    font-size: 30px;
+    position: absolute;
+    right: 0px;
+    padding: 0px 20px;
+    top: 0;
+    background: linear-gradient(to right, #89d8ff, #611668);
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background 0.5s, box-shadow 0.6s;
+}
+
+.cerrar_modal:hover{
+    background: #89d8ff;
+    box-shadow: 0 0 20px #89d8ff;
+}
+
+

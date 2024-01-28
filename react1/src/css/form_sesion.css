@@ -1,0 +1,294 @@
+
+.form_container {
+    background: linear-gradient(to bottom, #89d8ff, #611668);
+    width: 600px;
+    height: 800px;
+    margin: 0 auto;
+    border-radius: 15px;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    margin-bottom: 200px;
+}
+
+.form_container::before {
+    content: "";
+    position: absolute;
+    background-image: conic-gradient(white 20deg, transparent 160deg);
+    height: 1000px;
+    width: 650px;
+    animation: rotar 4s alternate infinite;
+}
+
+
+.form_container::after {
+    content: "";
+    position: absolute;
+    height: 790px;
+    width: 590px;
+    border-radius: 15px;
+    background: linear-gradient(to bottom, #89d8ff, #611668);
+}
+
+.text_container {
+    z-index: 2;
+} 
+
+.form_class {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form_group {
+    width: 80%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form_label {
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.input_group {
+    padding: 20px 20px;
+    padding-bottom: 0;
+}
+
+.margin_input_group {
+    padding-bottom: 20px;
+}
+
+.margin_input {
+    margin-left: 20px;
+}
+
+.form_input {
+    font-size: 18px;
+    width: 85%;
+    text-decoration: none;
+    background: #123c694f;
+    border: 2px solid transparent; 
+    height: 25px;
+    margin-left: 30px;
+    border-radius: 5px;
+    outline: none;
+    color: #FFFFFF;
+    transition: border-color 0.5s, box-shadow 0.3s, background 0.3s;
+
+}
+
+
+.mini {
+    width: 30%;
+    display: inline-block;
+}
+
+
+
+.big {
+    width: 100%;
+}
+
+.form_input:focus {
+    border-color: #FFFFFF;
+}
+
+.title_container {
+    padding: 20px 20px;
+    font-size: 50px;
+
+}
+
+.title_container {
+    font-size: 30px;
+}
+.eye_form {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.paragraph_error {
+    background-color: #89d8ffa6;
+    padding: 20px 20px;
+    font-size: 15px;
+    animation: pulsate 0.5s infinite alternate;
+
+}
+
+@keyframes pulsate {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.forgot {
+    margin-bottom: 30px;
+}
+
+.form_link {
+    background-color: transparent;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 18px;
+    transition: color 0.3s, transform 0.5s;
+}
+
+.form_link:hover {
+    transform: scale(1.1);
+    color: #89d8ff;
+}
+
+.form_link:active {
+    color: #89d8ff;
+    transform: scale(1);
+}
+
+.recaptchaClass {
+    margin-bottom: 30px;
+}
+
+.submit_button {
+    padding: 10px 30px;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: #068dd1;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.submit_button:hover {
+    background-color: #47a5d4;
+}
+
+.nuevacuenta {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.sincuenta {
+    font-size: 15px;
+}
+
+
+/*ICONO DE VALIDACION NEGATIVO*/
+
+.input_group {
+    display: flex;
+    align-items: center;
+}
+
+.state_validation {
+    margin-top: 10px;
+    margin-left: 10px;
+    z-index: 100;
+    opacity: 0;
+    font-size: 15px;
+}
+
+
+/*FORMULARIO COMENTARIO ERROR*/
+.input_error_form {
+    color: #6e24ab;
+    margin-left: 50px;
+    text-align: left;
+    width: 90%;
+    font-size: 11px;
+    display: none;
+}
+
+.editError {
+    color: #6e24ab;
+    margin-left: 50px;
+    text-align: left;
+    width: 90%;
+    font-size: 11px;
+    display: block;
+}
+
+.input_error_form_user {
+    color:  #6e24ab;
+    margin-left: 50px;
+    text-align: left;
+    width: 90%;
+    font-size: 11px;
+    display: none;
+}
+
+.input_error_form_mail {
+    color: #6e24ab;
+    margin-left: 50px;
+    text-align: left;
+    width: 90%;
+    font-size: 11px;
+    display: none;
+}
+
+.input_error_form_user-active {
+    display: block;
+}
+
+.input_error_form_mail-active {
+    display: block;
+}
+
+.input_error_form-active {
+    display: block;
+}
+
+/*FORMULARIO MENSAJE ERROR*/
+.message_error_form {
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 20px 20px;
+    background: linear-gradient(to right, #247eab, #611668);
+    margin-right: 30px;
+}
+
+/*VALIDACION CORRECTA*/
+.form_group-correct .state_validation{
+    color: greenyellow;
+    opacity: 1;
+}
+
+/*VALIDACION INCORRECTA*/
+.form_group-incorrect .state_validation{
+    color: #6e24ab;
+    opacity: 1;
+}
+
+.form_group-incorrect .form_label{
+    color: #6e24ab;
+} 
+
+.form_group-incorrect .form_input{
+    border: 3px solid #6e24ab;
+} 
+
+
+  
+
+
+@media only screen and (max-width: 600px) { 
+.form_container {
+    width: 98%;
+}
+
+}

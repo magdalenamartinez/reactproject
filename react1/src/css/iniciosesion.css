@@ -1,0 +1,75 @@
+.circulos_inicio_sesion {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+.circulo {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(to right, rgb(167, 167, 214), #96ebf1);;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    text-decoration: none;
+    font-size: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    box-shadow: 0 0 20px #FFFFFF;
+}
+
+.circulo:hover {
+    background: linear-gradient(to right, rgb(167, 167, 214), #96ebf1);
+}
+
+.circulo:hover::before {
+    content: "";
+    position: absolute;
+    background-image: conic-gradient(#FFFFFF 20deg, transparent 160deg);
+    animation: rotar 1s linear infinite;
+    height: 300px;
+    border-radius: 50%;
+    width: 300px;
+}
+
+@keyframes rotar {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+.circulo:hover::after {
+    content: "";
+    position: absolute;
+    height: 290px;
+    margin:10px;
+    width: 290px;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgb(167, 167, 214), #96ebf1);
+}
+
+.texto_circulo {
+    z-index: 2;
+}
+
+@media only screen and (max-width: 1200px) { 
+
+    .circulos_inicio_sesion {
+        height: 100%;
+        flex-direction: column;
+    }
+    .circulo {
+        margin-bottom: 30px;
+        font-size: 4vw;
+    }
+    
+
+}

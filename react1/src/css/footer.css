@@ -1,0 +1,47 @@
+.footer_class {
+    background-color: #38083c;
+    padding: 1em 0em;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.copyright {
+    text-align: center;
+}
+
+.enlace_mail {
+    text-decoration:none;
+    color:#FFFFFF;
+}
+
+.enlace_mail:hover {
+    color:#0880ff;
+
+}
+
+.logo_footer_container {
+    margin-left: 20px;
+}
+
+.logo_footer{
+    width: 100px;
+}
+
+
+@media only screen and (max-width: 900px) { 
+    .footercomun {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .submit_button {
+        margin: 10px;
+    }
+    
+    .form_button {
+        margin: 10px;
+    }
+}

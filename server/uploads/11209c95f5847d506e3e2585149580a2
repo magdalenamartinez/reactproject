@@ -1,0 +1,25 @@
+function Ifiltrada = Funcion_FiltAdapt2 (I, matriz_vecindad, VarRuido, opcion_padding)
+    [N, M] = size(I);
+    [Nh, Mh] = size(matriz_vecindad);
+
+    pf = floor(Nh/2);
+    pc = floor(Mh/2);
+
+    Iamp = uint8(zeros(N+pf*2, M+pc*2));
+    Iamp(pf+1:pf+N, pc+1:pc+M) = I;
+
+    Ifiltrada = uint8(zeros(size(I)));
+
+    for f = pf+1:pf+N
+        for c = pc+1:pc+M
+            
+            ROI = double(Iamp(f-pf:f+pf, c-pc:c+pc));
+            media = mean(ROI(:));
+            desviacion = std(ROI(:));
+            g = Iamp(f,c) - ((VarRuido/(desviacion)^2)*(Iamp(f,c) - media));
+            Ifiltrada(f-pf, c-pc) = g;
+
+        end
+    end
+
+end

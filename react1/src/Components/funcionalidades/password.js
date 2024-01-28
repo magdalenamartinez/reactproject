@@ -1,0 +1,18 @@
+
+function password_visibility(password, eyeIconId) {
+    const passwordInput = document.getElementById(password);
+    const eyeIcon = document.querySelector(`.${eyeIconId}`);
+    
+    if (passwordInput.type == "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+    }
+
+};
+
+export default password_visibility;

@@ -1,0 +1,209 @@
+.image-container {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid #89d8ff;
+    margin-left: 20px;
+    margin-right: 50px;
+    animation: neon 10s infinite alternate;
+}
+
+@keyframes neon {
+    0% {
+        border-color: #89d8ff;
+        box-shadow: 0 0 40px #89d8ff;
+    }
+    100% {
+        border-color: #611668;
+        box-shadow: 0 0 40px #611668;
+    }
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.paragraph {
+    font-size: 25px;
+}
+
+
+.right-big {
+    flex: 1.5;
+}
+
+.nomargin {
+    margin-left: 0;
+}
+
+.paragraph_big {
+    font-size: 45px;
+}
+
+.link_button {
+    text-decoration: none;
+    margin-top: 100px;
+}
+
+
+.bloque_profile {
+    padding: 30px 20px;
+    margin-bottom: 20px;
+}
+
+.color_background {
+    background-color: #89d8ff14;
+}
+
+.videoPresentacion {
+    margin: 30px auto;
+    margin-left: 40px;
+    width: 90%;
+    max-width: 600px;
+    font-size: 30px;
+    align-items: center;
+}
+
+
+.button_big {
+    text-decoration: none;
+    background-color:  #611668;
+    height: 300px;
+    width: 90%;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFFFFF;
+    color: #FFFFFF;
+    box-shadow: 0 0 20px #611668;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    transition: background-color 0.3s, box-shadow 0.4s;
+}
+
+.button_big:hover {
+    animation: none;
+    background-color: #89d8ff;
+    box-shadow: 0 0 20px #89d8ff, 0 0 60px #89d8ff, 0 0 100px #89d8ff;
+    
+}
+
+.nothidden {
+    display: block;
+}
+
+.contenedor_password {
+    background: linear-gradient(to right, #89d8ff, #61166800);   
+    border-radius: 25px;
+    box-shadow: 0 0 20px #611668;
+    padding: 30px 30px;
+    margin-bottom: 50px;
+}
+
+.form_textarea::placeholder {
+    color: #FFFFFF;
+}
+
+.form_label {
+    padding: 20px 20px;
+    margin-top: 20px;
+    margin-left: 30px
+}
+
+.container_radio {
+    margin-top: 30px;
+    padding: 40px 0px;
+}
+
+
+.radio_button + .form_label::before{
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #89d8ff;
+    background-color: rgba(20, 63, 255, 0.318);
+    border-radius: 50%;
+    margin-right: 15px;
+    cursor: pointer;
+    margin-left: 30px;
+    vertical-align: middle;
+}
+
+.radio_button:checked + .form_label::before {
+    background-color: #611668;
+    border-color: #611668;
+    content: '\2717';
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+    animation: radioAnimation 2s infinite;
+    box-shadow: 0 0 10px #611668;
+  }
+
+  @keyframes radioAnimation{
+    0% {
+        transform: scale(1.5);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.5);
+    }
+  }
+
+  .radio_button {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1000px) { 
+        .bloque_profile {
+            padding: 0px;
+            width: 100%;
+        }
+        
+        .profilelr {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+    
+        .image-container {
+            width: 200px;
+            height: 200px;
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+    
+        .paragraph {
+            font-size: 3vw;
+            text-align: center;
+        }
+        
+        .paragraph_big {
+            font-size: 5vw;
+            text-align: center;
+        }
+        .button_big {
+            width: 90vw;
+            font-size: 30px;
+        }
+    
+        .submit_button {
+            padding: 10px 30px;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+  }
