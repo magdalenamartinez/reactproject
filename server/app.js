@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 
-app.set('port', process.env.PORT || config.app.port);
+app.set('port', process.env.PORT || 5000);
 
 
 
