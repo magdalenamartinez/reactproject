@@ -1,12 +1,12 @@
 const mysql = require('mysql2');
 const config = require('./config');
 const { resolve } = require('path-browserify');
-
+/*
 var connection = mysql.createConnection({
-    host: config.mysql.host,
-    database: config.mysql.database,
-    user: config.mysql.user,
-    password: config.mysql.password
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 });
 
 connection.connect(function(error) {
@@ -15,7 +15,7 @@ connection.connect(function(error) {
   
     console.log('CONEXION EXITOSA');  
 });
-
+*/
 //CRUD
 
 function ReadAll(table) {
