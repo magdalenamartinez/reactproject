@@ -4,9 +4,7 @@ const router = express.Router();
 
 router.post('/change-password', async(req, res) => {
     try {
-        console.log(req.body);
         const results = await db.UpdatePassword(req.body.table, req.body.id, req.body.password)
-        console.log(results);
         if (results[0].affectedRows > 0) {
             res.json({success: true});
         } else {

@@ -3,12 +3,14 @@ const mysql = require('mysql2/promise'); // Importa la versión de la biblioteca
 const config = require('./config');
 const path = require('path');
 const db = require('./db.js');
+require('dotenv').config();
 
 
 const app = express();
 
 
 app.use(express.json());
+
 
 
 app.set('port', process.env.PORT || config.app.port);
