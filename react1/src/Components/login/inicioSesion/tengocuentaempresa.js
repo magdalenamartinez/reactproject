@@ -30,7 +30,7 @@ function InicioSesionEmpresa() {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'empresas'}),});
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'empresas'}),});
             if (response.ok) {
                 const responseData = await response.json();
             

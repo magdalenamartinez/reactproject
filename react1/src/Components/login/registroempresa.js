@@ -50,7 +50,7 @@ function RegistroEmpresa() {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('/enterpriseRoute/save-data2', {
+                const response = await fetch('https://backend-empleoinclusivo.onrender.com/enterpriseRoute/save-data2', {
                     method: 'POST',
                     body: formData,
                 });
