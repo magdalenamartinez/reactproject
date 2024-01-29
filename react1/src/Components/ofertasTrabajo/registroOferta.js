@@ -38,7 +38,7 @@ function RegistroOferta() {
         const formData = new FormData(form);
         formData.append('id_empresa', enterpriseId);
         try {
-            const response = await fetch('/ofertaRoute/save-data3', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/save-data3', {
                 method: 'POST',
                 body: formData,
             });
