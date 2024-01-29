@@ -35,7 +35,7 @@ function BusquedaEmpleados() {
       
         const getClientes = async () => {
           try {
-            const response = await fetch('/clientRoute/get-clientes', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/get-clientes', {
               method: 'GET',
               headers: { 'Content-Type': 'application/json' },
             });

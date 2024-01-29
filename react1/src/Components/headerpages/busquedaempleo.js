@@ -13,7 +13,10 @@ import Busqueda from "./busqueda";
 import addFav from "../fav/misFavs";
 import getFavs from "../fav/getFav";
 import setDetallesById from "../fav/detalles";
+import { useNavigate } from 'react-router-dom';
+
 function BusquedaDeEmpleo() {
+    const navigate = useNavigate();
     const [currentPagina, setCurrentPagina] = useState(1);
     const [ofertas, setOfertas] = useState([]);
     const [detalles, setDetalles] = useState({});
@@ -37,7 +40,7 @@ function BusquedaDeEmpleo() {
       
         const getOfertas = async () => {
           try {
-            const response = await fetch('/ofertaRoute/get-all-ofertas', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-all-ofertas', {
               method: 'GET',
               headers: { 'Content-Type': 'application/json' },
             });
@@ -52,7 +55,7 @@ function BusquedaDeEmpleo() {
                     setFav(true);
                   }
               } else {
-                window.location.href = "/";
+                navigate("/");
               }
             }
           } catch (error) {
