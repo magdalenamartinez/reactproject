@@ -67,7 +67,7 @@ function Header() {
           favs = "/misFavoritos";
         }
         if (data) {
-          srcimageRef.current = parseData.image ? `http://localhost:5000/uploads/${parseData.image}` : "../images/user.png";
+          srcimageRef.current = parseData.image ? `https://frontend-empleoinclusivo.onrender.com/${parseData.image}` : "../images/user.png";
           chatStyleRef.current = "chat";
           exist = true;
         }

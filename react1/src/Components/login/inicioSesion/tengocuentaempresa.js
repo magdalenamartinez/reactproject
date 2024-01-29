@@ -82,7 +82,7 @@ function InicioSesionEmpresa() {
                                 <button className="form_link" onClick={handleForgotPassword}>¿Olvidó su Contraseña Coorporativa?</button>
                             </div>
                             <div className='recaptchaClass'>
-                                <ReCAPTCHA  sitekey="6Lf8u9woAAAAAPj0gngg3O447Fc3aFSbS0Hs3X6h" onChange={recaptchaChange}></ReCAPTCHA>
+                                <ReCAPTCHA  sitekey="6LcbpF8pAAAAACntAJXGCyc1OggIYeI6OqfvVsh_" onChange={recaptchaChange}></ReCAPTCHA>
                             </div>
                             <button className="submit_button" type="submit">Iniciar Sesión</button>
                             <div className="nuevacuenta">
