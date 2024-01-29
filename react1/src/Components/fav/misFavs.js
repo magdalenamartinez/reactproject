@@ -1,6 +1,6 @@
 const addFav = async (id, select_id, tableName, setHeartState) => {
     try {
-      const response = await fetch('/favRoute/change-fav', {
+      const response = await fetch('https://backend-empleoinclusivo.onrender.com/favRoute/change-fav', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: id, select_id: select_id, table: tableName}),

@@ -1,6 +1,6 @@
 const getFavsOfertas = async (id, tableName, tableToSearch, setHeartState, setOfertas) => {
     try {
-        const response = await fetch('/favRoute/get-favs-ofertas', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/favRoute/get-favs-ofertas', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: id, table:tableName, tableToSearch: tableToSearch}),

@@ -94,7 +94,7 @@ function EditarPerfil() {
             
 
             try {
-                const response = await fetch('/clientRoute/update-data', {
+                const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/update-data', {
                     method: 'POST',
                     body: formData,
                 });
