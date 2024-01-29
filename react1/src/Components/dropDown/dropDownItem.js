@@ -6,7 +6,7 @@ function DropDownItem(props) {
     return(
         <li className="dropDownItem">
             <i className={props.icon}></i>
-            <Link href={props.link} className="link_drop">{props.text}</Link>
+            <a href={props.link} className="link_drop">{props.text}</a>
         </li>
     );
 
