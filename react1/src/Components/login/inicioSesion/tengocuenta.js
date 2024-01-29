@@ -5,8 +5,10 @@ import { useEffect} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import '../../../css/index.css';
 import '../../../css/form_sesion.css';
+import { useNavigate } from 'react-router-dom';
 
 function TengoCuenta() {
+    const navigate = useNavigate();
     const [seconddone, set2done] = useState(false);
     const [recaptchaToken, setRecaptchaToken] = useState("");
 
@@ -46,7 +48,7 @@ function TengoCuenta() {
                 if (responseData.success) {
                     console.log("Datos del usuario", responseData.data);
                     localStorage.setItem('userData', JSON.stringify(responseData.data));
-                    window.location.href = '/perfilUsuario';
+                    navigate('/perfilUsuario');
                 } else if (!responseData.success && responseData.number === 1) {
                     document.getElementById('parr2').classList.remove('hidden');
                     document.getElementById('parr').classList.add('hidden');
