@@ -10,9 +10,9 @@ const CustomModal = ({ isOpen, onClose, title, paragraph, buttonText, buttonHref
         <h1 className='title_modal'>{title}</h1>
         <p className='paragraph_modal'>{paragraph}</p>
         {buttonText && buttonHref && (
-          <a className='button_modal' style={{textDecoration:'none'}} href={buttonHref}>
+          <Link className='button_modal' style={{textDecoration:'none'}} to={buttonHref}>
             {buttonText}
-          </a>
+          </Link>
         )}
       </div>
     </Modal>
