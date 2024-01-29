@@ -17,6 +17,8 @@ import { Link } from 'react-router-dom';
 import { handle_delete_image } from '../funcionalidades/handleDelete/handleDeleteImage.js';
 import Presentacion from './editarFunctions/presentacion.js';
 import Ubicacion from './editarFunctions/Ubicacion.js';
+import { useHistory } from 'react-router-dom';
+
 function EditarPerfil() {
     const userData = getUserData();
 
@@ -104,7 +106,7 @@ function EditarPerfil() {
                     if (responseData.success) {
                         console.log("Datos del usuario", responseData);
                         localStorage.setItem('userData', JSON.stringify(responseData.dataNew));
-                        window.location.href = '/perfilUsuario';
+                        history.push('/perfilUsuario');
                     } else {
                         document.getElementById("messageError").classList.remove('hidden');
                     }
