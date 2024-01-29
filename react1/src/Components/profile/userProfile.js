@@ -15,7 +15,7 @@ function UserProfile() {
 
     const getInfo = async(id, tableName) => {
         try {
-            const response = await fetch('https://frontend-empleoinclusivo.onrender.com/infoRoute/get-info', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/infoRoute/get-info', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: id, table:tableName}),
@@ -50,8 +50,8 @@ function UserProfile() {
         if (userData) {
             const fileName = userData.curriculumName;
             setFile(fileName);
-            const url = userData.curriculum ? `https://frontend-empleoinclusivo.onrender.com/download/${userData.curriculum}` : '';
-            const srcImg = (userData.image) ? `https://frontend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "../images/user.png";
+            const url = userData.curriculum ? `https://backend-empleoinclusivo.onrender.com/download/${userData.curriculum}` : '';
+            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "../images/user.png";
             
             setUrl(url);
             setImg(srcImg);
@@ -70,7 +70,7 @@ function UserProfile() {
     }
 
     const completeDelete = async() => {
-        const response = await fetch('https://frontend-empleoinclusivo.onrender.com/deleteRoute/delete-data', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: userData.id, table: 'clientes'}),});
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/deleteRoute/delete-data', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: userData.id, table: 'clientes'}),});
             if (response.ok) {
                 localStorage.removeItem('userData');
                 localStorage.setItem('deletedAccount', 'true');
@@ -84,7 +84,7 @@ function UserProfile() {
     const handleBusquedaEmpleo = async() => {
         
         try {
-            const response = await fetch('https://frontend-empleoinclusivo.onrender.com/clientRoute/change-active', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/change-active', {
             method:'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({id: userData.id})
