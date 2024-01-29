@@ -1,6 +1,7 @@
 const mysql = require('mysql2');
 const config = require('./config');
 const { resolve } = require('path-browserify');
+require('dotenv').config();
 /*
 var connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -16,6 +17,13 @@ connection.connect(function(error) {
     console.log('CONEXION EXITOSA');  
 });
 */
+const connection = mysql.createConnection(process.env.DATABASE_URL);
+connection.connect(function(error) {
+    if (error)
+    throw error;
+  
+    console.log('CONEXION EXITOSA');  
+});
 //CRUD
 
 function ReadAll(table) {

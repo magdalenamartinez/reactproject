@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2/promise'); // Importa la versión de la biblioteca que soporta promesas
+const mysql = require('mysql2'); // Importa la versión de la biblioteca que soporta promesas
 const config = require('./config');
 const path = require('path');
 const db = require('./db.js');
