@@ -66,7 +66,7 @@ function TengoCuenta() {
       function handleForgotPassword() {
             localStorage.removeItem('t');
             localStorage.setItem('t',1);
-            window.location.href = '/forgotPassword';
+            navigate('/forgotPassword');
       };
         
       return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import '../../../css/modal.css';
+import { Link } from 'react-router-dom';
 
 const CustomModal = ({ isOpen, onClose, title, paragraph, buttonText, buttonHref }) => {
   return (
