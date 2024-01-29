@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import '../../../css/index.css';
 import '../../../css/form_sesion.css';
+import { useNavigate } from 'react-router-dom';
 
 function InicioSesionEmpresa() {
+    const navigate = useNavigate();
     const [recaptchaToken, setRecaptchaToken] = useState("");
 
     const recaptchaChange = (token) => {
@@ -37,7 +39,7 @@ function InicioSesionEmpresa() {
                 if (responseData.success) {
                     console.log("Datos de la Empresa", responseData.data);
                     localStorage.setItem('enterpriseData', JSON.stringify(responseData.data));
-                    window.location.href = '/perfilEmpresa';
+                    navigate('/perfilEmpresa');
                 } else if (!responseData.success && responseData.number == 1) {
                     document.getElementById('parr2').classList.remove('hidden');
                     document.getElementById('parr').classList.add('hidden');
@@ -55,7 +57,7 @@ function InicioSesionEmpresa() {
       function handleForgotPassword() {
         localStorage.removeItem('t');
         localStorage.setItem('t',2);
-        window.location.href = '/forgotPassword';
+        navigate('/forgotPassword');
   };
   return (
                 <div className='contenedor'>
