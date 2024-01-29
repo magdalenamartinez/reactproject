@@ -67,7 +67,7 @@ function RegistroUsuario() {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('/clientRoute/save-data', {
+                const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/save-data', {
                     method: 'POST',
                     body: formData,
                 });
