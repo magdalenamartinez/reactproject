@@ -25,11 +25,11 @@ router.post('/save-data3', upload.fields([
         provincia: req.body.provincia|| '',
         codpostal: parseInt(req.body.codpostal,10),
         calendarioEventos: req.body.calendarioEventos,
-        politicasInclusivas: req.body.politicasInclusivas,
-        instalacionesAccesibles: req.body.instalacionesAccesibles,
-        formacionInclusividad: req.body.formacionInclusividad,
-        mentoresApoyo: req.body.mentoresApoyo,
-        ambienteAdaptado: req.body.ambienteAdaptado,
+        politicasInclusivas: req.body.politicasInclusivas === 'on',
+        instalacionesAccesibles: req.body.instalacionesAccesibles === 'on',
+        formacionInclusividad: req.body.formacionInclusividad === 'on',
+        mentoresApoyo: req.body.mentoresApoyo === 'on',
+        ambienteAdaptado: req.body.ambienteAdaptado === 'on',
         requisitosSolicitante: req.body.requisitos,
         
         };

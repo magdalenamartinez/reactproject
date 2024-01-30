@@ -69,7 +69,7 @@ app.use('/reset-password', async(req, res) => {
               } else if (req.query.t === 'empresas'){
                 t = 2;
               }
-              res.redirect(`http://localhost:3000/reset-password?id=${id}&token=${req.query.token}&t=${t}`);
+              res.redirect(`https://frontend-empleoinclusivo.onrender.com/reset-password?id=${id}&token=${req.query.token}&t=${t}`);
           } else {
             res.json({success: false, message: 'Se ha producido un error.'});
           }
