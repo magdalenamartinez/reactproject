@@ -26,9 +26,13 @@ import ErrorMessage from './registro/errorMessage.js';
 import InputChange2 from '../funcionalidades/inputChange/inputChange2.js';
 import change_postalcod from '../funcionalidades/postalcod/change_postalcod.js';
 import Ubicacion from '../profile/editarFunctions/Ubicacion.js';
+import { useNavigate } from 'react-router-dom';
+import config from '../config.js';
 const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 function RegistroUsuario() {
+    const navigate = useNavigate();
+
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteCurriculum, setDeleteCurriculum] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
@@ -67,7 +71,7 @@ function RegistroUsuario() {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/save-data', {
+                const response = await fetch(`${config.apiUrl}/clientRoute/save-data`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -75,7 +79,7 @@ function RegistroUsuario() {
                     const responseData = await response.json();
                     if (responseData.success) {
                         localStorage.setItem('successRegistrationUser', 'true'); 
-                        window.location.href = '/';
+                        navigate('/');
                     }
                 } else {
                     console.log("Se ha producido un error al intentar registrar al usuario");

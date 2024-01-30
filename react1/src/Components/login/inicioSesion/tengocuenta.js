@@ -4,6 +4,7 @@ import password_visibility from '../../funcionalidades/password';
 import { useEffect} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import '../../../css/index.css';
+import config from '../../config';
 import '../../../css/form_sesion.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,7 +42,8 @@ function TengoCuenta() {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'clientes'}),});
+            console.log("variable de entorno", config.apiUrl);
+            const response = await fetch(`${config.apiUrl}/loginUserRoute/try-login`, {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'clientes'}),});
             if (response.ok) {
                 const responseData = await response.json();
             

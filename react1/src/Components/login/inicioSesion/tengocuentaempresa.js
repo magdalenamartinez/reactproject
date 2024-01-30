@@ -4,6 +4,7 @@ import password_visibility from '../../funcionalidades/password';
 import { useEffect, useState } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import '../../../css/index.css';
+import config from '../../config';
 import '../../../css/form_sesion.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,7 +33,7 @@ function InicioSesionEmpresa() {
         const password = document.getElementById('password').value;
 
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'empresas'}),});
+            const response = await fetch(`${config.apiUrl}/loginUserRoute/try-login`, {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:'empresas'}),});
             if (response.ok) {
                 const responseData = await response.json();
             

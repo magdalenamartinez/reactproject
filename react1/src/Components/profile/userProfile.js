@@ -4,7 +4,7 @@ import { getUserData, setUserData } from '../funcionalidades/setUserData';
 import CustomModal2 from '../funcionalidades/modal/custommodal2.js';
 import '../../css/profile.css'
 import { useNavigate } from 'react-router-dom';
-
+import config from '../config.js';
 function UserProfile() {
     const navigate = useNavigate();
     const [userData, setLocalUserData] = useState(null);
@@ -17,7 +17,7 @@ function UserProfile() {
 
     const getInfo = async(id, tableName) => {
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/infoRoute/get-info', {
+            const response = await fetch(`${config.apiUrl}/infoRoute/get-info`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: id, table:tableName}),
@@ -52,8 +52,8 @@ function UserProfile() {
         if (userData) {
             const fileName = userData.curriculumName;
             setFile(fileName);
-            const url = userData.curriculum ? `https://backend-empleoinclusivo.onrender.com/download/${userData.curriculum}` : '';
-            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "../images/user.png";
+            const url = userData.curriculum ? `${config.apiUrl}/download/${userData.curriculum}` : '';
+            const srcImg = (userData.image) ? `${config.apiUrl}/uploads/${userData.image}` : "../images/user.png";
             
             setUrl(url);
             setImg(srcImg);
@@ -72,7 +72,7 @@ function UserProfile() {
     }
 
     const completeDelete = async() => {
-        const response = await fetch('https://backend-empleoinclusivo.onrender.com/deleteRoute/delete-data', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: userData.id, table: 'clientes'}),});
+        const response = await fetch(`${config.apiUrl}/deleteRoute/delete-data`, {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: userData.id, table: 'clientes'}),});
             if (response.ok) {
                 localStorage.removeItem('userData');
                 localStorage.setItem('deletedAccount', 'true');
@@ -86,7 +86,7 @@ function UserProfile() {
     const handleBusquedaEmpleo = async() => {
         
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/change-active', {
+            const response = await fetch(`${config.apiUrl}/clientRoute/change-active`, {
             method:'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({id: userData.id})
@@ -149,7 +149,7 @@ function UserProfile() {
                         )}
                             <Link className="button_big" style={{height:'500px'}} to="/busquedadeempleo">Buscar<br/> Empleo</Link>
                             {(userData.video) && (
-                                <video controls className="form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${userData.video}`}></video>
+                                <video controls className="form_video" id="videoPlayer" src={userData.video?`${config.apiUrl}/uploads/${userData.video}`:''}></video>
                             )}
                         </div>
                     </div>

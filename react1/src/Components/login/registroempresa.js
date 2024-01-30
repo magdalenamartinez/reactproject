@@ -22,9 +22,12 @@ import Select from './input/select.js';
 import ErrorMessage from './registro/errorMessage.js';
 import Video from './registro/video.js';
 import InputTextArea from './input/inputTextArea.js';
+import config from '../config.js';
+import { useNavigate } from 'react-router-dom';
 const {checkUserName, getExistsUser, checkMail, getExistsMail} = checkFolder;
 
 function RegistroEmpresa() {
+    const navigate = useNavigate();
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
     const handleDeleteImage = () => {
@@ -50,7 +53,7 @@ function RegistroEmpresa() {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('https://backend-empleoinclusivo.onrender.com/enterpriseRoute/save-data2', {
+                const response = await fetch(`${config.apiUrl}/enterpriseRoute/save-data2`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -58,7 +61,7 @@ function RegistroEmpresa() {
                     const responseData = await response.json();
                     if (responseData.success) {
                         localStorage.setItem('successRegistrationEnterprise', 'true');
-                        window.location.href = '/';
+                        navigate('/');
                     }
                 } else {
                     console.log("Se ha producido un error al intentar registrar al usuario");

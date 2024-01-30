@@ -13,7 +13,7 @@ import Question from './Registro/Question.js';
 import Requisitos from './Registro/Requisitos.js';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import config from '../config.js';
 function RegistroOferta() {
     const navigate = useNavigate();
     const [enterpriseId, setEnterpriseId] = useState("");
@@ -40,7 +40,7 @@ function RegistroOferta() {
         const formData = new FormData(form);
         formData.append('id_empresa', enterpriseId);
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/save-data3', {
+            const response = await fetch(`${config.apiUrl}/ofertaRoute/save-data3`, {
                 method: 'POST',
                 body: formData,
             });
