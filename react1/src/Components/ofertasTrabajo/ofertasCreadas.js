@@ -10,8 +10,11 @@ import DeleteButton from "../headerpages/botones/botonEliminar";
 import EditButton from "../headerpages/botones/botonEditar";
 import PublishButton from "../headerpages/botones/botonPublicar";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 function OfertasCreadas() {
+    const navigate = useNavigate();
     const [currentPagina, setCurrentPagina] = useState(1);
     const [idEmpresa, setEnterpriseId] = useState("");
     const [ofertas, setOfertas] = useState([]);
@@ -26,7 +29,7 @@ function OfertasCreadas() {
 
     const sendChangesToServer = async () => {
         try {
-           await fetch('/ofertaRoute/operation-ofertas', {
+           await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/operation-ofertas', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id:  idOfertaOperation, action: action}),
@@ -40,12 +43,12 @@ function OfertasCreadas() {
 
     useEffect(() => {
         const handleExit = () => {
-            window.location.href = "/";
+            navigate("/");
         };
         
         const getOfertas = async () => {
             try {
-                const response = await fetch('/ofertaRoute/get-ofertas', {
+                const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-ofertas', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ id_empresa: idEmpresa }),
@@ -105,7 +108,7 @@ function OfertasCreadas() {
     const currentOfertas = indicesCalculados(currentPagina, ofertasPorPagina, ofertas);
     const handleEditOferta = (idOferta) => {
         localStorage.setItem('idOferta', idOferta);
-        window.location.href = "/editOferta";
+        navigate("/editOferta");
     }
 
     const handleOperation = (ofertaId, operation) => {

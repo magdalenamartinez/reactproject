@@ -11,8 +11,11 @@ import inputFunction from "../funcionalidades/inputChange/inputFunction";
 import useInitialOfertState from "../funcionalidades/initialOfertstate.js";
 import handleChange from "../profile/editarFunctions/handleChange";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function EditOferta() {
+  const navigate = useNavigate();
+
   const [modifiedFields, setModifiedFields] = useState({});
   const [idOferta, setIdOferta] = useState(null);
   const [oferta, setOferta] = useState(null);
@@ -26,7 +29,7 @@ function EditOferta() {
     // Obtener el idOferta de localStorage
     const getOferta = async () => {
       try {
-          const response = await fetch('/ofertaRoute/get-one-oferta', {
+          const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-one-oferta', {
               method: 'POST',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({ id_oferta: idOferta }),
@@ -82,7 +85,7 @@ const handleSubmit = async (event) => {
       formData.append('id_oferta', ofertaData.id);
 
       try {
-          const response = await fetch('/ofertaRoute/update-data-oferta', {
+          const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/update-data-oferta', {
               method: 'POST',
               body: formData,
           });
@@ -91,7 +94,7 @@ const handleSubmit = async (event) => {
           
               if (responseData.success) {
                 localStorage.removeItem('idOferta');
-                window.location.href="/ofertasCreadas";
+                navigate("/ofertasCreadas");
               } else {
                 localStorage.removeItem('idOferta');
                 console.log('Se ha producido un error al intentar editar la oferta');
@@ -108,7 +111,7 @@ const handleSubmit = async (event) => {
 
 const handleExit = () => {
   localStorage.removeItem('idOferta');
-  window.location.href = "/ofertasCreadas";
+  navigate("/ofertasCreadas");
 }
 
 if (oferta === null) {

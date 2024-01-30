@@ -12,8 +12,10 @@ import Calendario from './Registro/Calendario.js';
 import Question from './Registro/Question.js';
 import Requisitos from './Registro/Requisitos.js';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function RegistroOferta() {
+    const navigate = useNavigate();
     const [enterpriseId, setEnterpriseId] = useState("");
     const [deleteImage, setDeleteImage] = useState(false);
     const [formValues, setFormValues] = useState(null);
@@ -28,7 +30,7 @@ function RegistroOferta() {
     }, []);
 
     const handleExit = () => {
-        window.location.href = "/";
+        navigate("/");
     };
 
 
@@ -45,7 +47,7 @@ function RegistroOferta() {
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData.success) {
-                    window.location.href = '/perfilEmpresa';
+                    navigate('/perfilEmpresa');
                 } else {
                     console.log('error', responseData.message);
                 }
