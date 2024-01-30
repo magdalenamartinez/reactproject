@@ -11,9 +11,11 @@ import Descripcion from "./editarFunctionsEnterprise/descripcion.js";
 import { Link } from "react-router-dom";
 import VideoPresentacion from "./editarFunctionsEnterprise/videoPresentacion.js";
 import { handle_delete_image } from "../funcionalidades/handleDelete/handleDeleteImage.js";
+import { useNavigate } from 'react-router-dom';
 
 function EditarPerfilEmpresa() {
     const enterpriseData = getEnterpriseData();
+    const navigate = useNavigate();
 
     const [modifiedFields, setModifiedFields] = useState({});
     const [formValues, setFormValues] = useInitialFormEnterprise(enterpriseData);
@@ -50,7 +52,7 @@ function EditarPerfilEmpresa() {
         formData.append('deleteVideo', deleteVideo);
 
         try {
-            const response = await fetch('/enterpriseRoute/update-data2', {
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/enterpriseRoute/update-data2', {
                 method: 'POST',
                 body: formData,
             });
@@ -60,7 +62,7 @@ function EditarPerfilEmpresa() {
                 if (responseData.success) {
                     console.log("Datos de la Empresa", responseData);
                     localStorage.setItem('enterpriseData', JSON.stringify(responseData.dataNew));
-                    window.location.href = '/perfilEmpresa';
+                    navigate('/perfilEmpresa');
                 } else {
                     document.getElementById("messageError").classList.remove('hidden');
                 }
