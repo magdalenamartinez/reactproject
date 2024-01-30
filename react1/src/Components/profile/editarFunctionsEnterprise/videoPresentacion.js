@@ -7,7 +7,7 @@ const VideoPresentacion = ({ enterpriseData, handleC, handleDeleteVideo, setDele
             <h1 className="title_container">Vídeo de Presentación de la Empresa</h1>
             <Video handleDeleteVideo={handleDeleteVideo} onChange={(event) => { handleC(event); InputChange('inputVideo', 'videoPlayer'); setDeleteVideo(false);}}
             style={{display: enterpriseData.video ? 'initial' : 'none'}} style_button={{ display: enterpriseData.video ? 'block' : 'none' }}
-            src={enterpriseData.video ? `http://localhost:5000/uploads/${enterpriseData.video}` : ''}/>
+            src={enterpriseData.video ? `https://backend-empleoinclusivo.onrender.com/uploads/${enterpriseData.video}` : ''}/>
         </div>
         )
     };
