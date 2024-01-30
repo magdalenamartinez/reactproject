@@ -134,7 +134,7 @@ if (oferta === null) {
                 <h1 className='title_container'>Datos Principales</h1>
                 <div className='comun'>
                    <DatosPrincipales handleC={handleC} inputTitle={ofertaData.titulo_oferta} inputDescription={ofertaData.descripcion_oferta} inputDate={new Date(ofertaData.fechaInicio).toISOString().split('T')[0]} inputSalary={ofertaData.salario}/>
-                   <ImagenOferta handleC={handleC} handleDeleteImage={handleDeleteImage} setDeleteImage={setDeleteImage} imageValue={ofertaData.image? `http://localhost:5000/uploads/${ofertaData.image}`:'/images/uploadimage2.png'} InputChange2={InputChange2} inputFunction={inputFunction}/>
+                   <ImagenOferta handleC={handleC} handleDeleteImage={handleDeleteImage} setDeleteImage={setDeleteImage} imageValue={ofertaData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${ofertaData.image}`:'/images/uploadimage2.png'} InputChange2={InputChange2} inputFunction={inputFunction}/>
                 </div>
             </div>
             <Ubicacion setFormValues={setFormValues} handleC={handleC} inputProvince={ofertaData.provincia} inputPostalCode={ofertaData.codpostal}/>

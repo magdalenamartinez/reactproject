@@ -1,12 +1,14 @@
 import React from "react";
 import "../../css/dropdown.css";
 import DropDownItem from "./dropDownItem.js";
+import { useNavigate } from 'react-router-dom';
 
 function DropDownChat({ openclass, profile, logout, favoritos }) {
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem(logout);
-        window.location.href = '/';
+        navigate('/');
     };
     
         

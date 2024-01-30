@@ -7,7 +7,7 @@ const useInitialFormEnterprise = (enterpriseData) => {
         password: enterpriseData ? enterpriseData.password : '',
         password2: enterpriseData ? enterpriseData.password : '',
         tlf: enterpriseData ? enterpriseData.tlf : '',
-        image: enterpriseData.image ? `http://localhost:5000/uploads/${enterpriseData.image}` : "../../images/uploadimage2.png",
+        image: enterpriseData.image ? `https://backend-empleoinclusivo.onrender.com/uploads/${enterpriseData.image}` : "../../images/uploadimage2.png",
         cultura: enterpriseData ? enterpriseData.cultura : '',
         description: enterpriseData ? enterpriseData.descripcion : '',
         tipo_empresa: enterpriseData ? enterpriseData.tipo_empresa : '',

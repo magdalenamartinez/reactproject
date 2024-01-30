@@ -7,7 +7,7 @@ const useInitialOfertState = (ofertaData) => {
         titulo_oferta: ofertaData ? ofertaData.titulo_oferta : '',
         descripcion_oferta: ofertaData ? ofertaData.descripcion_oferta : '',
         fechaInicio: ofertaData ? new Date(ofertaData.fechaInicio).toISOString().split('T')[0] : '',
-        image: (ofertaData&&ofertaData.image!=='') ? `http://localhost:5000/uploads/${ofertaData.image}` : "/images/uploadimage2.png",
+        image: (ofertaData&&ofertaData.image!=='') ? `https://backend-empleoinclusivo.onrender.com/uploads/${ofertaData.image}` : "/images/uploadimage2.png",
         salario: ofertaData ? ofertaData.salario : '',
         provincia: ofertaData ? ofertaData.provincia : '',
         codpostal: ofertaData ? ofertaData.codpostal : '',

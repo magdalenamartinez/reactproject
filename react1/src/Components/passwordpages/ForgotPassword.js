@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import React from "react";
 import checkFolder from "../funcionalidades/checkUserName.js";
+import { useNavigate } from 'react-router-dom';
 const {checkMail, getExistsMail} = checkFolder;
 
 function ForgotPassword () {
+    const navigate = useNavigate();
+
     const [type, setType] = useState("");
     useEffect(() => {
         const type = localStorage.getItem('t');
@@ -47,13 +50,13 @@ function ForgotPassword () {
         const correo = document.getElementById('correo').value;
        if (getExistsMail() === true) {
         try {
-            const response = await fetch('/loginUserRoute/send-mail', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({correo:correo, table: tableName}),});
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/send-mail', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({correo:correo, table: tableName}),});
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData.success) {
                     //Se ha podido enviar el mail
                     localStorage.setItem('successSendMail', 'true');
-                    window.location.href = '/';
+                    navigate('/');
                 } else {    
                     alert('Se ha producido un error al intertar enviar el correo.');
                 }

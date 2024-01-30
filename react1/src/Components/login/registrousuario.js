@@ -25,10 +25,13 @@ import InputChange3 from '../funcionalidades/inputChange/inputChange3.js';
 import ErrorMessage from './registro/errorMessage.js';
 import InputChange2 from '../funcionalidades/inputChange/inputChange2.js';
 import change_postalcod from '../funcionalidades/postalcod/change_postalcod.js';
+import { useNavigate } from 'react-router-dom';
 import Ubicacion from '../profile/editarFunctions/Ubicacion.js';
 const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 function RegistroUsuario() {
+    const navigate = useNavigate();
+
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteCurriculum, setDeleteCurriculum] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
@@ -75,7 +78,7 @@ function RegistroUsuario() {
                     const responseData = await response.json();
                     if (responseData.success) {
                         localStorage.setItem('successRegistrationUser', 'true'); 
-                        window.location.href = '/';
+                        navigate('/');
                     }
                 } else {
                     console.log("Se ha producido un error al intentar registrar al usuario");

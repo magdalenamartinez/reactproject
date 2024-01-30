@@ -21,10 +21,13 @@ import Correo from './registro/correo.js';
 import Select from './input/select.js';
 import ErrorMessage from './registro/errorMessage.js';
 import Video from './registro/video.js';
+import { useNavigate } from 'react-router-dom';
 import InputTextArea from './input/inputTextArea.js';
 const {checkUserName, getExistsUser, checkMail, getExistsMail} = checkFolder;
 
 function RegistroEmpresa() {
+    const navigate = useNavigate();
+
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
     const handleDeleteImage = () => {
@@ -58,7 +61,7 @@ function RegistroEmpresa() {
                     const responseData = await response.json();
                     if (responseData.success) {
                         localStorage.setItem('successRegistrationEnterprise', 'true');
-                        window.location.href = '/';
+                        navigate('/');
                     }
                 } else {
                     console.log("Se ha producido un error al intentar registrar al usuario");
