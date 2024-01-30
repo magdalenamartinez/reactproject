@@ -8,7 +8,7 @@ function Image_Oferta({oferta, imagenPorDefecto}) {
     return(
         
         <div className="left">
-            <img className="form_img img_oferta" src={oferta.image ? `http://localhost:5000/uploads/${oferta.image}` : imagenPorDefecto} alt="imagen de la oferta"/>      
+            <img className="form_img img_oferta" src={oferta.image ? `https://backend-empleoinclusivo.onrender.com/uploads/${oferta.image}` : imagenPorDefecto} alt="imagen de la oferta"/>      
         </div>
 
 )}}

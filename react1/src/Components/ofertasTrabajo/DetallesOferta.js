@@ -3,11 +3,11 @@ import '../../css/detallesOferta.css';
 function DetallesOferta({oferta}) {
     const class1 = "green_icon fa-solid fa-circle-check";
     const class2 = "red_icon fa-solid fa-circle-xmark";
-    const classAux = oferta.politicasInclusivas=== 0? class1 : class2;
-    const classAux2 = oferta.instalacionesAccesibles=== 0 ? class1 : class2;
-    const classAux3 = oferta.formacionInclusividad=== 0 ? class1: class2;
-    const classAux4 = oferta.mentoresApoyo===0 ? class1 : class2;
-    const classAux5 = oferta.ambienteAdaptado=== 0 ? class1 : class2;
+    const classAux = oferta.politicasInclusivas=== 0? class2 : class1;
+    const classAux2 = oferta.instalacionesAccesibles=== 0 ? class2 : class1;
+    const classAux3 = oferta.formacionInclusividad=== 0 ? class2: class1;
+    const classAux4 = oferta.mentoresApoyo===0 ? class2 : class1;
+    const classAux5 = oferta.ambienteAdaptado=== 0 ? class2 : class1;
   
     return(
         <div className="detalles_container">

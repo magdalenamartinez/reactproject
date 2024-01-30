@@ -141,11 +141,11 @@ if (oferta === null) {
             <Calendario handleC={handleC} inputCalendar={ofertaData.calendarioEventos}/>
             <div className='bloque_form'>
                     <h1 className='title_container'>Preguntas sobre Inclusividad</h1>
-                    <Question handleC={handleC} questionText={'¿La Empresa tiene políticas inclusivas?'} idQuestion={'politicasInclusivas'} valueCheck={ofertaData.politicasInclusivas === 0}/>
-                    <Question handleC={handleC} questionText={'¿Ofrecen instalaciones accesibles?'} idQuestion={'instalacionesAccesibles'} valueCheck={ofertaData.instalacionesAccesibles === 0}/>
-                    <Question handleC={handleC} questionText={'¿La empresa fomenta la inclusividad hacia compañeros con discapacidad?'} idQuestion={'formacionInclusividad'} valueCheck={ofertaData.formacionInclusividad === 0}/>
-                    <Question handleC={handleC} questionText={'¿Se ofrecen programas de mentoría o apoyo para empleados con discapacidad intelectual?'} idQuestion={'mentoresApoyo'} valueCheck={ofertaData.mentoresApoyo === 0}/>
-                    <Question handleC={handleC} questionText={'¿El entorno de trabajo está adaptado para ser inclusivo para personas con discapacidad?'} idQuestion={'ambienteAdaptado'} valueCheck={ofertaData.ambienteAdaptado === 0}/>
+                    <Question handleC={handleC} questionText={'¿La Empresa tiene políticas inclusivas?'} idQuestion={'politicasInclusivas'} valueCheck={ofertaData.politicasInclusivas === 1}/>
+                    <Question handleC={handleC} questionText={'¿Ofrecen instalaciones accesibles?'} idQuestion={'instalacionesAccesibles'} valueCheck={ofertaData.instalacionesAccesibles === 1}/>
+                    <Question handleC={handleC} questionText={'¿La empresa fomenta la inclusividad hacia compañeros con discapacidad?'} idQuestion={'formacionInclusividad'} valueCheck={ofertaData.formacionInclusividad === 1}/>
+                    <Question handleC={handleC} questionText={'¿Se ofrecen programas de mentoría o apoyo para empleados con discapacidad intelectual?'} idQuestion={'mentoresApoyo'} valueCheck={ofertaData.mentoresApoyo === 1}/>
+                    <Question handleC={handleC} questionText={'¿El entorno de trabajo está adaptado para ser inclusivo para personas con discapacidad?'} idQuestion={'ambienteAdaptado'} valueCheck={ofertaData.ambienteAdaptado === 1}/>
             </div>
             <Requisitos handleC={handleC} inputRequisitos={ofertaData.requisitosSolicitante}/>
             &nbsp;
