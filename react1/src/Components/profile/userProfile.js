@@ -76,7 +76,7 @@ function UserProfile() {
             if (response.ok) {
                 localStorage.removeItem('userData');
                 localStorage.setItem('deletedAccount', 'true');
-                window.location.href = '/';
+                navigate('/');
             } else {
                 console.log('Se ha producido un error');
                 alert('Se ha producido un error al intentar eliminar la Cuenta. Vuelva a Intentarlo.');
@@ -140,16 +140,16 @@ function UserProfile() {
                 <div className='bloque_profile'>
                     <div className='leftright profilelr'>
                         <div className='left'>
-                            <a className="button_big" style={{height:'500px'}} href="/misFavoritos">Ver Ofertas de<br/> Trabajo Guardadas</a>
-                            <a className="button_big" href='/estadisticasPerfil'>Estadísticas de<br/> Mi Cuenta</a>
+                            <Link className="button_big" style={{height:'500px'}} to="/misFavoritos">Ver Ofertas de<br/> Trabajo Guardadas</Link>
+                            <Link className="button_big" to='/estadisticasPerfil'>Estadísticas de<br/> Mi Cuenta</Link>
                         </div>
                         <div className='right'>
                         { (userData.curriculum !== '') && (
-                            <a className="button_big" id="linkDownload" href={`${url}?curriculumName=${userData.curriculumName}`}>Descargar Archivo</a>
+                            <Link className="button_big" id="linkDownload" to={`${url}?curriculumName=${userData.curriculumName}`}>Descargar Archivo</Link>
                         )}
-                            <a className="button_big" style={{height:'500px'}} href="/busquedadeempleo">Buscar<br/> Empleo</a>
+                            <Link className="button_big" style={{height:'500px'}} to="/busquedadeempleo">Buscar<br/> Empleo</Link>
                             {(userData.video) && (
-                                <video controls className="form_video" id="videoPlayer" src={`http://localhost:5000/uploads/${userData.video}`}></video>
+                                <video controls className="form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${userData.video}`}></video>
                             )}
                         </div>
                     </div>

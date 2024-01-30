@@ -73,16 +73,16 @@ function EnterpriseProfile() {
                 <div className='leftright profilelr'>
                     <div className='left'>
                         {(enterpriseData.video) && (
-                                <video controls className="videoPresentacion" id="videoPlayer" src={`http://localhost:5000/uploads/${enterpriseData.video}`}></video>
+                                <video controls className="videoPresentacion" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${enterpriseData.video}`}></video>
                         )}
-                        <a className="button_big" style={{height:'500px'}} href="/ofertasCreadas">Ver Ofertas de<br/> Trabajo Creadas</a>
-                        <a className="button_big" href='/estadisticasPerfil'>Estadísticas de<br/>Inclusión</a>
-                        <a className="button_big" style={{height:'500px'}} href='/buscarEmpleados'>Búsqueda de<br/>Empleados</a>
+                        <Link className="button_big" style={{height:'500px'}} to="/ofertasCreadas">Ver Ofertas de<br/> Trabajo Creadas</Link>
+                        <Link className="button_big" to='/estadisticasPerfil'>Estadísticas de<br/>Inclusión</Link>
+                        <Link className="button_big" style={{height:'500px'}} to='/buscarEmpleados'>Búsqueda de<br/>Empleados</Link>
                     </div>
                     <div className='right'>
-                    <a className="button_big" href="/registroOfertaTrabajo">Crear Nueva Oferta<br/> de trabajo</a>
-                    <a className="button_big" style={{height:'700px'}} href="/beneficiosInclusion">Beneficios de la<br/>Inclusión</a>
-                    <a className="button_big" href="/registroOfertaTrabajo">Ver Candidatos<br/>Guardados</a>
+                    <Link className="button_big" to="/registroOfertaTrabajo">Crear Nueva Oferta<br/> de trabajo</Link>
+                    <Link className="button_big" style={{height:'700px'}} to="/beneficiosInclusion">Beneficios de la<br/>Inclusión</Link>
+                    <Link className="button_big" to="/registroOfertaTrabajo">Ver Candidatos<br/>Guardados</Link>
                     </div>
                 </div>
             </div>
