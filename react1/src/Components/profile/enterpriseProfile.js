@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom';
 import { getEnterpriseData } from '../funcionalidades/setEnterpriseData';
 import { useEffect, useState } from 'react';
 import CustomModal2 from '../funcionalidades/modal/custommodal2';
+import { useNavigate } from 'react-router-dom';
 
 function EnterpriseProfile() {
+    const navigate = useNavigate();
     const [img, setImg] = useState("");
     const enterpriseData = getEnterpriseData();
     const [showPopUp, setShowPopUp] = useState(false);
@@ -15,17 +17,17 @@ function EnterpriseProfile() {
     useEffect(() => {
         const enterpriseData = getEnterpriseData();
         if (enterpriseData) {
-            const srcImg = (enterpriseData.image) ? `http://localhost:5000/uploads/${enterpriseData.image}` : "../images/user.png";
+            const srcImg = (enterpriseData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${enterpriseData.image}` : "../images/user.png";
             setImg(srcImg);
         }
     }, [enterpriseData]);
 
     const completeDelete = async() => {
-        const response = await fetch('/deleteRoute/delete-data', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: enterpriseData.id, table: 'empresas'}),});
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/deleteRoute/delete-data', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({id: enterpriseData.id, table: 'empresas'}),});
             if (response.ok) {
                 localStorage.removeItem('enterpriseData');
                 localStorage.setItem('deletedAccount', 'true');
-                window.location.href = '/';
+                navigate('/');
                 //FALTA POPUP
             } else {
                 console.log('Se ha producido un error');
@@ -36,7 +38,7 @@ function EnterpriseProfile() {
     const handleLogout = () => {
         localStorage.removeItem('enterpriseData');
         // Redirigir a la página de inicio u otra página después del logout
-        window.location.href = '/'; // Cambia '/' con la ruta deseada
+        navigate('/'); // Cambia '/' con la ruta deseada
       };  
 
     if (!enterpriseData) {

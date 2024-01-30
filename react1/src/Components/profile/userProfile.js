@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { getUserData, setUserData } from '../funcionalidades/setUserData';
 import CustomModal2 from '../funcionalidades/modal/custommodal2.js';
 import '../../css/profile.css'
+import { useNavigate } from 'react-router-dom';
 
 function UserProfile() {
+    const navigate = useNavigate();
     const [userData, setLocalUserData] = useState(null);
     const [url, setUrl] = useState("#");
     const [img, setImg] = useState("");
@@ -62,7 +64,7 @@ function UserProfile() {
 
     const handleLogout = () => {
         localStorage.removeItem('userData');
-        window.location.href = '/';
+        navigate('/');
     };
 
     const handleDelete = () => {
