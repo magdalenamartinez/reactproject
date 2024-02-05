@@ -37,6 +37,20 @@ function TengoCuenta() {
         const password = document.getElementById('password').value;
         await handleLogin(event, 'clientes', user, password, recaptchaToken, login, navigate, setTime);
         setLoading(false);
+        if (result.messageType === 'error') {
+          if (result.errorType === 'login') {
+              document.getElementById('parr2').classList.remove('hidden');
+              document.getElementById('parr').classList.add('hidden');
+          } else if (result.errorType === 'recaptcha') {
+              setTime(result.time);
+              document.getElementById('parr3').classList.remove('hidden');
+              document.getElementById('parr').classList.add('hidden');
+              document.getElementById('parr2').classList.add('hidden');
+          } else {
+              document.getElementById('parr').classList.remove('hidden');
+              document.getElementById('parr2').classList.add('hidden');
+          }
+      }
       }
 
 
