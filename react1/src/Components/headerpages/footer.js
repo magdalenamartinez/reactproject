@@ -1,10 +1,14 @@
-import '../../css/footer.css';
-
+import { useStyle } from '../styleContext';
 function Footer() {
+  const {style} = useStyle();
 
+    const st = {
+        fondoContrast: style.highContrast ? 'blackfooter' : '',
+        fondoDark: style.darkMode ? 'darkFooter':'',
+      };
 
     return(
-        <footer className="footer_class">
+        <footer className={`footer_class ${st.fondoContrast} ${st.fondoDark}`}>
                 <div className='comun footercomun'>
                     <div className='izq logo_footer_container'>
                         <img className="logo_footer" src="/images/logo_sin_fondo.png" alt="Logo de la Empresa"/>

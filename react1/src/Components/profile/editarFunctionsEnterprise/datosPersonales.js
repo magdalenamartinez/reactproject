@@ -1,7 +1,7 @@
 import React from "react";
 import password_visibility from "../../funcionalidades/password.js";
-import changePostalcod from "../editarFunctions/postalcod.js";
-import changeProvincia from "../editarFunctions/provincia.js";
+import changePostalcod from "../funciones/postalcod.js";
+import changeProvincia from "../funciones/provincia.js";
 import { provincias } from "../../funcionalidades/load/load.js";
 import Correo from "../../login/registro/correo.js";
 import InputValidation from "../../login/input/InputValidation.js";

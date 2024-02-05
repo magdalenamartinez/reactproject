@@ -1,6 +1,5 @@
 import React from "react";
 import InputChange2 from "../../funcionalidades/inputChange/inputChange2.js";
-import inputFunction from "../../funcionalidades/inputChange/inputFunction.js";
 import { tiposEmpresa, sectores } from "../../funcionalidades/load/loadempresa.js";
 import Usuario from "../../login/registro/usuario.js";
 import Select from "../../login/input/select.js";

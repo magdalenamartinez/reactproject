@@ -5,6 +5,19 @@
 
 }
 
+.form_container_contrast {
+    background: #000000;
+    box-shadow: 0 0 10px #FFFFFF;
+    border-radius: 25px;
+
+}
+
+
+.form_container_dark {
+    background: #03065b;
+}
+
+
 .margen {
     margin-bottom: 50px;
 }
@@ -22,8 +35,10 @@
     margin-top: 20px;
 }
 
+
+
 .title_container_big {
-    font-size: 40px;
+    font-size: 2em;
     padding: 50px 30px;
 }
 
@@ -39,8 +54,9 @@
     padding: 20px 20px;
     background-color: rgba(4, 4, 37, 0.171);
     border: 2px solid;
-    max-height: 400px;
-    max-width: 400px;
+    max-height: 200px;
+    max-width: 200px;
+    overflow: hidden;
 }
 
 .form_button {
@@ -50,7 +66,7 @@
     padding: 10px 20px;
     border-radius: 25px;
     margin-top: 20px;
-    font-size: 15px;
+    font-size: 1em;
     margin-left: 20px;
     font-family: 'Poppins', sans-serif;
 }
@@ -61,6 +77,19 @@
     box-shadow: 0 0 20px #611668;
 }
 
+.yellow_button {
+    background: yellow;
+    color: black;
+    transition: all 1s;
+}
+
+.yellow_button:hover {
+    background-color: rgb(255, 210, 11);
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px yellow;
+
+}
 
 .leftright {
     display: flex;
@@ -102,6 +131,13 @@
     cursor: pointer;
   }
   
+  .formrangeContrast {
+    background: black;
+  }
+
+  .formrangeContrast::-webkit-slider-thumb {
+    background: yellow;
+}
   .form_video {
     width: 80%;
     margin-top: 20px;
@@ -150,9 +186,12 @@
 }
 
 .form_img {
-    margin-left: 0px;
+    margin-left: 10px;
     margin: 0 auto;
-    margin-bottom: 30px;
+    height: auto;
+    padding: 5px 5px;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 

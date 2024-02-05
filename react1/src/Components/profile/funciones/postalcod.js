@@ -4,6 +4,7 @@ export default function changePostalcod(setFormValues) {
     const provinciasSelected = document.getElementById("provincia");
     let index = provincias.indexOf(provinciasSelected.value) + 1;
     let codpostal = index;
+    
     if (index < 10) {
         codpostal = `0${codpostal}`;
     } else {
@@ -11,10 +12,13 @@ export default function changePostalcod(setFormValues) {
     }
     let changecodpostal = document.getElementById("codpostal");
     changecodpostal.value = `${codpostal}000`;
-    setFormValues((prevValues) => ({
-        ...prevValues,
-        codpostal: changecodpostal.value,
-    }));
-}
+    
+    if (setFormValues) {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            codpostal: changecodpostal.value,
+        }));
+    }
 
+}
 

@@ -6,6 +6,14 @@
     width: 100%;
 }
 
+.blackfooter{
+    background-color: black;
+}
+
+.darkFooter{
+    background-color: rgb(1, 6, 32);;
+}
+
 .copyright {
     text-align: center;
 }

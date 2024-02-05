@@ -22,6 +22,12 @@
     background-color: #171616;
 }
 
+.link_high_contrast {
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+}
 
 
 .izq {
@@ -33,7 +39,7 @@
 }
 
 .text_first {
-    font-size: 5vw;
+    font-size: 6em;
     text-align: left;
     margin-right: 20px;
     margin-left: 80px;
@@ -41,7 +47,7 @@
 }
 
 .text_third {
-    font-size: 2vw;
+    font-size: 2em;
     text-align: right;
     margin-right: 20px;
 }
@@ -71,13 +77,12 @@
 }
 
 .text_second {
-    font-size: 2vw;
-    color: #FFFFFF;
+    font-size: 2em;
 }
 
 .text_fourth {
     text-align: center;
-    font-size: 3vw;
+    font-size: 3em;
 }
 
 .paraempresas {
@@ -107,6 +112,17 @@
     -webkit-text-stroke: 1px transparent; 
     background-clip: text;
     -webkit-background-clip: text;
+}
+
+.enlaceContrast {
+    -webkit-text-stroke:1px transparent;
+    transition: all 1s;
+    color: rgb(0, 0, 0);
+}
+
+.enlaceContrast:hover {
+    color: yellow;
+    -webkit-text-stroke:1px transparent;
 }
 
 @media only screen and (max-width: 1500px) { 
@@ -156,7 +172,7 @@
     }
     
     .text_first {
-        font-size: 7vw;
+        font-size: 3em;
         text-align: left;
         margin-right: 20px;
         margin-left: 20px;
@@ -164,16 +180,16 @@
     }
     
     .text_third {
-        font-size: 3vw;
+        font-size: 1em;
     }
 
     .text_second {
-        font-size: 5vw;
+        font-size: 2em;
         margin-left: 10px;
     }
     
     .text_fourth {
-        font-size: 4vw;
+        font-size: 3em;
     }
    
 

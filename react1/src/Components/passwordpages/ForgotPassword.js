@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from "react";
 import checkFolder from "../funcionalidades/checkUserName.js";
 import { useNavigate } from 'react-router-dom';
+import { useStyle } from '../styleContext.js';
 const {checkMail, getExistsMail} = checkFolder;
 
 function ForgotPassword () {
@@ -50,7 +51,9 @@ function ForgotPassword () {
         const correo = document.getElementById('correo').value;
        if (getExistsMail() === true) {
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/send-mail', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({correo:correo, table: tableName}),});
+            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/send-mail', 
+            {method:'POST', headers: {'Content-Type': 'application/json',}, 
+            body: JSON.stringify({correo:correo, table: tableName}),});
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData.success) {
@@ -66,8 +69,19 @@ function ForgotPassword () {
         }
        }
     }
+    const {style} = useStyle();
+    
+    const st = {
+        fondoContrast: style.highContrast ? 'formContrast' : '',
+        inputContrast: style.highContrast ? 'formInputContrast2' : '',
+        botonContrast: style.highContrast ? 'yellow_button' : '',
+        fondoDark: style.darkMode ? 'formDark' : '',
+        inputDark: style.darkMode ? 'inputDark' : '',
+        darkText: style.darkMode ? 'darkText' : '',
+        errorContrast: style.highContrast ? 'errorContrast' : '',
+      };
     return (
-        <div className="contenedor contenedor_password">
+        <div className={`contenedor contenedor_password ${st.fondoContrast} ${st.fondoDark}`}>
             <h1 className="title_container">Introduzca su Correo Electrónico</h1>
             <div className='text_container'>
             <p className="form_label">Se le enviará un link a su correo para reestablecer la contraseña</p>
@@ -75,12 +89,12 @@ function ForgotPassword () {
             <div className="form_group" id="correo_group">
                 <label htmlFor="correo" className="form_label">Dirección de Correo Electrónico</label>
                 <div className="input_group">
-                    <input type="text" className="form_input" name="correo" id="correo"  onInput={() => input_function()}/>
+                    <input type="text" className={`form_input ${st.inputContrast} ${st.inputDark}`} name="correo" id="correo"  onInput={() => input_function()}/>
                     <i className="state_validation fas fa-circle-xmark"></i>
                 </div>
-                <p id="errorNotExist" className="input_error_form">El correo electrónico introducido no está vinculado a ninguna cuenta.</p>
+                <p id="errorNotExist" className={`input_error_form ${st.errorContrast} ${st.darkText}`}>El correo electrónico introducido no está vinculado a ninguna cuenta.</p>
             </div>
-            <button className="form_button" type="submit">Enviar Correo</button>
+            <button className={`form_button ${st.botonContrast}`} type="submit">Enviar Correo</button>
             </form>
             </div>
         </div>

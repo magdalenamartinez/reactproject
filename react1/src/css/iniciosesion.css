@@ -18,10 +18,11 @@
     justify-content: center;
     white-space: normal;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 1.8em;
     color: #FFFFFF;
     font-weight: bold;
     box-shadow: 0 0 20px #FFFFFF;
+    transition: 1s all;
 }
 
 .circulo:hover {
@@ -37,6 +38,7 @@
     border-radius: 50%;
     width: 300px;
 }
+
 
 @keyframes rotar {
     from {
@@ -60,6 +62,47 @@
     z-index: 2;
 }
 
+
+.circuloContrast {
+    background: yellow;
+    color: black;
+    box-shadow: 0 0 20px yellow;
+    transition: all 1s;
+
+}
+.circuloContrast:hover {
+    background: yellow;
+    letter-spacing: 1px;
+    box-shadow: 0 0 30px yellow;
+}
+.circuloContrast:hover::before {
+    background-image: conic-gradient(#000000 20deg, transparent 160deg);
+
+}
+.circuloContrast:hover::after {
+    background: yellow;
+}
+
+.circuloDark {
+    background: linear-gradient(to right, rgb(0, 0, 85), #1d848d);
+    box-shadow: 0 0 20px rgb(255, 255, 255);
+    transition: all 1s;
+
+}
+
+.circuloDark:hover {
+    background: linear-gradient(to right, rgb(0, 0, 85), #1d848d);
+    box-shadow: 0 0 30px rgb(255, 255, 255);
+}
+
+.circuloDark:hover::before {
+    background-image: conic-gradient(#ffffff 20deg, transparent 160deg);
+}
+
+.circuloDark:hover::after {
+    background: linear-gradient(to right, rgb(0, 0, 85), #1d848d);
+}
+
 @media only screen and (max-width: 1200px) { 
 
     .circulos_inicio_sesion {
@@ -68,7 +111,7 @@
     }
     .circulo {
         margin-bottom: 30px;
-        font-size: 4vw;
+        font-size: 1.7em;
     }
     
 

@@ -1,15 +1,11 @@
 // registroempresa.js
 import React from 'react';
 import password_visibility from '../funcionalidades/password.js';
-import limitartexto from '../funcionalidades/limitartexto.js';
 import { tiposEmpresa, sectores, fields} from '../funcionalidades/load/loadempresa.js'
 import { provincias} from '../funcionalidades/load/load.js'
 import ValidateFormulary from '../funcionalidades/formulario.js';
 import checkFolder from '../funcionalidades/checkUserName.js';
-import change_postalcod from '../funcionalidades/postalcod/change_postalcod.js';
-import change_provincia from '../funcionalidades/postalcod/codpostal.js';
 import InputChange from '../funcionalidades/inputChange/inputChange.js';
-import inputFunction from '../funcionalidades/inputChange/inputFunction.js';
 import { useState } from 'react';
 import InputChange2 from '../funcionalidades/inputChange/inputChange2.js';
 import { handle_delete_image, handle_delete_image_notedit } from '../funcionalidades/handleDelete/handleDeleteImage.js';
@@ -23,6 +19,11 @@ import ErrorMessage from './registro/errorMessage.js';
 import Video from './registro/video.js';
 import { useNavigate } from 'react-router-dom';
 import InputTextArea from './input/inputTextArea.js';
+import changePostalcod from '../profile/funciones/postalcod.js';
+import changeProvincia from '../profile/funciones/provincia.js';
+import updateData from '../profile/updateData.js';
+import DeleteVideo from '../funcionalidades/handleDelete/handleDeleteVideo.js';
+import { useStyle } from '../styleContext.js';
 const {checkUserName, getExistsUser, checkMail, getExistsMail} = checkFolder;
 
 function RegistroEmpresa() {
@@ -36,48 +37,40 @@ function RegistroEmpresa() {
         setDeleteImage(true);
     }
     const handleDeleteVideo = () => {
-        const player = document.getElementById('videoPlayer');
-        const deleteBotonVideo = document.getElementById('borrarvideo');
-        const videoInput = document.getElementById('inputVideo');
-        player.style.display= 'none';
-        deleteBotonVideo.style.display= 'none';
-        videoInput.value = '';
+        DeleteVideo();
         setDeleteVideo(true);
     }
 
     const handleSubmit = async(event) => {
         event.preventDefault();
         const areAllFieldsValid = Object.values(fields).every((value) => value === true);
-        
+
         if (areAllFieldsValid && getExistsUser() === false && getExistsMail() === false) {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('https://backend-empleoinclusivo.onrender.com/enterpriseRoute/save-data2', {
-                    method: 'POST',
-                    body: formData,
-                });
-                if (response.ok) {
-                    const responseData = await response.json();
-                    if (responseData.success) {
-                        localStorage.setItem('successRegistrationEnterprise', 'true');
-                        navigate('/');
-                    }
-                } else {
-                    console.log("Se ha producido un error al intentar registrar al usuario");
-                }
+                 await updateData(formData, 'empresas_registro', navigate);
+                localStorage.setItem('successRegistrationEnterprise', 'true'); 
             } catch (error) {
                 console.log('Se ha producido un error', error);
             }
-            
         } else {
             alert('Compruebe que toda la información añadida es correcta.');
-        }       
+        }      
     }    
+
+    const {style} = useStyle();
+    
+    const st = {
+        fondoContrast: style.highContrast ? 'form_container_contrast' : '',
+        fondoDark: style.darkMode ? 'form_container_dark' : '',
+        cont2: style.highContrast ? 'inputContrast' : '',
+        botonContrast: style.highContrast ? 'yellow_button' : '',
+      };
 
   return (
         <div className='contenedor margen'>
-        <div className="formulario form_container_big" >
+        <div className={`formulario form_container_big ${st.fondoContrast} ${st.fondoDark}`} >
             <h1 className="title_container_big">Registro para Empresas</h1>
             <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)} action="/enterpriseRoute/save-data2" encType='multipart/form-data' method="post">
                 <div className="bloque_form" id="empresa">
@@ -106,12 +99,12 @@ function RegistroEmpresa() {
                         errorText={"Las contraseñas tienen que ser iguales."}
                         clickPassword={() => password_visibility('password2', 'pas4')} password={true}                            
                         />
-                        <InputValidation idName={"tlf"} typeInput={"text"}
+                        <InputValidation idName={"tlf"} typeInput={"tel"}
                             errorText={"Su número de teléfono solo puede estar formado por números y como máximo tener 14 dígitos."}
                             textLabel={"Número de Teléfono"}/>
                         <div className="dir1">
-                            <Select textLabel={"Provincia"} idName={"provincia"} mapName={provincias} onChange={()=>change_postalcod()} mini={"mini"}/>
-                            <Input textLabel={"Código Postal"} idName={"codpostal"} required={true} onChange={() => change_provincia()} mini={"mini"}/> 
+                            <Select textLabel={"Provincia"} idName={"provincia"} mapName={provincias} onChange={()=>changePostalcod()} mini={"mini"}/>
+                            <Input textLabel={"Código Postal"} idName={"codpostal"} required={true} onChange={() => changeProvincia()} mini={"mini"}/> 
                         </div>
                         <ErrorMessage/>
                     </div>

@@ -2,20 +2,15 @@
 import React, { useState } from 'react';
 import password_visibility from '../funcionalidades/password';
 import ValidateFormulary from '../funcionalidades/formulario';
-import RangoKm from '../funcionalidades/rangokm';
 import { fields, levels } from '../funcionalidades/load/load.js';
-import change_provincia from '../funcionalidades/postalcod/codpostal.js';
 import checkFolder from '../funcionalidades/checkUserName.js';
-import '../../css/registro.css';
 import { handle_delete_image, handle_delete_image_notedit } from '../funcionalidades/handleDelete/handleDeleteImage.js';
 import Foto from './registro/foto.js';
 import Input from './input/input.js';
-import NivelEducacion from './registro/nivelEducacion.js';
 import Curriculum from './registro/curriculum.js';
 import InputTextArea from './input/inputTextArea.js';
 import InputChange from '../funcionalidades/inputChange/inputChange.js';
 import Video from './registro/video.js';
-import Provincia from './registro/provincia.js';
 import Select from './input/select.js';
 import { provincias } from '../funcionalidades/load/load.js';
 import InputValidation from './input/InputValidation.js';
@@ -24,9 +19,15 @@ import Usuario from './registro/usuario.js';
 import InputChange3 from '../funcionalidades/inputChange/inputChange3.js';
 import ErrorMessage from './registro/errorMessage.js';
 import InputChange2 from '../funcionalidades/inputChange/inputChange2.js';
-import change_postalcod from '../funcionalidades/postalcod/change_postalcod.js';
 import { useNavigate } from 'react-router-dom';
 import Ubicacion from '../profile/editarFunctions/Ubicacion.js';
+import changePostalcod from '../profile/funciones/postalcod.js';
+import changeProvincia from '../profile/funciones/provincia.js';
+import updateData from '../profile/updateData.js';
+import DeleteVideo from '../funcionalidades/handleDelete/handleDeleteVideo.js';
+import DeleteCurriculum from '../funcionalidades/handleDelete/handleDeleteCurriculum.js';
+import sendMail from '../funcionalidades/sendMail.js';
+import { useStyle } from '../styleContext.js';
 const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 function RegistroUsuario() {
@@ -37,12 +38,7 @@ function RegistroUsuario() {
     const [deleteVideo, setDeleteVideo] = useState(false);
     
     const handleDeleteVideo = () => {
-        const player = document.getElementById('videoPlayer');
-        const deleteBotonVideo = document.getElementById('borrarvideo');
-        const videoInput = document.getElementById('inputVideo');
-        player.style.display= 'none';
-        deleteBotonVideo.style.display= 'none';
-        videoInput.value = '';
+        DeleteVideo();
         setDeleteVideo(true);
     }
 
@@ -53,12 +49,7 @@ function RegistroUsuario() {
     }
 
     const handleDeleteCurriculum = () => {
-        const deleteBotonCurriculum = document.getElementById('borrarCurriculum');
-        const downloadLink = document.getElementById('linkDownload');
-        const curriculumInput = document.getElementById('curriculumInput');
-        deleteBotonCurriculum.style.display = 'none';
-        downloadLink.style.display = 'none';
-        curriculumInput.value = '';
+        DeleteCurriculum();
         setDeleteCurriculum(true);
     }
 
@@ -70,37 +61,36 @@ function RegistroUsuario() {
             const form = document.getElementById('form_id');
             const formData = new FormData(form);
             try {
-                const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/save-data', {
-                    method: 'POST',
-                    body: formData,
-                });
-                if (response.ok) {
-                    const responseData = await response.json();
-                    if (responseData.success) {
-                        localStorage.setItem('successRegistrationUser', 'true'); 
-                        navigate('/');
-                    }
-                } else {
-                    console.log("Se ha producido un error al intentar registrar al usuario");
-                }
+                 await updateData(formData, 'clientes_registro', navigate);
+                localStorage.setItem('successRegistrationUser', 'true');
             } catch (error) {
                 console.log('Se ha producido un error', error);
             }
-            
         } else {
             alert('Compruebe que toda la información añadida es correcta.');
         }
 
     };
+
+    const {style} = useStyle();
+    
+    const st = {
+        fondoContrast: style.highContrast ? 'form_container_contrast' : '',
+        cont2: style.highContrast ? 'link-contrast' : '',
+        fondoDark: style.darkMode ? 'form_container_dark':'',
+        botonContrast: style.highContrast ? 'yellow_button' : '',
+        bloqueContrast: style.highContrast ? 'bloque_contrast' : '',
+      };
    
   return (
   
         <div className='contenedor margen'>
-            <div className="formulario form_container_big">
+            <div className={`formulario form_container_big ${st.fondoContrast} ${st.fondoDark}`}>
             <div className='text_container'>
                 <h1 className="title_container_big">Registro para Usuarios</h1>
+                <div className="message_error hidden" id="messageError"><p>Se ha producido un error al intentar registrar al Usuario</p></div>
                 <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)} action="/clientRoute/save-data" encType='multipart/form-data' method="post">
-                <div className="bloque_form" id="infopersonal">
+                <div className={`bloque_form ${st.bloqueContrast}`} id="infopersonal">
                     <h1 className="title_container">Información Personal</h1>
                     <div className="infopersonal_bloque comun">
                         <div className="izq">
@@ -117,7 +107,7 @@ function RegistroUsuario() {
                             errorText={"Las contraseñas tienen que ser iguales."}
                             clickPassword={() => password_visibility('password2', 'pas2')} password={true}                            
                             />
-                            <InputValidation idName={"tlf"} typeInput={"text"}
+                            <InputValidation idName={"tlf"} typeInput={"tel"}
                             errorText={"Su número de teléfono solo puede estar formado por números y como máximo tener 14 dígitos."}
                             textLabel={"Número de Teléfono"}/>
                         </div>
@@ -131,8 +121,8 @@ function RegistroUsuario() {
                     <br/>
                     <div className="dir1">
                         <Input textLabel={"Ciudad"} idName={"ciudad"} mini={"mini"} required={true}/>
-                        <Select textLabel={"Provincia"} idName={"provincia"} mapName={provincias} onChange={()=>change_postalcod()} mini={"mini"}/>
-                        <Input textLabel={"Código Postal"} idName={"codpostal"} required={true} onChange={() => change_provincia()} mini={"mini"}/>                       
+                        <Select textLabel={"Provincia"} idName={"provincia"} mapName={provincias} onChange={()=>changePostalcod()} mini={"mini"}/>
+                        <Input textLabel={"Código Postal"} idName={"codpostal"} required={true} onChange={() => changeProvincia()} mini={"mini"}/>                       
                     </div>
                 </div>
                     <div className="bloque_form" id="experiencia_laboral">
@@ -154,7 +144,7 @@ function RegistroUsuario() {
                                 <Input textLabel={"Institución"} idName={"institucion"}/>
                             </div>
                             <Curriculum handleDeleteCurriculum={handleDeleteCurriculum} onChange={() => InputChange3('curriculumInput', 'linkDownload')}
-                            style={{display: 'none', textDecoration: 'none'}}
+                            stylec={{display: 'none', textDecoration: 'none'}}
                             />
                         </div>
                     </div>
@@ -166,12 +156,12 @@ function RegistroUsuario() {
                                 <InputTextArea textLabel={"Perfil Personal"} idName={"perfil"} area={'area2'}/>
                             </div>
                             <Video handleDeleteVideo={handleDeleteVideo} onChange={() => InputChange('inputVideo', 'videoPlayer')}
-                            style={{display: 'none'}} style_button={{ display: 'none' }}/>
+                            stylec={{display: 'none'}} style_button={{ display: 'none' }}/>
                         </div>
                     </div>
                     <Ubicacion span={0}/>
                     <br/>
-                    <button type="submit " className='submit_button'>Terminar Registro</button><br />
+                    <button type="submit " className={`submit_button ${st.botonContrast}`}>Terminar Registro</button><br />
                 </form>
                 <div id="results"></div>
                 </div>

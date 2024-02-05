@@ -9,7 +9,7 @@ const checkUserName = async(username, tableName) => {
         try {
             const user = document.getElementById(username);
             if (user) {
-                 const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-username?username=${user.value}&table=${tableName}`);
+                 const res = await fetch(`/checkUserRoute/check-username?username=${user.value}&table=${tableName}`);
             const existencia = await res.json();
             if (existencia === true) {
                 //Si ya existe tenemos que pedirle que cambie el usuario
@@ -32,7 +32,7 @@ const checkMail = async(correo, tableName) => {
     try {
         const mail = document.getElementById(correo);
         if (mail) {
-            const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-mail?correo=${mail.value}&table=${tableName}`);
+            const res = await fetch(`/checkUserRoute/check-mail?correo=${mail.value}&table=${tableName}`);
             const existencia = await res.json();
             console.log(existencia);
         if (existencia === true) {

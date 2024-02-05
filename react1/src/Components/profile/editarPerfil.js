@@ -1,41 +1,44 @@
 // editarperfil.js
-import limitartexto from '../funcionalidades/limitartexto.js';
 import ValidateFormulary from '../funcionalidades/formulario.js';
-import RangoKm from '../funcionalidades/rangokm.js';
-import inputFunction from '../funcionalidades/inputChange/inputFunction.js';
-import InputChange from '../funcionalidades/inputChange/inputChange.js';
 import { fieldsTrue } from '../funcionalidades/load/load.js';
-import { getUserData, setUserData } from '../funcionalidades/setUserData.js';
 import { useEffect, useState } from 'react';
-import useInitialFormState from '../funcionalidades/initialFormState.js';
+import useInitialFormState from '../funcionalidades/initialForm/initialFormState.js';
 import InfopersonalForm from './editarFunctions/infoPersonal.js';
 import DireccionForm from './editarFunctions/direccionBloque.js';
 import ExperienciaForm from './editarFunctions/experienciaBloque.js';
 import EducacionForm from './editarFunctions/educacionBloque.js';
-import handleChange from './editarFunctions/handleChange.js';
+import handleChange from './funciones/handleChange.js';
 import { Link } from 'react-router-dom';
 import { handle_delete_image } from '../funcionalidades/handleDelete/handleDeleteImage.js';
 import Presentacion from './editarFunctions/presentacion.js';
 import Ubicacion from './editarFunctions/Ubicacion.js';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from "../funcionalidades/userContext.js";
+import getInfo from "../data/getAll.js";
+import updateData from './updateData.js';
+import deleteVideoFunction from './funciones/deleteVideo.js';
+import Spinner from '../spinner.js';
+import { useStyle } from '../styleContext.js';
 
 function EditarPerfil() {
-    const userData = getUserData();
+    const {userData, logout} = useUser();
     const navigate = useNavigate();
+    const [isStored, setStored] = useState(false);
+    const [data, setData] = useState(null);
 
     const [modifiedFields, setModifiedFields] = useState({});
-    const [formValues, setFormValues] = useInitialFormState(userData);
+    const [formValues, setFormValues] = useInitialFormState(data);
     const [deleteCurriculum, setDeleteCurriculum] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
     const [deleteImage, setDeleteImage] = useState(false);
-
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+    }
+  
 
     const handleDeleteVideo = () => {
-        const player = document.getElementById('videoPlayer');
-        const deleteBotonVideo = document.getElementById('borrarvideo');
-        player.style.display= 'none';
-        deleteBotonVideo.style.display= 'none';
-        setDeleteVideo(true);
+        deleteVideoFunction(setDeleteVideo);
     }
 
     const handleDeleteImage = () => {
@@ -54,33 +57,8 @@ function EditarPerfil() {
     function handleC(event) {
         handleChange(event, setFormValues, setModifiedFields);
     }
-/*
-    useEffect(()=>{
-        const getAllInfo = async () => {
-            try {
-                const response = await fetch('/clientRoute/get-all-info', {
-                    method: 'GET',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  });
-                  if (response.ok) {
-                    const responseData = await response.json();
-                    setUserData(responseData.data);
-                  } else {
-                    console.error('Error al obtener el perfil completo');
-                  }
 
-            } catch (error) {
-                console.error("Se ha producido un error al intentar recuperar los datos de la DB: ", error);
-            }
-        }
-        if ()
-        getAllInfo();
-
-    },[]);*/
     
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = document.getElementById('form_id');
@@ -92,56 +70,56 @@ function EditarPerfil() {
         formData.append('deleteCurriculum', deleteCurriculum);
         formData.append('deleteImage', deleteImage);
         formData.append('deleteVideo', deleteVideo);
-        
         formData.append('modifiedFields', JSON.stringify(modifiedFields));
-            
-
-            try {
-                const response = await fetch('https://backend-empleoinclusivo.onrender.com/clientRoute/update-data', {
-                    method: 'POST',
-                    body: formData,
-                });
-                if (response.ok) {
-                    const responseData = await response.json();
-                
-                    if (responseData.success) {
-                        console.log("Datos del usuario", responseData);
-                        localStorage.setItem('userData', JSON.stringify(responseData.dataNew));
-                         navigate('/perfilUsuario');
-                    } else {
-                        document.getElementById("messageError").classList.remove('hidden');
-                    }
-                }
-                
-            } catch (error) {
-                console.error("Se ha producido un error: ", error);
-                document.getElementById("messageError").classList.remove('hidden');
-            }
+        
+        await updateData(formData, 'clientes', navigate);
+        if (modifiedFields.password === true) {
+            localStorage.setItem('successPasswordChange', 'true'); 
+            handleLogout();
+        }
     };
     
-    if(!userData || userData==='') {
-        return(
-            <div>
-                <h1>Cargando</h1>
-            </div>
-        )
+    useEffect(() => {
+        const stored = async() => {
+            if (userData && !data) {
+                await getInfo(userData.id, 'clientes', setData, userData.token);
+                setStored(true);
+                setFormValues(data);
+            }
         }
+        if (!isStored) {
+            stored();
+        }
+    }, [userData, data, isStored]);
 
+    const {style} = useStyle();
+    
+    const st = {
+        fondoContrast: style.highContrast ? 'form_container_contrast' : '',
+        fondoDark: style.darkMode ? 'form_container_dark' : '',
+      };
+
+    if (!formValues || !data) {
+        return (
+            <Spinner/>
+        );
+    }
    
+    
   return (
   
         <div className='contenedor margen'>
             <Link className='back_link' to='/perfilUsuario'><i className="fa-solid fa-circle-chevron-left"></i></Link>
-            <div className="formulario form_container_big">
+            <div className={`formulario form_container_big ${st.fondoContrast} ${st.fondoDark}`}>
                 <div className='text_container'>
-                    <h1 className="title_container_big">Editar Perfil de {userData.user}</h1>
+                    <h1 className="title_container_big">Editar Perfil de {data.user}</h1>
                     <div className="message_error hidden" id="messageError"><p>Se ha producido un error al intentar editar el Perfil</p></div>
                     <form className='form_class_big' id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fieldsTrue)} action="/clientRoute/update-data" encType='multipart/form-data' method="post">
-                        <InfopersonalForm userData={userData} formValues={formValues} handleC={handleC} handleDeleteImage={handleDeleteImage} setDeleteImage={setDeleteImage}/>
-                        <DireccionForm userData={userData} formValues={formValues} handleC={handleC} setFormValues={setFormValues}/>
-                        <ExperienciaForm userData={userData} formValues={formValues} handleC={handleC}/>
-                        <EducacionForm userData={userData} formValues={formValues} handleC={handleC} handleDeleteCurriculum={handleDeleteCurriculum} setDeleteCurriculum={setDeleteCurriculum}/>
-                        <Presentacion userData={userData} formValues={formValues} handleC={handleC} handleDeleteVideo={handleDeleteVideo} setDeleteVideo={setDeleteVideo}/>
+                        <InfopersonalForm userData={data} formValues={formValues} handleC={handleC} handleDeleteImage={handleDeleteImage} setDeleteImage={setDeleteImage}/>
+                        <DireccionForm userData={data} formValues={formValues} handleC={handleC} setFormValues={setFormValues}/>
+                        <ExperienciaForm userData={data} formValues={formValues} handleC={handleC}/>
+                        <EducacionForm userData={data} formValues={formValues} handleC={handleC} handleDeleteCurriculum={handleDeleteCurriculum} setDeleteCurriculum={setDeleteCurriculum}/>
+                        <Presentacion userData={data} formValues={formValues} handleC={handleC} handleDeleteVideo={handleDeleteVideo} setDeleteVideo={setDeleteVideo}/>
                         <Ubicacion value={formValues.distancia} onChange={handleC} span={(formValues.distancia)}/>
                         <button type="submit" className='form_button'>Terminar Edición</button>
                         <Link className="form_button" style={{textDecoration: 'none', textAlign:'center'}} to="/perfilUsuario" type='button'>Cancelar Edición</Link>

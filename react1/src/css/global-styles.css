@@ -2,7 +2,7 @@
 
 
 
-body {
+.body {
     margin: 0;
     overflow-x: hidden; 
     padding: 0;
@@ -19,4 +19,43 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.contrast {
+    margin: 0;
+    overflow-x: hidden; 
+    padding: 0;
+    color: #e3d843;
+    box-sizing: border-box;
+    text-decoration: none;
+    width: 100%;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    position: relative;
+    padding-bottom: 10em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.dark {
+    margin: 0;
+    overflow-x: hidden; 
+    padding: 0;
+    color: #ffffff;
+    box-sizing: border-box;
+    text-decoration: none;
+    width: 100%;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #16165d, #060932);
+    position: relative;
+    padding-bottom: 10em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
 

@@ -11,6 +11,7 @@
     display: flex;
 }
 
+
 .busqueda_izq {
     flex: 2;
 }
@@ -21,7 +22,7 @@
 
 .texto_barra {
     text-decoration: none;
-    font-size: 15px;
+    font-size: 1em;
     margin-right: 5px;
     border-radius: 5px;
     background: #123c694f;
@@ -36,6 +37,8 @@
     outline: none;
     font-style: none;
 }
+
+
 
 .texto_barra::placeholder {
     color: #FFFFFF;
@@ -82,7 +85,24 @@
     transform: scale(1.3);
 }
   
+.busquedaContrast {
+    background: #FFFFFF;   
+}
 
+.busquedaDark {
+    background: #526be777;
+    color: #FFFFFF;   
+}
+
+.busquedaDark:hover {
+    background-color: #020235;
+
+}
+
+.busquedaDark:focus {
+    background-color: #020235;
+    color: #FFFFFF;
+}
 
 @media only screen and (max-width: 768px) { 
      

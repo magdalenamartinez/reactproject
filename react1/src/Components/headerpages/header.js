@@ -1,30 +1,36 @@
 import React, { useEffect } from 'react';
 import '../../css/header.css';
 import { Link } from 'react-router-dom';
-import { setUserData } from '../funcionalidades/setUserData.js';
-import { setEnterpriseData } from '../funcionalidades/setEnterpriseData.js';
 import { useState } from 'react';
 import DropDownMenu from '../dropDown/dropDownMenu.js';
 import { useRef } from 'react';
 import DropDownChat from '../dropDown/dropDownChat.js';
+import { useUser } from '../funcionalidades/userContext.js';
+import HeaderComponent from './header/headerComponent.js';
+import Login from './header/login.js';
+import { useNavigate } from 'react-router-dom';
+import DropDownAcc from '../dropDown/dropDownAcc.js';
+import { useStyle } from '../styleContext.js';
 
-function Header() {
-  const srcimageRef = useRef("/images/user.png");
-  const textInicioRef = useRef("Iniciar Sesión");
+function Header2() {
+  const navigate = useNavigate();
+  const {style} = useStyle();
+
   const chatStyleRef = useRef("chat-hidden");
   const inicioSesionLinkRef = useRef("/inicioSesion");
+  const favs = useRef("/misFavoritos");
   const dropDownRef = useRef();
   const dropDownChatRef = useRef();
   const dropDownMenuEIRef = useRef();
-
+  const dropDownAccRef = useRef();
+  
   const [dropDown, setDropDown] = useState(false);
+  const [dropDownAcc, setDropDownAcc] = useState(false);
   const [dropDownChat, setDropDownChat] = useState(false);
-  const [userExist, setUserExist] = useState(false);
-  const [enterpriseExist, setEnterpriseExist] = useState(false);
-  const [logout, setLogout] = useState("");
   const [favoritos, setFavoritos] = useState("");
-  const [menuEI, setMenuEI] = useState(false);
   const [smallScreenMenuVisible, setSmallScreenMenuVisible] = useState(false);
+
+  const {userData, logout} = useUser();
 
 
     useEffect(() => {
@@ -40,44 +46,12 @@ function Header() {
           ) {
             setSmallScreenMenuVisible(false);
           }
+        if (dropDownAccRef.current && !dropDownAccRef.current.contains(event.target) && !event.target.classList.contains('image_class')
+        && !event.target.classList.contains('link-gradient') ) {
+          setDropDownAcc(false);
+        }
       }
-      const chooseData = () => {
-        let data = localStorage.getItem('userData');
-        let parseData = "";
-        let exist = false;
-        let logoutName = "";
-        let favs = "";
-        if (!data) {
-          data = localStorage.getItem('enterpriseData');
-          if (data) {
-            parseData = JSON.parse(data);
-            setEnterpriseData(parseData);
-            textInicioRef.current = "Cuenta de " + parseData.user;
-            inicioSesionLinkRef.current = '/perfilEmpresa';
-            logoutName = "enterpriseData";
-            favs = "/favoritosEmpresa";
-            setEnterpriseExist(true);
-          }
-        } else {
-          parseData = JSON.parse(data);
-          setUserData(parseData);
-          textInicioRef.current = "Hola " + parseData.user + '!';
-          inicioSesionLinkRef.current = '/perfilUsuario';
-          logoutName = "userData";
-          favs = "/misFavoritos";
-        }
-        if (data) {
-          srcimageRef.current = parseData.image ? `https://backend-empleoinclusivo.onrender.com/uploads/${parseData.image}` : "/images/user.png";
-          chatStyleRef.current = "chat";
-          exist = true;
-        }
-        setUserExist(exist);
-        setFavoritos(favs);
-        setLogout(logoutName);
-      };
-      chooseData();
       document.addEventListener("mousedown",handler);
-      
       return(() => {
         document.removeEventListener("mousedown", handler);
       })
@@ -85,75 +59,85 @@ function Header() {
     }, []);
 
     const handleMenuEI = () => {
-
       if (window.innerWidth <= 1000) {
         setSmallScreenMenuVisible(!smallScreenMenuVisible);
       }
     }
 
+    const handleLogout = () => {
+      logout();
+      navigate("/");
+  }
+  const st = {
+    menu: style.highContrast ? 'contrastmenu' : '',
+    dark: style.darkMode ? 'darkmenu' : '',
+  };
+
   return (
     <header div="header">
-      <div className="inicio">
-            <div className="titulo-icono-container">
-                <h1 className="titulo1">EMPLEO INCLUSIVO</h1>
-                <h1 className="titulo2">EI</h1>
-                <img src="/images/menup.png" alt=""  ref={dropDownMenuEIRef} className="iconmenu image_class" onClick={handleMenuEI}/>
-            </div>
-            <nav className={`navbar_container ${smallScreenMenuVisible ? 'active' : 'inactive'}`} id="navbar">
-              {!enterpriseExist && !userExist &&
-                <ul className="ul_container" onClick={()=>setSmallScreenMenuVisible(false)}>
-                  <Link to="/" className="link_container"><span className="link-gradient">Inicio</span></Link>
-                  <Link to="/busquedadeempleo" className="link_container"><span  className="link-gradient">Buscar Empleo</span></Link>
-                  <Link to="/paraempresas" className="link_container"><span  className="link-gradient">Para Empresas</span></Link>
-                </ul>
-              }
-              {enterpriseExist &&
-                <ul className="ul_container" onClick={()=>setSmallScreenMenuVisible(false)}>
-                  <Link to="/" className="link_container"><span to="/" className="link-gradient">Inicio</span></Link>
-                  <Link to="/buscarEmpleados" className="link_container"><span  className="link-gradient">Buscar Empleados</span></Link>
-                  <Link to="/busquedadeempleo" className="link_container"><span className="link-gradient">Ver Otras Ofertas</span></Link>
-                  <Link to="/ofertasCreadas" className="link_container"><span  className="link-gradient">Ofertas Creadas</span></Link>
-                  <Link to="/registroOfertaTrabajo" className="link_container"><span className="link-gradient">Crear Oferta</span></Link>
-                </ul>
-              }
-              {!enterpriseExist && userExist &&
-                <ul className="ul_container" onClick={()=>setSmallScreenMenuVisible(false)}>
-                  <Link to="/" className="link_container"><span to="/" className="link-gradient">Inicio</span></Link>
-                  <Link to="/busquedadeempleo" className="link_container"><span to="/busquedadeempleo" className="link-gradient">Buscar Empleo</span></Link>
-                  <Link to="/misFavoritos" className="link_container"><span to="/busquedadeempleo" className="link-gradient">Ver Favoritos</span></Link>
-                </ul>
-              }   
-            </nav>
+    {/*CLIENTE*/}
+    {userData && userData.typeUser === 1 && (
+        <>
+        <HeaderComponent dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI} smallScreenMenuVisible={smallScreenMenuVisible} 
+        setSmallScreenMenuVisible={setSmallScreenMenuVisible} cliente={true}/>
+        <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
+        userExist={true} sesionLink={"#"} textInicioSesion={`Hola ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
+        <div ref={dropDownRef}> 
+            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={handleLogout} favoritos={'/misFavoritos'} setDropDown={setDropDown}/> 
         </div>
-      <div className="login">
-        <Link className='link_container hideWhenLittle'
-         to={userExist? '#':inicioSesionLinkRef.current} 
-         onClick={() => {
-          if (userExist) {
-            setDropDown(!dropDown);
-            if (dropDownChat) {
-              setDropDownChat(false);
-            }
-          }
-          }}>
-          <span className="link-gradient textlogin">{textInicioRef.current}</span>
-          <div className='container_profile_image'>
-            <img className="image_class circleImage" src={srcimageRef.current} alt=""/>
-          </div>
-        </Link>
+        {(() => {
+            chatStyleRef.current = 'chat' 
+            inicioSesionLinkRef.current = '/perfilUsuario' 
+            favs.current = '/misFavoritos' 
+            return null;
+        })()}
+        </>
+    )}
+    {/*EMPRESA*/}
+    {userData && userData.typeUser === 2 && (
+        <>
+        <HeaderComponent dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI} smallScreenMenuVisible={smallScreenMenuVisible} 
+        setSmallScreenMenuVisible={setSmallScreenMenuVisible} empresa={true}/>
+        <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
+        userExist={true} sesionLink={"#"} textInicioSesion={`Cuenta de ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
+        <div ref={dropDownRef}> 
+            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={'/perfilEmpresa'} logout={handleLogout} favoritos={'/favoritosEmpresa'} setDropDown={setDropDown}/> 
+        </div>
+        {(() => {
+            chatStyleRef.current = 'chat'
+            inicioSesionLinkRef.current = '/perfilEmpresa'
+            favs.current = '/favoritosEmpresa'
+            return null;
+        })()}
+        </>
+    )}
+    {/*SIN INICIAR SESION*/}
+    { !userData && (
+        <>
+        <HeaderComponent dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI} smallScreenMenuVisible={smallScreenMenuVisible} 
+        setSmallScreenMenuVisible={setSmallScreenMenuVisible} nosesion={true}/>
+        <Login sesionLink='/inicioSesion' textInicioSesion='Iniciar Sesión' srcImage='/images/user.png'/>
+        {(() => {
+            chatStyleRef.current = 'chat-hidden'
+            inicioSesionLinkRef.current = '/inicioSesion'
+            return null;
+        })()}
+        </>
+    )}
+
+      <div className='acc_group' ref={dropDownAccRef}>
+      <div className="accesibilidad">
+        <img className="image_class" src="/images/accesibilidad.png" alt="" onClick={() => setDropDownAcc(!dropDownAcc)}/>
       </div>
-      <div ref={dropDownRef}>
-      <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'}`} profile={inicioSesionLinkRef.current} logout={logout} favoritos={favoritos}/> 
+      <DropDownAcc openclass={`drop_down_acc ${dropDownAcc? 'active':'inactive'}  ${st.menu} ${st.dark}`}/>
       </div>
-      <div className="accesibilidad ">
-        <Link to="/"><img className="image_class" src="/images/accesibilidad.png" alt=""/></Link>
-      </div>
+     
       <div className='chat_group'>
         <div className={chatStyleRef.current}>
           <img src='/images/chat.png' className="image_class" alt='chat' onClick={() => setDropDownChat(!dropDownChat)}/>
         </div>
         <div ref={dropDownChatRef}>
-        <DropDownChat openclass={`drop_down_chat ${dropDownChat? 'active':'inactive'}`} profile={inicioSesionLinkRef.current} logout={logout} favoritos={favoritos}/> 
+        <DropDownChat openclass={`drop_down_chat ${dropDownChat? 'active':'inactive'}  ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={logout} favoritos={favoritos}/> 
         </div>
       </div>
       
@@ -161,4 +145,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header2;

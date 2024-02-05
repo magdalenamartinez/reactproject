@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import password_visibility from "../funcionalidades/password.js";
 import ValidateFormulary from "../funcionalidades/formulario.js";
 import { fieldsPass } from "../funcionalidades/load/load.js";
-
+import Spinner from "../spinner.js";
+import { useStyle } from "../styleContext.js";
 const ResetPassword = () => {
     const [userId, setUserId] = useState(null);
     const [table, setTable] = useState(null);
@@ -29,7 +30,7 @@ const ResetPassword = () => {
 
         try {
             if (token) {
-                const res = await fetch(`http://localhost:3000/checkUserRoute/check-token?token=${token}&table=${table}&id=${userId}`);
+                const res = await fetch(`https://frontend-empleoinclusivo.onrender.com/checkUserRoute/check-token?token=${token}&table=${table}&id=${userId}`);
                 if (res.ok) {
                     const response = await res.json();
                     if (response.success) {
@@ -91,13 +92,25 @@ const ResetPassword = () => {
         }
     };
    
+    const {style} = useStyle();
+    
+    const st = {
+        fondoContrast: style.highContrast ? 'formContrast' : '',
+        inputContrast: style.highContrast ? 'formInputContrast2' : '',
+        botonContrast: style.highContrast ? 'yellow_button' : '',
+        fondoDark: style.darkMode ? 'formDark' : '',
+        inputDark: style.darkMode ? 'inputDark' : '',
+        darkText: style.darkMode ? 'darkText' : '',
+        errorContrast: style.highContrast ? 'errorContrast' : '',
+      };
+
     if (show === false) {
-        return(<div></div>);
+        return(<Spinner/>);
     } else {
     return (
         <div>
             {show===true &&(
-                <div className="formulario contenedor contenedor_password">
+                <div className={`formulario contenedor contenedor_password ${st.fondoContrast} ${st.fondoDark}`}>
                     <p className="paragraph_error hidden" style={{backgroundColor:'#611668'}} id="servererror">Se ha producido un error al guardar la contraseña, vuelva a intentarlo. </p>
                 <form className="" method="post" action="/changePasswordRoute/change-password" onSubmit={handleSubmit} onInput={ValidateFormulary(fieldsPass)} encType='multipart/form-data'>
                     <h1 className="title_container">Reestablecer Contraseña</h1>

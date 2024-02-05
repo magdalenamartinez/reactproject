@@ -1,4 +1,4 @@
-import '../../css/detallesOferta.css';
+import Inclusividad from './Registro/QuestionDetalles';
 
 function DetallesOferta({oferta}) {
     const class1 = "green_icon fa-solid fa-circle-check";
@@ -40,26 +40,11 @@ function DetallesOferta({oferta}) {
             </div>)}
             <div className="preguntas">
                 <p className="form_label">Inclusividad</p>
-                <div className='form_group'>
-                    <i className={classAux}></i>
-                    <label className="paragraph_input paragraph_detalles" htmlFor="politicasInclusivas">La empresa tiene políticas inclusivas</label>
-                </div>
-                <div className='form_group'>
-                    <i className={classAux2}></i>
-                    <label className="paragraph_input paragraph_detalles" htmlFor="instalacionesAccesibles">Ofrecen instalaciones accesibles</label>
-                </div>
-                <div className='form_group'>
-                    <i className={classAux3}></i>
-                    <label className="paragraph_input paragraph_detalles" htmlFor="formacionInclusividad">La empresa fomenta la inclusividad hacia compañeros con discapacidad</label>
-                </div>
-                <div className='form_group'>
-                    <i className={classAux4}></i>
-                    <label className="paragraph_input paragraph_detalles" htmlFor="mentoresApoyo">Se ofrecen programas de mentoría o apoyo para empleados con discapacidad intelectual</label>
-                </div>
-                <div className='form_group'>
-                    <i className={classAux5}></i>
-                    <label className="paragraph_input paragraph_detalles" htmlFor="ambienteAdaptado">El entorno de trabajo está adaptado para ser inclusivo para personas con discapacidad</label>
-                </div>
+                <Inclusividad classAux={classAux} htmlText={"politicasInclusivas"} text={"La empresa tiene políticas inclusivas"}/>
+                <Inclusividad classAux={classAux2} htmlText={"instalacionesAccesibles"} text={"Ofrecen instalaciones accesibles"}/>
+                <Inclusividad classAux={classAux3} htmlText={"formacionInclusividad"} text={"La empresa fomenta la inclusividad hacia compañeros con discapacidad"}/>
+                <Inclusividad classAux={classAux4} htmlText={"mentoresApoyo"} text={"Se ofrecen programas de mentoría o apoyo para empleados con discapacidad intelectual"}/>
+                <Inclusividad classAux={classAux5} htmlText={"ambienteAdaptado"} text={"El entorno de trabajo está adaptado para ser inclusivo para personas con discapacidad"}/>
             </div>
         </div>
     )

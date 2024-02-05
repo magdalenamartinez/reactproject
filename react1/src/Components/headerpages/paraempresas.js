@@ -2,8 +2,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/index.css';
-
+import { useStyle } from '../styleContext';
 function ParaEmpresas() {
+
+   
+  const {style} = useStyle();
+    
+  const st = {
+      enlaceContrast: style.highContrast ? 'enlaceContrast' : '',
+    };
+
   return (
     <div className='paraempresas'>
     <div className="letras">
@@ -16,10 +24,10 @@ function ParaEmpresas() {
             </div>
             <div className="comun center">
               <div className='dch'>
-                <Link to="/registroEmpresas" className="link-center">Nueva Cuenta <br/> Empresarial</Link>
+                <Link to="/registroEmpresas" className={`link-center ${st.enlaceContrast}`}>Nueva Cuenta <br/> Empresarial</Link>
               </div>
               <div className='dch'>
-                <Link to="/inicioSesionEmpresa" className="link-center">Ya tengo una <br/>Cuenta</Link>
+                <Link to="/inicioSesionEmpresa" className={`link-center ${st.enlaceContrast}`}>Ya tengo una <br/>Cuenta</Link>
               </div>
             </div>
                 <h1 className='text_fourth'>¿Por qué somos la opción ideal?</h1>

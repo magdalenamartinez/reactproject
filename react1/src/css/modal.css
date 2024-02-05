@@ -22,17 +22,17 @@
 .title_modal {
     margin-bottom: 30px;
     text-align: center;
-    font-size: 30px;
+    font-size: 2em;
 }
 
 .paragraph_modal {
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 1.2em;
 }
 
 .button_modal {
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 1.5em;
     background: linear-gradient(to right, #89d8ff, #611668);
     margin: 0 auto;
     border: none;
@@ -71,3 +71,10 @@
 }
 
 
+@media only screen and (max-width: 600px) { 
+
+    .custom-modal {
+        max-height: 90vh;
+        width: 50vw;
+    }
+}

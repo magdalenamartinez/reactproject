@@ -2,7 +2,7 @@
 .form_container {
     background: linear-gradient(to bottom, #89d8ff, #611668);
     width: 600px;
-    height: 800px;
+    min-height: 800px;
     margin: 0 auto;
     border-radius: 15px;
     flex-direction: column;
@@ -28,11 +28,36 @@
 .form_container::after {
     content: "";
     position: absolute;
-    height: 790px;
+    min-height: 790px;
     width: 590px;
     border-radius: 15px;
     background: linear-gradient(to bottom, #89d8ff, #611668);
 }
+
+.formContrast {
+    background: rgb(0, 0, 0);
+    box-shadow: 0 0 30px white;
+}
+
+.formContrast::before {
+    background-image: none;
+}
+
+.formContrast::after {
+    background: rgb(0, 0, 0);
+}
+
+.formDark {
+    background: linear-gradient(to bottom, #0c0147, #000000);
+    box-shadow: 0 0 30px rgb(0, 0, 0);
+}
+
+
+
+.formDark::after {
+    background: linear-gradient(to bottom, #0c0147, #000000);
+}
+
 
 .text_container {
     z-index: 2;
@@ -52,7 +77,7 @@
 
 .form_label {
     margin-left: 20px;
-    font-size: 20px;
+    font-size: 1.2em;
 }
 
 .input_group {
@@ -69,7 +94,7 @@
 }
 
 .form_input {
-    font-size: 18px;
+    font-size: 1.1em;
     width: 85%;
     text-decoration: none;
     background: #123c694f;
@@ -83,6 +108,18 @@
 
 }
 
+.inputContrast {
+    background: #000000;
+}
+
+.formInputContrast2 {
+    background: yellow;
+    color: #000000;
+}
+
+.inputDark {
+    background: #32649a;
+}
 
 .mini {
     width: 30%;
@@ -101,13 +138,11 @@
 
 .title_container {
     padding: 20px 20px;
-    font-size: 50px;
+    font-size: 2em;
 
 }
 
-.title_container {
-    font-size: 30px;
-}
+
 .eye_form {
     margin-left: 10px;
     cursor: pointer;
@@ -116,7 +151,7 @@
 .paragraph_error {
     background-color: #89d8ffa6;
     padding: 20px 20px;
-    font-size: 15px;
+    font-size: 0.9em;
     animation: pulsate 0.5s infinite alternate;
 
 }
@@ -144,7 +179,7 @@
     color: #FFFFFF;
     cursor: pointer;
     text-decoration: underline;
-    font-size: 18px;
+    font-size: 1.1em;
     transition: color 0.3s, transform 0.5s;
 }
 
@@ -164,7 +199,7 @@
 
 .submit_button {
     padding: 10px 30px;
-    font-size: 20px;
+    font-size: 1.3em;
     color: #FFFFFF;
     background-color: #068dd1;
     border: none;
@@ -183,7 +218,7 @@
 }
 
 .sincuenta {
-    font-size: 15px;
+    font-size: 0.9em;
 }
 
 
@@ -199,7 +234,7 @@
     margin-left: 10px;
     z-index: 100;
     opacity: 0;
-    font-size: 15px;
+    font-size: 1em;
 }
 
 
@@ -209,7 +244,7 @@
     margin-left: 50px;
     text-align: left;
     width: 90%;
-    font-size: 11px;
+    font-size: 0.7em;
     display: none;
 }
 
@@ -218,7 +253,7 @@
     margin-left: 50px;
     text-align: left;
     width: 90%;
-    font-size: 11px;
+    font-size:  0.7em;
     display: block;
 }
 
@@ -227,7 +262,7 @@
     margin-left: 50px;
     text-align: left;
     width: 90%;
-    font-size: 11px;
+    font-size:  0.7em;
     display: none;
 }
 
@@ -236,9 +271,11 @@
     margin-left: 50px;
     text-align: left;
     width: 90%;
-    font-size: 11px;
+    font-size:  0.7em;
     display: none;
 }
+
+
 
 .input_error_form_user-active {
     display: block;
@@ -282,9 +319,13 @@
     border: 3px solid #6e24ab;
 } 
 
+.errorContrast {
+    color: yellow;
+}
 
-  
-
+.darkText {
+    color: white;
+}
 
 @media only screen and (max-width: 600px) { 
 .form_container {

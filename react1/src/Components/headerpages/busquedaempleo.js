@@ -1,110 +1,83 @@
 // busquedadeempleo.js
 import React, { useEffect, useState } from "react";
-import '../../css/index.css';
-import '../../css/buscarempleo.css';
 import { indicesCalculados, nextPage, prevPage } from "../ofertasTrabajo/paginacion";
-import DetallesOferta from "../ofertasTrabajo/DetallesOferta";
-import Image_oferta from "./image_oferta";
-import Description_ofert from "./description_ofert";
-import DetailsButton from "./botones/botonDetalles";
-import { getUserData } from "../funcionalidades/setUserData";
-import FavButton from "./botones/botonFav";
 import Busqueda from "./busqueda";
 import addFav from "../fav/misFavs";
-import getFavs from "../fav/getFav";
-import setDetallesById from "../fav/detalles";
 import { useNavigate } from 'react-router-dom';
-
+import { useUser } from '../funcionalidades/userContext.js';
+import Spinner from "../spinner.js";
+import getAllData from "../data/getAllData.js";
+import Bloque from "./bloques.js";
+import handleSearch from "./handleSearch.js";
 function BusquedaDeEmpleo() {
     const navigate = useNavigate();
     const [currentPagina, setCurrentPagina] = useState(1);
-    const [ofertas, setOfertas] = useState([]);
     const [detalles, setDetalles] = useState({});
     const [userExist, setUserExist] = useState(false);
-    const [userData, setData] = useState(null);
-    const ofertasPorPagina = 5;
     const [heartStates, setHeartState] = useState({});
     const [fav, setFav] = useState(false);
+    
+    const [data, setData] = useState([]);
+    const dataPorPagina = 5;
+    const [numDatos, setNumDatos] = useState(0);
+    const [dataObtained, setObtainedData] = useState(false);
+    const [currentData, setCurrentData] = useState([]);
+    const [searchState, setSearchState] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(null);
+    const [datosObtenidosFinal, setDatosObtenidosFinal] = useState(false);
 
-    const currentOfertas = indicesCalculados(currentPagina, ofertasPorPagina, ofertas);
+    const {userData} = useUser();
 
     useEffect(() => {
         const chooseData = async () => {
-          let data = localStorage.getItem('userData');
-          if (data) {
+          if (userData && userData.typeUser === 1) {
             setUserExist(true);
-            setData(getUserData());
-            
           }
         };
-      
-        const getOfertas = async () => {
-          try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-all-ofertas', {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json' },
-            });
-      
-            if (response.ok) {
-              const responseData = await response.json();
-              if (responseData.success) {
-                console.log("Datos de las Ofertas", responseData.data);
-                setOfertas(responseData.data);
-                if (!fav) {
-                    await getFavs(getUserData().id, 'favoritos', setHeartState);
-                    setFav(true);
-                  }
-              } else {
-                navigate("/");
-              }
-            }
-          } catch (error) {
-            // Manejar errores
-            console.error('Error:', error);
-          }
-        };
-          
-        getOfertas();
+        const getOffers = async() => {
+          await getAllData(setData, fav, userData, setHeartState, setObtainedData, setFav,
+            'https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-all-ofertas', 'favoritos', navigate);
+        }
         chooseData();
-      }, [fav]);
+        getOffers();
+      }, [fav, userData]);
+
+      useEffect(()=> {
+        if (dataObtained) {
+          const valor = indicesCalculados(currentPagina, dataPorPagina, data);
+          setNumDatos(data.length);
+          setCurrentData(valor);
+          setDatosObtenidosFinal(true);
+        }
+      }, [dataObtained, currentPagina])
 
       const favHandle = (id, select_id, table) => {
         addFav(id, select_id, table, setHeartState)
       }
-      
+
+      const handleSearchFunction = (value) => {
+        handleSearch(value, setSearchState, setSearchTerm, 'titulo_oferta', setNumDatos, setCurrentData,
+        setCurrentPagina, data);
+      }
+
+      if(!datosObtenidosFinal) {
+        return(
+          <Spinner/>
+        );}
 
 
-  return (<div>
-        <Busqueda/>
-    
+  return (
+    <div>
+        <Busqueda handleSearch={handleSearchFunction}/>
         <div className="contenedor">
-    <ul className="ul_class">
-        {currentOfertas.length > 0 ? (
-            currentOfertas.map((oferta) => (
-                <div key={oferta.id} className="redimensionar_bloque">
-                    <li className="bloque_view round_bloque" style={{ listStyle: 'none' }}>
-                        <div className="leftright" style={{ maxWidth: '100%' }}>
-                            <Image_oferta oferta={oferta} imagenPorDefecto={"/images/uploadimage.png"}/>
-                            <Description_ofert oferta={oferta} />
-                            <div className="right-little">
-                            <DetailsButton onClick={() => setDetallesById(oferta.id, setDetalles)}/>
-                            {userExist && <FavButton id="FavButton" onClick={()=>favHandle(userData.id, oferta.id, 'favoritos')} classT={heartStates[oferta.id] ? 'heartClicked' : 'heart'}/>}
-                            </div>
-                        </div>
-                    </li>
-                    {detalles[oferta.id] && <DetallesOferta oferta={oferta} />}
-                </div>
-            ))
-        ) : (
-            <p>No hay ofertas disponibles.</p>
-        )}
-    </ul>
-    <div className="form_group">
-        <button className="form_button disabled_button" onClick={() => prevPage(currentPagina, setCurrentPagina)} disabled={currentPagina === 1}>Anterior</button>
-        <button className="form_button disabled_button" onClick={() => nextPage(currentPagina, setCurrentPagina, ofertasPorPagina, ofertas)} disabled={currentPagina === Math.ceil(ofertas.length / ofertasPorPagina)}>Siguiente</button>
+          <Bloque currentData={currentData} setDetalles={setDetalles} heartStates={heartStates} favHandle={favHandle} userExist={userExist} detalles={detalles} userData={userData} favTable={'favoritos'} isOferta={true} searchTerm={searchTerm} searchState={searchState}
+          term={'titulo_oferta'}/>
+          <div className="form_group">
+              <button className="form_button disabled_button" onClick={() => prevPage(currentPagina, setCurrentPagina)} disabled={currentPagina === 1}>Anterior</button>
+              <button className="form_button disabled_button" onClick={() => nextPage(currentPagina, setCurrentPagina, dataPorPagina, data)} disabled={currentPagina === Math.ceil(numDatos / dataPorPagina)}>Siguiente</button>
+          </div>
+        </div>
     </div>
-    </div>
-</div>
   );
 
 };

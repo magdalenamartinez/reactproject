@@ -16,7 +16,7 @@
 .link_container {
     text-decoration: none;
     background-color: 89d8ff;
-    height: 50px;
+    min-height: 50px;
     width: 200px;
     border-radius: 15px;
     overflow: hidden;
@@ -39,6 +39,67 @@
     width: 300px;
     animation: rotar 1s linear infinite;
 }
+
+
+.link_container:hover::after {
+    content: "";
+    position: absolute;
+    height: 45px;
+    width: 190px;
+    background: linear-gradient(to right, rgb(107, 107, 224), #800080);
+    border-radius: 15px;
+}
+
+
+
+.contrastlink:hover {
+    background: linear-gradient(to right, rgb(255, 221, 27) 10%, #ffed96);
+    letter-spacing: 1px;
+}
+.contrastlink:hover::before {
+    background-image: conic-gradient(rgb(255, 255, 255) 20deg, transparent 160deg);
+}
+.contrastlink:hover::after {
+    background: linear-gradient(to right, rgb(255, 221, 27), #ffed96);
+
+}
+
+.linkAcc_container {
+    text-decoration: none;
+    background-color: 89d8ff;
+    height: 50px;
+    width: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+.linkAcc_container:hover {
+background: #FFFFFF;
+}
+
+.linkAcc_container:hover::before {
+    content: "";
+    position: absolute;
+    background-image: conic-gradient(rgb(16, 16, 16) 20deg, transparent 160deg);
+    height: 100px;
+    width: 300px;
+    animation: rotar 1s linear infinite;
+}
+
+.linkAcc_container:hover::after {
+    content: "";
+    position: absolute;
+    height: 45px;
+    width: 190px;
+    background: #FFFFFF;
+    border-radius: 15px;
+}
+
 
 .titulo-icono-container {
     position: relative;
@@ -101,18 +162,17 @@
     }
 }
 
-.link_container:hover::after {
-    content: "";
-    position: absolute;
-    height: 45px;
-    width: 190px;
-    background: linear-gradient(to right, rgb(107, 107, 224), #800080);
-    border-radius: 15px;
-}
 
 .link-gradient {
     text-decoration: none;
     color: #FFFFFF;
+    z-index: 2;
+}
+
+.link_container:hover .link-contrast{
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
     z-index: 2;
 }
 
@@ -147,8 +207,9 @@
     align-items: center;
     justify-content: center;
     right: 340px;
+    cursor: pointer;
     transition: transform 0.3s;
-}
+}   
 
 .chat {
     position: absolute;
@@ -250,6 +311,7 @@
         background: linear-gradient(to right, rgb(107, 107, 224), #800080);
         border-radius: 0px;
     }
+
 
     .login {
         position: absolute;

@@ -24,7 +24,7 @@
     border-color: #2ecc71;
     content: '\2713';
     text-align: center;
-    font-size: 16px;
+    font-size: 1em;
     line-height: 20px;
   
   }
@@ -35,7 +35,7 @@
   }
 
   .min_size {
-    font-size: 20px;
+    font-size: 1em;
   }
 
   .right-verybig {
@@ -43,14 +43,14 @@
   }
 
   .paragraph_label {
-    font-size: 20px;
+    font-size: 1.2em;
     font-weight: bold;
     margin-right: 0px;
     display: inline-block;
 }
 
 .paragraph_input {
-    font-size: 15px;
+    font-size: 1.1em;
     margin-top: 0px;
 }
 
@@ -67,11 +67,6 @@
     flex-direction: column;
     align-items: center;
   }
-
-.round_bloque {
-  max-height: 250px;
-}
-
 
 
 .eye_container {
@@ -151,7 +146,7 @@
 
 .info_link {
   min-width: 130px;
-  font-size: 11px;
+  font-size: 0.9em;
   position: absolute;
   padding: 10px 10px;
   border-radius: 35px;
@@ -203,7 +198,7 @@
 
 .back_link{
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 3em;
 }
 
 .back_link:hover {
@@ -249,19 +244,15 @@
 
 @media only screen and (max-width: 1000px) { 
 
-  .img_oferta {
-    width: 90%;
-    padding: 0px;
-  }
 
   .paragraph_label {
-    font-size: 3vw;
+    font-size: 1em;
   }
   .form_label {
-    font-size: 3vw;
+    font-size: 1.1em;
   }
   .paragraph_detalles {
-    font-size: 2vw;
+    font-size: 1em;
   }
   .form_group {
     width: 100%;
@@ -271,17 +262,17 @@
   }
 
   .paragraph_input {
-    font-size: 2.5vw;
+    font-size: 0.8em;
 
   }
   .description_container {
-    font-size: 15px;
+    font-size: 0.9em;
   }
 
   .title_container {
     padding: 0px;
     padding-top: 20px;
-    font-size: 20px;
+    font-size: 1.5em;
     padding-left: 10px;
   }
   
@@ -299,12 +290,6 @@
     display: none;
   }
   
-  .form_img {
-    width: 80%;
-    padding: 0px;
-    max-height: 100%;
-    max-width: 100%;
-}
 
 .form_button {
   margin: 0 auto;

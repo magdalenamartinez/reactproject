@@ -98,6 +98,27 @@
     
 }
 
+.botonBig_Contrast {
+    background-color:  yellow;
+    color: black;
+    box-shadow: none;
+}
+
+.botonBig_Contrast:hover {
+    background-color: rgb(255, 210, 11);
+    box-shadow: none;
+}
+
+.botonBig_dark {
+    background-color:  rgb(1, 6, 32);
+    box-shadow: 0 0 20px rgb(1, 6, 32);
+}
+
+.botonBig_dark:hover {
+    background-color:   rgb(12, 29, 128);
+    box-shadow: 0 0 20px rgb(12, 29, 128), 0 0 60px rgb(12, 29, 128), 0 0 100px rgb(12, 29, 128);
+}
+
 .nothidden {
     display: block;
 }
@@ -108,6 +129,31 @@
     box-shadow: 0 0 20px #611668;
     padding: 30px 30px;
     margin-bottom: 50px;
+}
+
+
+.formContrast {
+    background: rgb(0, 0, 0);
+    box-shadow: 0 0 30px white;
+}
+
+.formContrast::before {
+    background-image: none;
+}
+
+.formContrast::after {
+    background: rgb(0, 0, 0);
+}
+
+.formDark {
+    background: linear-gradient(to bottom, #0c0147, #000000);
+    box-shadow: 0 0 30px rgb(0, 0, 0);
+}
+
+
+
+.formDark::after {
+    background: linear-gradient(to bottom, #0c0147, #000000);
 }
 
 .form_textarea::placeholder {

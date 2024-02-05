@@ -81,7 +81,7 @@ const ModalManager = () => {
         title="La contraseña ha sido reestablecida con éxito."
         paragraph="Ya puede acceder a su cuenta con la nueva contraseña."
         buttonText="Iniciar Sesión"
-        buttonHref="/tengoCuenta"
+        buttonHref="/inicioSesion"
       />
 
       {/*TIEMPO EXPIRADO*/}

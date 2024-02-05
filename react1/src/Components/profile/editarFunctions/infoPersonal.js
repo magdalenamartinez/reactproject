@@ -1,7 +1,6 @@
 import React from "react";
 import password_visibility from "../../funcionalidades/password";
 import InputChange2 from "../../funcionalidades/inputChange/inputChange2.js";
-import inputFunction from "../../funcionalidades/inputChange/inputFunction.js";
 import Usuario from "../../login/registro/usuario.js";
 import InputValidation from "../../login/input/InputValidation.js";
 import Correo from "../../login/registro/correo.js";

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ModalManager from '../funcionalidades/modal/modal.js';
-import '../../css/index.css'
+import { useStyle } from '../styleContext.js';
 const Index = () => {
- 
+ const {style} = useStyle();
   return (
     <div className="index_class">
     <div className="index">
@@ -49,7 +49,8 @@ const Index = () => {
           <div className='contenedor'>
             <h1 className="text_fourth">Explora, conecta y descubre tu potencial en Empleo Inclusivo.</h1>
             <h2 className='text_fourth'>Porque tú también importas.</h2>
-            <Link to="/busquedadeempleo" className="link_container link_normal"><span className="link-gradient">Buscar Empleo</span></Link>
+            <Link to="/busquedadeempleo" className={` ${style.highContrast ? 'linkAcc_container link_high_contrast' : 'link_container link_normal'}`}>
+              <span className={style.highContrast? 'link-contrast':"link-gradient"}>Buscar Empleo</span></Link>
           </div>
         </div>
      </div>
