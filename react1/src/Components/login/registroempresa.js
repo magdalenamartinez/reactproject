@@ -72,7 +72,7 @@ function RegistroEmpresa() {
         <div className='contenedor margen'>
         <div className={`formulario form_container_big ${st.fondoContrast} ${st.fondoDark}`} >
             <h1 className="title_container_big">Registro para Empresas</h1>
-            <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)} action="/enterpriseRoute/save-data2" encType='multipart/form-data' method="post">
+            <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)} encType='multipart/form-data'>
                 <div className="bloque_form" id="empresa">
                     <h1 className="title_container">Datos Generales</h1>
                         <div className="comun">

@@ -1,6 +1,6 @@
 const getOfertas = async (idEmpresa, setOfertas, setPublishStates, setDeleteStates) => {
     try {
-        const response = await fetch('/ofertaRoute/get-ofertas', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-ofertas', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ id_empresa: idEmpresa }),

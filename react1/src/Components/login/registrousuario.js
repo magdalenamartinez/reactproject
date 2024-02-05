@@ -89,7 +89,7 @@ function RegistroUsuario() {
             <div className='text_container'>
                 <h1 className="title_container_big">Registro para Usuarios</h1>
                 <div className="message_error hidden" id="messageError"><p>Se ha producido un error al intentar registrar al Usuario</p></div>
-                <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)} action="/clientRoute/save-data" encType='multipart/form-data' method="post">
+                <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fields)}  encType='multipart/form-data'>
                 <div className={`bloque_form ${st.bloqueContrast}`} id="infopersonal">
                     <h1 className="title_container">Información Personal</h1>
                     <div className="infopersonal_bloque comun">

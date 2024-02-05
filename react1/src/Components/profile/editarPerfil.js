@@ -114,7 +114,7 @@ function EditarPerfil() {
                 <div className='text_container'>
                     <h1 className="title_container_big">Editar Perfil de {data.user}</h1>
                     <div className="message_error hidden" id="messageError"><p>Se ha producido un error al intentar editar el Perfil</p></div>
-                    <form className='form_class_big' id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fieldsTrue)} action="/clientRoute/update-data" encType='multipart/form-data' method="post">
+                    <form className='form_class_big' id="form_id" onSubmit= {handleSubmit} onInput={() => ValidateFormulary(fieldsTrue)} encType='multipart/form-data'>
                         <InfopersonalForm userData={data} formValues={formValues} handleC={handleC} handleDeleteImage={handleDeleteImage} setDeleteImage={setDeleteImage}/>
                         <DireccionForm userData={data} formValues={formValues} handleC={handleC} setFormValues={setFormValues}/>
                         <ExperienciaForm userData={data} formValues={formValues} handleC={handleC}/>

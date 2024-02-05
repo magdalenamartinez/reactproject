@@ -116,7 +116,7 @@ if (oferta === null) {
     <div className={`formulario form_container_big ${st.fondoContrast} ${st.fondoDark}`}>
         <h1 className="title_container_big">Editar Oferta de Empleo</h1>
         <div className="message_error hidden" id="messageError"><p>Se ha producido un error al intentar editar la Oferta</p></div>
-        <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} action="/ofertaRoute/update-data-oferta" encType='multipart/form-data' method="post">
+        <form className="form_class_big" id="form_id" onSubmit= {handleSubmit} encType='multipart/form-data'>
             <div className="bloque_form" id="empresa">
                 <h1 className='title_container'>Datos Principales</h1>
                 <div className='comun'>

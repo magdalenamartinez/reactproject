@@ -14,7 +14,7 @@ function Presentacion({userData, formValues, handleC, setDeleteVideo, handleDele
                 </div>
                 <Video handleDeleteVideo={handleDeleteVideo} onChange={(event) => { handleC(event); InputChange('inputVideo', 'videoPlayer'); setDeleteVideo(false);}}
                 style={{display: userData.video ? 'initial' : 'none'}} style_button={{ display: userData.video ? 'block' : 'none' }}
-                src={userData.video ? `http://localhost:5000/uploads/${userData.video}` : ''}
+                src={userData.video ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.video}` : ''}
                 />
             </div>
         </div>

@@ -25,7 +25,7 @@ function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken,
         <div className={`formulario form_container ${st.fondoContrast} ${st.fondoDark}`}>
             <div className='text_container'>
             <h1 className='title_container'>{text}</h1>
-            <form className="form_class" method="post" action="/loginUserRoute/try-login" onSubmit={handleSubmit}>
+            <form className="form_class" onSubmit={handleSubmit} encType='multipart/form-data'>
                  <div className="form_group" id="user_group">
                     <label htmlFor="user" className="form_label">Usuario</label>
                     <div className="input_group">

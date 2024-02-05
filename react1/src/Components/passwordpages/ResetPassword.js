@@ -68,7 +68,7 @@ const ResetPassword = () => {
                 table: table
             };
             try {
-                const response = await fetch('/changePasswordRoute/change-password', {
+                const response = await fetch('https://backend-empleoinclusivo.onrender.com/changePasswordRoute/change-password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

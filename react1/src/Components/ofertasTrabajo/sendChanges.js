@@ -1,7 +1,7 @@
 
 const sendChangesToServer = async (idOfertaOperation, action, idEmpresa) => {
     try {
-       await fetch('/ofertaRoute/operation-ofertas', {
+       await fetch('https://backend-empleoinclusivo.onrender.com/ofertaRoute/operation-ofertas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id:  idOfertaOperation, action: action, idEmpresa:idEmpresa}),
