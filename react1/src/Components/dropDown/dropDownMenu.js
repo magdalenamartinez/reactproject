@@ -10,9 +10,7 @@ function DropDownMenu({ openclass, profile, logout, favoritos}) {
       logout();
       navigate("/");
   }
-
-    
-        
+     
   return (
     <div className={openclass} id="drop_menu">
       <ul className="list_drop_down">

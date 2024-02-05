@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../funcionalidades/userContext';
 import handleLogin from './handleLogin';
 import LoginForm from './loginForm';
+import Spinner from '../../spinner';
 function TengoCuenta() {
     const {login} = useUser();
     const navigate = useNavigate();
     const [seconddone, set2done] = useState(false);
     const [time, setTime] = useState(0);
     const [recaptchaToken, setRecaptchaToken] = useState("");
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -30,9 +32,11 @@ function TengoCuenta() {
       }, [seconddone]);
 
       const handleSubmit = async(event) => {
+        setLoading(true);
         const user = document.getElementById('user').value;
         const password = document.getElementById('password').value;
         await handleLogin(event, 'clientes', user, password, recaptchaToken, login, navigate, setTime);
+        setLoading(false);
       }
 
 
@@ -42,6 +46,11 @@ function TengoCuenta() {
             navigate('/forgotPassword');
       };
         
+      if (loading) {
+        return(
+          <Spinner/>
+        )
+      }
       return (
         <LoginForm text={'Iniciar Sesión'} textPassword={'¿Olvidaste tu Contraseña?'}
         handleSubmit={handleSubmit} handleForgotPassword={handleForgotPassword} setRecaptchaToken={setRecaptchaToken}
