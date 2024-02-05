@@ -3,21 +3,23 @@ const db = require('../db');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-
+const bcrypt = require('bcrypt');
+const { sendMail, generateRegistrationEmail } = require('./sendmail');
 
 router.post('/save-data2', upload.fields([ { name: 'imageInput', maxCount: 1 },  { name: 'videoInput', maxCount: 1 }]),
-function(req, res) {
+async function(req, res) {
     const imageFile  = req.files['imageInput'] ? req.files['imageInput'][0] : '';
     const videoFile = req.files['videoInput'] ? req.files['videoInput'][0] : '';
     
     const imageHash = imageFile ? imageFile.filename : '';
     const videoHash = videoFile ? videoFile.filename : '';
+    const hashPassword = await bcrypt.hash(req.body.password, 10);
 
     const data = {
         user: req.body.user,
         name: req.body.name,
         correo: req.body.correo,
-        password: req.body.password,
+        password: hashPassword,
         tlf: parseInt(req.body.tlf, 10),
         cultura: req.body.cultura,
         descripcion: req.body.description,
@@ -32,6 +34,12 @@ function(req, res) {
         db.Create('empresas', data)
         .then(result => {
             console.log('DATOS GUARDADOS EN LA BASE');
+            const title = `¡Gracias por registrar a su Empresa  ${req.body.name} en la plataforma Empleo Inclusivo`;
+            const subtitle = ` Estamos comprometidos en ayudarle a encontrar el mejor talento y a hacer crecer su equipo.`;
+            const textBoton = 'Ir a Empleo Inclusivo';
+            const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+            const subject = 'Registro de Empresa en Empleo Inclusivo'
+            sendMail(req.body.correo, subject, htmlText)
             res.json({ success: true});
         })
         .catch(error => {
@@ -78,9 +86,25 @@ async(req, res) => {
             data.image = '';
           }
 
+          if (modifiedFields.password === true) {
+            const hashPassword = await bcrypt.hash(req.body.password, 10);
+            data.password = hashPassword;
+
+          }
+
         db.Update('empresas', data, data.user)
             const dataNew =  await db.getUserData(data.user, 'empresas');
             console.log(dataNew);
+            if (modifiedFields.password === true) {
+              const title = `Contraseña Actualizada`;
+              const subtitle = `Su Contraseña Coorporativa ha sido actualizada. <br\> 
+              En caso de que usted no la haya modificado pongase en contacto con el 
+              soporte técnico de Empleo Inclusivo.`;
+              const textBoton = 'Ir a Empleo Inclusivo';
+              const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+              const subject = 'Actualización de Contraseña'
+              sendMail(dataNew.correo, subject, htmlText)
+            }
             res.json({success: true, dataNew: dataNew});
         } catch (error) {
             console.error("Error:", error);

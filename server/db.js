@@ -2,21 +2,7 @@ const mysql = require('mysql2');
 const config = require('./config');
 const { resolve } = require('path-browserify');
 require('dotenv').config();
-/*
-var connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
-});
 
-connection.connect(function(error) {
-    if (error)
-    throw error;
-  
-    console.log('CONEXION EXITOSA');  
-});
-*/
 const connection = mysql.createConnection(process.env.DATABASE_URL);
 connection.connect(function(error) {
     if (error)
@@ -25,6 +11,7 @@ connection.connect(function(error) {
     console.log('CONEXION EXITOSA');  
 });
 //CRUD
+
 
 function ReadAll(table) {
     return new Promise((resolve, reject) => {
@@ -144,6 +131,21 @@ function ReadFromMail(table, correo) {
         });
 }
 
+function GetMail(table, id) {
+    return connection.promise().query(`SELECT correo FROM ?? WHERE id=?`, [table, id])
+        .then(([rows]) => {
+            if (rows.length > 0 && rows[0].correo) {
+                return rows[0].correo;
+            } else {
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error al leer desde la base de datos:', error);
+            throw error;
+        });
+}
+
 function ReadToken(table, token) {
     return connection.promise().query(`SELECT id, resetTokenExpiration FROM ?? WHERE resetToken=?`, [table, token])
         .then(([rows]) => {
@@ -168,9 +170,24 @@ function ReadToken(table, token) {
         });
 }
 
-function getLogin(table, username, password) {
-    return connection.promise().query(`SELECT * FROM ?? WHERE user=? AND password=?`,[table, username, password]);
+async function getLogin(table, username) {
+    try {
+        const [rows] = await connection.promise().query(`SELECT id, password, block FROM ?? WHERE user=?`, [table, username]);
+        if (rows.length > 0) {
+            const info = rows[0];
+            const id = info.id;
+            const block = info.block;
+            const hashPassword = info.password;
+            return {id, hashPassword, block};
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error en la consulta SQL:', error);
+        throw error;
+    }
 }
+
 
 function Update(table, data, userid) {
     return new Promise((resolve, reject) => {
@@ -209,10 +226,44 @@ function PublishOferta(id) {
     return connection.promise().query('UPDATE clientes SET active = CASE WHEN active = 0 THEN 1 ELSE 0 END WHERE id = ?', [id]);
   }
   
+  function GetState(id) {
+    return connection.promise().query('SELECT active, correo FROM clientes WHERE id = ?', [id])
+    .then(([rows]) => {
+        if (rows.length > 0) {
+            return rows[0];
+        } else {
+            return null;
+        }
+    })
+    .catch(error => {
+        console.error('Error en la consulta SQL:', error);
+        throw error;
+    });
+  }
+
+  function GetPublish(id) {
+    return connection.promise().query('SELECT publish FROM oferta_empleo WHERE id = ?', [id])
+    .then(([rows]) => {
+        if (rows.length > 0) {
+            return rows[0];
+        } else {
+            return null;
+        }
+    })
+    .catch(error => {
+        console.error('Error en la consulta SQL:', error);
+        throw error;
+    });
+  }
+  
 
 function storeToken (id, token, expirationDate, table) {
     return connection.promise().query('UPDATE ?? SET resetToken = ?, resetTokenExpiration = ? WHERE id = ?', [table, token, expirationDate, id]);
 
+}
+
+function storeTokenSesion(id, token, table) {
+    return connection.promise().query('UPDATE ?? SET token = ? WHERE id = ?', [table, token, id]);
 }
 
 
@@ -229,6 +280,19 @@ function Create(table, data) {
     });
 }
   
+
+function getHeaderData(table, id) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT image, user FROM ?? WHERE id=?', [table, id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results[0]);
+            }
+        });
+    });
+}
+
 
 
 function Delete(table, id) {
@@ -333,9 +397,15 @@ function UpdateOferta(table, data, id) {
 }
 
 
-function getInfo(id, table) {
+function getInfo(id, table, token) {
     return new Promise((resolve, reject) => {
-        connection.promise().query('SELECT * FROM ?? WHERE id=?', [table, id])
+        const columnsToSelect = (table === 'clientes') 
+            ? ('id, user, active, name, correo, tlf, image, calle, ciudad, provincia, codpostal,' +
+             'posanterior, empresa, duracion, educacion, titulo, institucion, curriculum, curriculumName, '+
+             'curriculumExtension, habilidad, perfil, video, ubi')
+            : ('id, user, name, tipo_empresa sector, image, correo, tlf, descripcion,' +
+            'cultura, provincia, codpostal, video');
+        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=? AND token=?`, [table, id, token])
         .then(([rows]) => {
             if(rows.length > 0) {
                 resolve(rows[0]);
@@ -347,6 +417,65 @@ function getInfo(id, table) {
     });
 }
 
+function getProfileInfo(id, table, token) {
+    return new Promise((resolve, reject) => {
+        const columnsToSelect = (table === 'clientes') 
+            ? 'user, image, name, correo, tlf, ciudad, curriculumName, curriculum, video, active'
+            : 'user, image, name, tipo_empresa, sector, provincia, codpostal, video';
+
+        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=? AND token=?`, [table, id, token])
+        .then(([rows]) => {
+            if(rows.length > 0) {
+                resolve(rows[0]);
+            } else {
+                resolve(null);
+            }
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+}
+
+async function IncrementAttemps (id, table) {
+    await connection.promise().query('UPDATE ?? SET failedPassword  = failedPassword + 1 WHERE id = ?', [table, id]);
+    const [rows] = await connection.promise().query('SELECT failedPassword FROM ?? WHERE id = ?', [table, id]);
+    const updatedFailedPassword = rows[0].failedPassword;
+    return updatedFailedPassword;
+}
+
+function RestoreAttemps (id, table) {
+    return connection.promise().query('UPDATE ?? SET failedPassword  = 0 WHERE id = ?', [table, id]);
+
+}
+
+const timeouts = {};
+async function blockAccount(id, table, time) {
+    // Bloquear cuenta en la base de datos
+    await connection.promise().query('UPDATE ?? SET block = 1 WHERE id = ?', [table, id]);
+
+    if (timeouts[id]) {
+        clearTimeout(timeouts[id]);
+    }
+
+    const unlockAfter = time * 60 * 1000;
+    timeouts[id] = setTimeout(() => {
+        unlockAccount(table, id);
+    }, unlockAfter);
+
+}
+
+
+function unlockAccount(table, id) {
+    // Desbloquear cuenta en la base de datos
+    connection.promise().query('UPDATE ?? SET block = 0, failedPassword = 0 WHERE id = ?', [table, id])
+        .then(() => {
+            console.log(`Cuenta desbloqueada automáticamente para el usuario con ID ${id}`);
+        })
+        .catch(error => {
+            console.error('Error al desbloquear la cuenta automáticamente:', error);
+        });
+}
 
 module.exports = {
     ReadAll,
@@ -374,6 +503,15 @@ module.exports = {
     ReadClientes,
     ClientState,
     getOfertasFavs,
-    getInfo
-    
+    getInfo,
+    storeTokenSesion,
+    getHeaderData,
+    getProfileInfo,
+    GetMail,
+    GetState,
+    GetPublish,
+    IncrementAttemps,
+    RestoreAttemps,
+    blockAccount,
+    unlockAccount,
 }

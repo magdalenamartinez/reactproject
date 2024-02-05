@@ -23,6 +23,7 @@ app.set('port', process.env.PORT || 5000);
 
 
 const clientRoute = require('./routes/clientRoute');
+const mailRoute = require('./routes/mailRoute');
 const infoRoute = require('./routes/infoRoute');
 const deleteRoute = require('./routes/deleteRoute');
 const enterpriseRoute = require('./routes/enterpriseRoute');
@@ -32,7 +33,9 @@ const changePasswordRoute = require('./routes/changePasswordRoute');
 const ofertaRoute = require('./routes/ofertaRoute');
 const favRoute = require('./routes/favRoute');
 
+
 app.use('/clientRoute', clientRoute);
+app.use('/mailRoute', mailRoute);
 app.use('/infoRoute', infoRoute);
 app.use('/deleteRoute', deleteRoute);
 app.use('/enterpriseRoute', enterpriseRoute);

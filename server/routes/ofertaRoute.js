@@ -4,6 +4,7 @@ const router = express.Router();
 const multer = require('multer');
 
 const upload = multer({ dest: 'uploads/' });
+const { sendMail, generateRegistrationEmail } = require('./sendmail');
 
 
 router.post('/save-data3', upload.fields([
@@ -114,6 +115,21 @@ router.post('/operation-ofertas', async(req, res)  => {
     try {
       const results = await db.PublishOferta(id_oferta);
       if (results.length > 0) {
+        const published = await db.GetPublish(id_oferta);
+        if (published.publish === 1) {
+            const correo = await db.GetMail('empresas', req.body.idEmpresa);
+            if (correo) {
+                const title = `Publicación`;
+                const subtitle = `Una de las Ofertas de Empleo de su Empresa ha sido publicada, <br\>
+                cualquier persona podrá verla. <br\> 
+                Si desea modificarlo vuelva a Ofertas Creadas desde su cuenta
+                en Empleo Inclusivo`;
+                const textBoton = 'Ir a Empleo Inclusivo';
+                const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+                const subject = 'Publicación de Oferta de Empleo'
+                sendMail(correo, subject, htmlText)
+            }
+        }
           res.json({ success: true, data: results});
       } else {
           res.json({ success: false, message: 'Error de la base de datos' });

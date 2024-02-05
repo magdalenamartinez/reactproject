@@ -39,9 +39,6 @@ router.post('/get-favs', async(req, res) => {
         const id = req.body.id;
         const table = req.body.table;
         const favoritos = await db.GetFavs(id, table);
-        console.log("FAVORITOS_____________________________________________");
-        console.log(req.body.id);
-        console.log(favoritos);
         res.json({ success: true, data: favoritos });
     } catch(error) {
         console.log('Error al añadir a favoritos', error);
@@ -57,8 +54,6 @@ router.post('/get-favs-ofertas', async(req, res) => {
         const table = req.body.table;
         const tableToSearch = req.body.tableToSearch;
         const idsFav = await db.GetFavs(id, table);
-        console.log("FAVORITOS_____________________________________________");
-        console.log(req.body.idsFav);
         if (idsFav.length > 0) {
             const ofertas = await db.getOfertasFavs(tableToSearch, idsFav);
             res.json({ success: true, data: ofertas }); 

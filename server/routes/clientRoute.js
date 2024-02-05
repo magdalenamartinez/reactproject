@@ -2,17 +2,25 @@ const express = require('express');
 const db = require('../db');
 const router = express.Router();
 const multer = require('multer');
-
+const bcrypt = require('bcrypt');
 const upload = multer({ dest: 'uploads/' });
 
 
-
+const nodemailer = require('nodemailer');
+const { sendMail, generateRegistrationEmail } = require('./sendmail');
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'empleoinclusivo24@gmail.com',
+        pass: 'uigs gwvj aezg wuij'
+    }
+})
 
 router.post('/save-data', upload.fields([
   { name: 'imageInput', maxCount: 1 },
   { name: 'videoInput', maxCount: 1 }, 
   { name: 'curriculumInput', maxCount: 1 }
-]), function(req, res) {
+]), async function(req, res) {
   
   const imageFile = req.files['imageInput'] ? req.files['imageInput'][0] : '';
   const videoFile = req.files['videoInput'] ? req.files['videoInput'][0] : '';
@@ -22,11 +30,12 @@ router.post('/save-data', upload.fields([
   const videoHash = videoFile ? videoFile.filename : '';
   const fileHash = fileFile ? fileFile.filename : '';
 
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
   const data = {
        user: req.body.user,
        name: req.body.name,
        correo: req.body.correo,
-       password: req.body.password,     
+       password: hashPassword,     
        tlf: parseInt(req.body.tlf, 10),
        image: imageHash,
        calle: req.body.calle,
@@ -48,8 +57,14 @@ router.post('/save-data', upload.fields([
       };
    
       db.Create('clientes', data)
-      .then(result => {
+      .then(async result => {
         console.log('DATOS GUARDADOS EN LA BASE');
+        const title = `¡Gracias por registrarte en la plataforma Empleo Inclusivo, ${req.body.name}!`;
+        const subtitle = `Te ayudaremos en todo lo que necesites para que encuentres el trabajo de tus sueños.`;
+        const textBoton = 'Comienza Ahora';
+        const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+        const subject = 'Registro en Empleo Inclusivo'
+        sendMail(req.body.correo, subject, htmlText)
         res.json({ success: true});
       })
       .catch(error => {
@@ -124,12 +139,26 @@ router.post('/update-data',  upload.fields([
           if (deleteImage === true) {
             data.image = '';
           }
+          if (modifiedFields.password === true) {
+            const hashPassword = await bcrypt.hash(req.body.password, 10);
+            data.password = hashPassword;
+          }
           
-
           db.Update('clientes', data, data.user)
           const dataNew =  await db.getUserData(data.user, 'clientes');
           console.log(dataNew);
-          res.json({success: true, dataNew: dataNew});
+          if (modifiedFields.password === true) {
+            const title = `Contraseña Actualizada`;
+            const subtitle = `Su Contraseña ha sido actualizada. <br\> 
+            En caso de que usted no la haya modificado pongase en contacto con el 
+            soporte técnico de Empleo Inclusivo.`;
+            const textBoton = 'Ir a Empleo Inclusivo';
+            const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+            const subject = 'Actualización de Contraseña'
+            sendMail(dataNew.correo, subject, htmlText)
+          }            
+            res.json({success: true, dataNew: dataNew});
+
     }
     catch (error) {
           console.error("Error:", error);
@@ -162,6 +191,15 @@ router.post('/change-active', async(req, res) => {
       const id = req.body.id;
       const results = await db.ClientState(id);
       if (results.length > 0) {
+        const result = await db.GetState(id);
+        if (result.active === 1) {
+          const title = `Su perfil se encuentra ahora activo`;
+          const subtitle = `Las empresas podrán ver su perfil a partir de ahora, lo podrá volver a cambiar desde su perfil cuando desee`;
+          const textBoton = 'Ir a Empleo Inclusivo';
+          const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
+          const subject = 'Perfil Activado'
+          sendMail(result.correo, subject, htmlText)
+        }
         res.json({ success: true});
 
       } else {
