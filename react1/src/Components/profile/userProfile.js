@@ -39,8 +39,8 @@ function UserProfile() {
         if (data) {
             const fileName = data.curriculumName;
             setFile(fileName);
-            const url = data.curriculum ? `http://localhost:5000/download/${data.curriculum}` : '';
-            const srcImg = (userData.image) ? `http://localhost:5000/uploads/${userData.image}` : "../images/user.png";
+            const url = data.curriculum ? `https://backend-empleoinclusivo.onrender.com/download/${data.curriculum}` : '';
+            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "../images/user.png";
             setUrl(url);
             setImg(srcImg);
             setIsSearching(data.active);
@@ -115,7 +115,7 @@ function UserProfile() {
                         )}
                             <Link className={`button_big ${st.botonContrast}`} style={{height:'500px'}} to="/busquedadeempleo">Buscar<br/> Empleo</Link>
                             {(data.video) && (
-                                <video controls className="form_video" id="videoPlayer" src={`http://localhost:5000/uploads/${data.video}`}></video>
+                                <video controls className="form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${data.video}`}></video>
                             )}
                         </div>
                     </div>

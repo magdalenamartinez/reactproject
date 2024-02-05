@@ -35,7 +35,7 @@ function EnterpriseProfile() {
 
     useEffect(() => {
         if (data) {
-            const srcImg = (userData.image) ? `http://localhost:5000/uploads/${data.image}` : "/images/user.png";
+            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${data.image}` : "/images/user.png";
             setImg(srcImg);
         }
     }, [data, userData]);
@@ -89,7 +89,7 @@ function EnterpriseProfile() {
                 <div className='leftright profilelr'>
                     <div className='left'>
                         {(data.video) && (
-                                <video controls className="videoPresentacion form_video" id="videoPlayer" src={`http://localhost:5000/uploads/${data.video}`}></video>
+                                <video controls className="videoPresentacion form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${data.video}`}></video>
                         )}
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} style={{height:'500px'}} to="/ofertasCreadas">Ver Ofertas de<br/> Trabajo Creadas</Link>
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`}to='/estadisticasPerfil'>Estadísticas de<br/>Inclusión</Link>
