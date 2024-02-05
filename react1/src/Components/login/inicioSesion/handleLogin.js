@@ -3,7 +3,7 @@ import React from "react";
 const handleLogin = async (event, table, user, password, recaptchaToken, login, navigate, setTime) => {
     event.preventDefault();
     try {
-        const response = await fetch('/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:table}),});
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/try-login', {method:'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({user, password, recaptchaToken: recaptchaToken, table:table}),});
         if (response.ok) {
             const responseData = await response.json();
             if (responseData.success) {
