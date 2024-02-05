@@ -3,7 +3,7 @@ import password_visibility from '../../funcionalidades/password';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useStyle } from "../../styleContext";
 
-function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken, textPassword, textAccount, time})
+function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken, textPassword, textAccount, time, errorType})
 {
     const recaptchaChange = (token) => {
         setRecaptchaToken(token)
@@ -38,9 +38,9 @@ function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken,
                         <input type="password" className={`form_input ${st.inputContrast} ${st.inputDark}`} name="password" id="password"/>
                         <i className="eye_form pas6 fa-regular fa-eye" onClick={() => password_visibility('password', 'pas6')}></i>
                     </div>
-                    <p className={`paragraph_error hidden ${st.botonContrast}`} id="parr">El nombre de usuario o la contraseña introducidos son incorrectos</p>
-                    <p className={`paragraph_error hidden ${st.botonContrast}`} id="parr2">Error de Verificación de Recaptcha</p>
-                    <p className={`paragraph_error hidden ${st.botonContrast}`} id="parr3">Su cuenta ha sido bloqueada durante {time} minutos tras superar el número máximo de intentos permitos</p>
+                    {errorType === 1 && <p className={`paragraph_error ${st.botonContrast}`} id="parr">El nombre de usuario o la contraseña introducidos son incorrectos</p>}
+                    {errorType === 2 && <p className={`paragraph_error ${st.botonContrast}`} id="parr2">Error de Verificación de Recaptcha</p>}
+                    {errorType === 3 && <p className={`paragraph_error ${st.botonContrast}`} id="parr3">Su cuenta ha sido bloqueada durante {time} minutos tras superar el número máximo de intentos permitos</p>}
                 </div>
                 <div className="forgot">
                     <button className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={handleForgotPassword}>{textPassword}</button>

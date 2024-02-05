@@ -13,6 +13,7 @@ function TengoCuenta() {
     const [time, setTime] = useState(0);
     const [recaptchaToken, setRecaptchaToken] = useState("");
     const [loading, setLoading] = useState(false);
+    const [errorType, setErrorType] = useState(0);
 
 
     useEffect(() => {
@@ -39,16 +40,11 @@ function TengoCuenta() {
         setLoading(false);
         if (result.messageType === 'error') {
           if (result.errorType === 'login') {
-              document.getElementById('parr2').classList.remove('hidden');
-              document.getElementById('parr').classList.add('hidden');
+             setErrorType(1);
           } else if (result.errorType === 'recaptcha') {
-              setTime(result.time);
-              document.getElementById('parr3').classList.remove('hidden');
-              document.getElementById('parr').classList.add('hidden');
-              document.getElementById('parr2').classList.add('hidden');
-          } else {
-              document.getElementById('parr').classList.remove('hidden');
-              document.getElementById('parr2').classList.add('hidden');
+              setErrorType(2);
+          } else if (result.errorType === 'block') {
+              setErrorType(3);
           }
       }
       }
@@ -68,7 +64,7 @@ function TengoCuenta() {
       return (
         <LoginForm text={'Iniciar Sesión'} textPassword={'¿Olvidaste tu Contraseña?'}
         handleSubmit={handleSubmit} handleForgotPassword={handleForgotPassword} setRecaptchaToken={setRecaptchaToken}
-        textAccount={'Crear Cuenta'} time={time}/>
+        textAccount={'Crear Cuenta'} time={time} errorType={errorType}/>
   );
 };
 

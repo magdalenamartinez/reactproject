@@ -16,13 +16,14 @@ const handleLogin = async (event, table, user, password, recaptchaToken, login, 
                     navigate('/perfilEmpresa');
                 }
                 // hacer el navigate
+            } else if (!responseData.success && responseData.number === 0) {
+                return { messageType: 'error', errorType: 'login'};
             } else if (!responseData.success && responseData.number === 1) {
-                return { messageType: 'error', errorType: 'login', time: null };
-            } else if (!responseData.success && responseData.number === 2) {
-                return { messageType: 'error', errorType: 'recaptcha', time: responseData.time };
-            } else {
-                return { messageType: 'error', errorType: 'default', time: null };
-            }
+                return { messageType: 'error', errorType: 'recaptcha' };
+            } else if (!responseData.success && responseData.number === 2){
+                setTime(responseData.time);
+                return { messageType: 'error', errorType: 'block'};
+            } 
         } else {
             // Manejar errores de red o de la solicitud
             console.error("Error de red o en la solicitud");
