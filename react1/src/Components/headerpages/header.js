@@ -67,7 +67,7 @@ function Header2() {
               setStored(true);
           }
       }
-      if (!isStored) {
+      if (!isStored && userData) {
           stored();
       }
   }, [userData, data, isStored]);
