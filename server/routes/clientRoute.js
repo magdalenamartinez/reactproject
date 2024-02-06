@@ -156,8 +156,8 @@ router.post('/update-data',  upload.fields([
             const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
             const subject = 'Actualización de Contraseña'
             sendMail(dataNew.correo, subject, htmlText)
-          }            
-            res.json({success: true, dataNew: dataNew});
+          }  
+            res.json({success: true, dataNew: dataNew.image});
 
     }
     catch (error) {

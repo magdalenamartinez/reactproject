@@ -9,15 +9,13 @@ const updateData = async(formData, table, navigate, userData, updateUser) => {
         if (response.ok) {
             const responseData = await response.json();
             if (responseData.success) {
-                if (formData.get('modifiedFields').includes('image')) {
                     let updatedUserData;
-                    if (responseData.image === null || responseData.image === '') {
+                    if (responseData.dataNew === null || responseData.dataNew === '') {
                         updatedUserData = { ...userData, image: null };
                     } else {
-                        updatedUserData = { ...userData, image: responseData.image };
+                        updatedUserData = { ...userData, image: dataNew };
                     }
                     updateUser(updatedUserData);
-                }
                 navigate(navigation);
             } else {
                 document.getElementById("messageError").classList.remove('hidden');
