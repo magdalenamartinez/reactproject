@@ -525,5 +525,4 @@ module.exports = {
     blockAccount,
     unlockAccount,
     verifySessionToken,
-    getFotoDB,
 }
