@@ -62,26 +62,28 @@ app.get('/download/:filename', async (req, res) => {
   
 
 app.use('/reset-password', async(req, res) => {
-    // Lógica para manejar el restablecimiento de contraseña aquí
-      try {
-          const id = await db.ReadToken(req.query.t, req.query.token);
-          if (id) {
-              let t;
-              if (req.query.t === 'clientes') {
-                t = 1;
-              } else if (req.query.t === 'empresas'){
-                t = 2;
-              }
-              res.redirect(`https://frontend-empleoinclusivo.onrender.com/reset-password?id=${id}&token=${req.query.token}&t=${t}`);
-          } else {
-            res.json({success: false, message: 'Se ha producido un error.'});
-          }
-      } catch(error) {
-          console.log('Error al verificar el token', error);
-          res.status(500).json({error: 'Error interno del Servidor'});
-      }
-    
+  // Lógica para manejar el restablecimiento de contraseña aquí
+    try {
+        const id = await db.ReadToken(req.query.t, req.query.token);
+        if (id) {
+            let t;
+            if (req.query.t === 'clientes') {
+              t = 'c';
+            } else if (req.query.t === 'empresas'){
+              t = 'e';
+            }
+            res.redirect(`https://frontend-empleoinclusivo.onrender.com/#/reset-password?token=${req.query.token}&t=${t}`);
+        } else {
+          res.json({success: false, message: 'Se ha producido un error.'});
+        }
+    } catch(error) {
+        console.log('Error al verificar el token', error);
+        res.status(500).json({error: 'Error interno del Servidor'});
+    }
+  
 });
+
+
 
 
 app.listen(app.get('port'), function() {

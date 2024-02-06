@@ -33,13 +33,11 @@ router.get('/check-mail', async(req, res) => {
 
 });
 
-router.get('/check-token', async(req, res) => {
+router.post('/check-token', async(req, res) => {
     try {
-        const id = await db.ReadToken(req.query.table, req.query.token);
+        const id = await db.ReadToken(req.body.table, req.body.token);
         console.log(id);
-        console.log(req.query.id);
-        console.log(id === parseInt(req.query.id));
-        if (id && (id === parseInt(req.query.id))) {
+        if (id ) {
             res.json({success: true});
         } else {
             res.json({success : false});

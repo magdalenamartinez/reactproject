@@ -214,8 +214,15 @@ function Update(table, data, userid) {
     });
 }
 
-function UpdatePassword(table, id, password) {
-    return connection.promise().query('UPDATE ?? SET password = ?  WHERE id = ?', [table, password, id]);
+function updatePassword(table, id, password) {
+    return connection.promise().query('UPDATE ?? SET password = ? WHERE id = ?', [table, password, id])
+    .then(result => {
+        return result.changedRows;
+    })
+    .catch(error => {
+        console.error('Error en la consulta SQL:', error);
+        throw error;
+    });
 }
 
 function PublishOferta(id) {
@@ -501,7 +508,7 @@ module.exports = {
     ReadFromMail,
     storeToken,
     ReadToken,
-    UpdatePassword,
+    updatePassword,
     PublishOferta,
     ReadPublished,
     UpdateOferta,

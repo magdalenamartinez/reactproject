@@ -33,7 +33,7 @@ const sendMail = async (to, subject, html) => {
 };
 
 
-function generateRegistrationEmail(title, subtitle, textBoton) {
+function generateRegistrationEmail(title, subtitle, textBoton, link) {
     return `
       <div style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; color: #333;">
         <h1 style="font-size: 20px; margin-bottom: 20px;">
@@ -44,7 +44,7 @@ function generateRegistrationEmail(title, subtitle, textBoton) {
         </p>
       </div>
       <img src="cid:logo" style="display:block; border-radius:50%; width: 200px; margin: 0 auto; margin-bottom:30px;" alt="Logo de la aplicación"/>
-      <a href='https://frontend-empleoinclusivo.onrender.com' style="
+      <a href=${link? link:'https://frontend-empleoinclusivo.onrender.com'} style="
         display: block;
         background: linear-gradient(to right, #247eab, #611668);
         color: #FFFFFF;

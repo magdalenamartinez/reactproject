@@ -91,46 +91,33 @@ const secretKey = crypto.randomBytes(32).toString('hex');
 // Almacenar token y tiempo de expiración en la base de datos
 //await db.storeResetToken(usuario.id, token, new Date(Date.now() + 3600000)); // 1 hora de expiración
 const url = require('url');
-const nodemailer = require('nodemailer');
-const { DataTypes } = require('sequelize');
-//ahora configuro el transporter
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'empleoinclusivo24@gmail.com',
-        pass: 'uigs gwvj aezg wuij'
-    }
-})
+
+
 router.post('/send-mail', async(req, res) => {
     try {
         const { table, correo } = req.body;
         const id = await db.ReadFromMail(table, correo);
         const token = jwt.sign({ userId: id }, secretKey, { expiresIn: '1h' });
-        //una vez q conseguimos el id guardamos en la base de datos en el cliente:
-        // Token 
-        //Fecha de expiracion, 1h expiracion
         let expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 1);
         const results2 = await db.storeToken(id, token, expirationDate, table);
-        //Ya hemos guardado el token
-        //Ahora creamos el enlace con el token
+        
         const resetLink = url.format({
             protocol: req.protocol,
-            host: req.get('host'),
+            host: 'backend-empleoinclusivo.onrender.com',
             pathname: '/reset-password',
             query: {token: token, t:table},
         });
     
-        //configuro el mensaje a enviar
-        const mailOptions = {
-            from: 'empleoinclusivo24@gmail.com',
-            to: correo,
-            subject: 'Restablecimiento de la Contraseña',
-            html: `Haz click en el siguiente enlace para reestablecer tu contraseña: <a href="${resetLink}">${resetLink}</a>`,
-        };
-        
-        //Envio el correo
-        await transporter.sendMail(mailOptions);
+        const title = `Reestablecimiento de Contraseña`;
+        const subtitle = `Haga Click en el botón para reestablecer<br\> Su Contraseña
+        <br\> Si usted no ha solicitado el reestablecimiento de contraseña póngase en contacto con el <br\> 
+        Servicio Técnico de Empleo Inlusivo`;
+        const textBoton = 'Reestablecer';
+        const htmlText = generateRegistrationEmail(title, subtitle, textBoton, resetLink);     
+        const subject = 'Reestablecer Contraseña'
+        sendMail(correo, subject, htmlText);
+       
         if (results2[0].affectedRows > 0) {
             res.json({success:true, message: 'todo bien'});
         } else {
