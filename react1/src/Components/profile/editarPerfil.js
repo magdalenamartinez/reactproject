@@ -59,12 +59,7 @@ function EditarPerfil() {
     }
 
 
-    useEffect(() => {
-        if (modifiedFields.imageInput === true) {
-            const updatedUserData = { ...userData, image: formValues.imageInput };
-            updateUser(updatedUserData);
-        }
-    }, [modifiedFields.imageInput]);
+
     
     
     const handleSubmit = async (event) => {
@@ -84,6 +79,15 @@ function EditarPerfil() {
         if (modifiedFields.password === true) {
             localStorage.setItem('successPasswordChange', 'true'); 
             handleLogout();
+        }
+        if (modifiedFields.imageInput === true) {
+            let updatedUserData;
+            if (formValues.image === null || formValues.image === '') {
+                updatedUserData = { ...userData, image: null };
+            } else {
+                updatedUserData = { ...userData, image: formValues.image };
+            }
+            updateUser(updatedUserData);
         }
         
     };
