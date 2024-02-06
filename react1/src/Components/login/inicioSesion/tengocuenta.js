@@ -38,7 +38,7 @@ function TengoCuenta() {
         const password = document.getElementById('password').value;
         const result = await handleLogin(event, 'clientes', user, password, recaptchaToken, login, navigate, setTime);
         setLoading(false);
-        if (result.messageType === 'error') {
+        if (result.messageType && result.messageType === 'error') {
           if (result.errorType === 'login') {
              setErrorType(1);
           } else if (result.errorType === 'recaptcha') {
