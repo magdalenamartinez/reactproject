@@ -13,8 +13,8 @@ function Presentacion({userData, formValues, handleC, setDeleteVideo, handleDele
                     <InputTextArea textLabel={"Perfil Personal"} idName={"perfil"} area={'area2'} value={formValues.perfil} onChange={handleC}/>
                 </div>
                 <Video handleDeleteVideo={handleDeleteVideo} onChange={(event) => { handleC(event); InputChange('inputVideo', 'videoPlayer'); setDeleteVideo(false);}}
-                style={{display: userData.video ? 'initial' : 'none'}} style_button={{ display: userData.video ? 'block' : 'none' }}
-                src={userData.video ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.video}` : ''}
+                style={{display: formValues.video ? 'initial' : 'none'}} style_button={{ display: userData.video ? 'block' : 'none' }}
+                src={formValues.video ? `https://backend-empleoinclusivo.onrender.com/uploads/${formValues.video}` : ''}
                 />
             </div>
         </div>
