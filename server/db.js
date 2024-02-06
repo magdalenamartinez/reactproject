@@ -405,7 +405,7 @@ function UpdateOferta(table, data, id) {
 }
 
 
-function getInfo(id, table, token) {
+function getInfo(id, table) {
     return new Promise((resolve, reject) => {
         const columnsToSelect = (table === 'clientes') 
             ? ('id, user, active, name, correo, tlf, image, calle, ciudad, provincia, codpostal,' +
@@ -413,7 +413,7 @@ function getInfo(id, table, token) {
              'curriculumExtension, habilidad, perfil, video, ubi')
             : ('id, user, name, tipo_empresa sector, image, correo, tlf, descripcion,' +
             'cultura, provincia, codpostal, video');
-        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=? AND token=?`, [table, id, token])
+        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=?`, [table, id])
         .then(([rows]) => {
             if(rows.length > 0) {
                 resolve(rows[0]);
@@ -425,13 +425,13 @@ function getInfo(id, table, token) {
     });
 }
 
-function getProfileInfo(id, table, token) {
+function getProfileInfo(id, table) {
     return new Promise((resolve, reject) => {
         const columnsToSelect = (table === 'clientes') 
             ? 'user, image, name, correo, tlf, ciudad, curriculumName, curriculum, video, active'
             : 'user, image, name, tipo_empresa, sector, provincia, codpostal, video';
 
-        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=? AND token=?`, [table, id, token])
+        connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=?`, [table, id])
         .then(([rows]) => {
             if(rows.length > 0) {
                 resolve(rows[0]);

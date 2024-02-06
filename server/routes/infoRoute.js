@@ -10,10 +10,10 @@ router.post('/get-info', async(req, res) => {
         try {
             const isValidToken = await db.verifySessionToken(id, token, table);
             if (isValidToken) {
-                const results = await db.getInfo(id, table, token);
+                const results = await db.getInfo(id, table);
                 res.json({ success: true, data: results});
             } else {
-                res.status(401).json({ error: 'Token de sesión inválido' });
+                res.json({ success: false, number: 0, message: 'Error de recaptcha' });
             }
         } catch (error) {
             console.log('Error al verificar los datos', error);
@@ -34,10 +34,10 @@ router.post('/get-profile', async(req, res) => {
         try {
             const isValidToken = await db.verifySessionToken(id, token, table);
             if (isValidToken) {
-                const results = await db.getProfileInfo(id, table, token);
+                const results = await db.getProfileInfo(id, table);
                 res.json({ success: true, data: results});
             } else {
-                res.status(401).json({ error: 'Token de sesión inválido' });
+                res.json({ success: false, number: 0, message: 'Error de recaptcha' });
             }
         } catch (error) {
             console.log('Error al verificar los datos', error);

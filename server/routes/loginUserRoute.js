@@ -33,7 +33,7 @@ router.post('/try-login', async(req, res) => {
                         user_id: result.id,
                         tableName: req.body.table,
                     };
-                    await db.storeTokenSesion(data);
+                    const storetoken = await db.storeTokenSesion(data);
                     try {
                         const dataUser = await db.getHeaderData(req.body.table, result.id);
                         let type = 2;

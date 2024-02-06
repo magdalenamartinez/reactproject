@@ -27,7 +27,7 @@ const handleLogin = async (event, table, user, password, recaptchaToken, login, 
         } else {
             // Manejar errores de red o de la solicitud
             console.error("Error de red o en la solicitud");
-            return { messageType: 'error', errorType: 'network', time: null };
+            return { messageType: 'error', errorType: 'network'};
         }
         
         
