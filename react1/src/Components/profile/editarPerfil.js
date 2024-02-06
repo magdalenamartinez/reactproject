@@ -58,6 +58,14 @@ function EditarPerfil() {
         handleChange(event, setFormValues, setModifiedFields);
     }
 
+
+    useEffect(() => {
+        if (modifiedFields.imageInput === true) {
+            const updatedUserData = { ...userData, image: formValues.imageInput };
+            updateUser(updatedUserData);
+        }
+    }, [modifiedFields.imageInput]);
+    
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -77,10 +85,7 @@ function EditarPerfil() {
             localStorage.setItem('successPasswordChange', 'true'); 
             handleLogout();
         }
-        if (modifiedFields.imageInput === true) {
-            const updatedUserData = { ...userData, image: formValues.imageInput };
-            updateUser(updatedUserData);
-        }
+        
     };
     
     useEffect(() => {
