@@ -9,7 +9,7 @@ import Login from './header/login.js';
 import { useNavigate } from 'react-router-dom';
 import DropDownAcc from '../dropDown/dropDownAcc.js';
 import { useStyle } from '../styleContext.js';
-
+import getProfile from '../data/getProfile.js';
 function Header2() {
   const navigate = useNavigate();
   const {style} = useStyle();
