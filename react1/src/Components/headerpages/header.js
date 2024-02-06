@@ -11,6 +11,7 @@ import Login from './header/login.js';
 import { useNavigate } from 'react-router-dom';
 import DropDownAcc from '../dropDown/dropDownAcc.js';
 import { useStyle } from '../styleContext.js';
+import getFoto from '../data/getFoto.js';
 
 function Header2() {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ function Header2() {
     useEffect(() => {
       const stored = async() => {
         const tableName = (userData.typeUser === 1) ? 'clientes':'empresas';
-          if (userData && !data) {
+          if (userData && !foto) {
               await getFoto(userData.id, tableName, setFoto, userData.token);
               setStored(true);
           }

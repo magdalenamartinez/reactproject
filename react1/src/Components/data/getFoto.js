@@ -1,4 +1,4 @@
-const getProfile = async(id, tableName, setFoto, token) => {
+const getFoto = async(id, tableName, setFoto, token) => {
     try {
         const response = await fetch('https://backend-empleoinclusivo.onrender.com/infoRoute/get-foto', {
             method: 'POST',
@@ -18,4 +18,4 @@ const getProfile = async(id, tableName, setFoto, token) => {
     }
 }
 
-export default getProfile;
+export default getFoto;
