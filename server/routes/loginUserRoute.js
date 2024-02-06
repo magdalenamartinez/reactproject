@@ -28,7 +28,12 @@ router.post('/try-login', async(req, res) => {
                 if (isPasswordValid && result.block === 0) {
                     await db.RestoreAttemps(result.id, req.body.table);
                     const token = jwt.sign({ userId: result.id }, secretKey, { expiresIn: '1h' });
-                    const tokenSaved = await db.storeTokenSesion(result.id, token, req.body.table);
+                    const data = {
+                        token: token,
+                        user_id: result.id,
+                        tableName: req.body.table,
+                    };
+                    await db.storeTokenSesion(data);
                     try {
                         const dataUser = await db.getHeaderData(req.body.table, result.id);
                         let type = 2;

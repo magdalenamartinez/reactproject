@@ -5,14 +5,16 @@ const router = express.Router();
 
 
 router.post('/get-info', async(req, res) => {
-    id = req.body.id;
-    table = req.body.table;
-    token = req.body.token;
-    if (id) {
+    const { id, table, token } = req.body;
+    if (id && table && token) {
         try {
-            const results = await db.getInfo(id, table, token);
-            res.json({ success: true, data: results});
-
+            const isValidToken = await db.verifySessionToken(id, token, table);
+            if (isValidToken) {
+                const results = await db.getInfo(id, table, token);
+                res.json({ success: true, data: results});
+            } else {
+                res.status(401).json({ error: 'Token de sesión inválido' });
+            }
         } catch (error) {
             console.log('Error al verificar los datos', error);
             res.status(500).json({error: 'Error Interno Del Servidor'});
@@ -27,15 +29,16 @@ router.post('/get-info', async(req, res) => {
 
 
 router.post('/get-profile', async(req, res) => {
-    id = req.body.id;
-    table = req.body.table;
-    token = req.body.token;
-    console.log(id, token, table, 'infooo');
-    if (id) {
+    const { id, table, token } = req.body;
+    if (id && table && token) {
         try {
-            const results = await db.getProfileInfo(id, table, token);
-            res.json({ success: true, data: results});
-                
+            const isValidToken = await db.verifySessionToken(id, token, table);
+            if (isValidToken) {
+                const results = await db.getProfileInfo(id, table, token);
+                res.json({ success: true, data: results});
+            } else {
+                res.status(401).json({ error: 'Token de sesión inválido' });
+            }
         } catch (error) {
             console.log('Error al verificar los datos', error);
             res.status(500).json({error: 'Error Interno Del Servidor'});

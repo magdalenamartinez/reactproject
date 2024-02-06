@@ -262,10 +262,9 @@ function storeToken (id, token, expirationDate, table) {
 
 }
 
-function storeTokenSesion(id, token, table) {
-    return connection.promise().query('UPDATE ?? SET token = ? WHERE id = ?', [table, token, id]);
+function storeTokenSesion(data) {
+    return connection.promise().query('INSERT INTO session_tokens SET ?', data);
 }
-
 
 function Create(table, data) {
     return new Promise((resolve, reject) => {
@@ -293,6 +292,15 @@ function getHeaderData(table, id) {
     });
 }
 
+async function verifySessionToken(userId, token, tableName) {
+    try {
+        const [rows] = await connection.promise().query('SELECT * FROM session_tokens WHERE user_id = ? AND token = ? AND tableName = ?', [userId, token, tableName]);
+        return rows.length > 0;
+    } catch (error) {
+        console.error('Error al verificar el token de sesión:', error);
+        throw error;
+    }
+}
 
 
 function Delete(table, id) {
@@ -514,4 +522,5 @@ module.exports = {
     RestoreAttemps,
     blockAccount,
     unlockAccount,
+    verifySessionToken,
 }

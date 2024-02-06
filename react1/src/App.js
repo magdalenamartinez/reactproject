@@ -7,6 +7,8 @@ import Footer from './Components/headerpages/footer.js';
 import Spinner from './Components/spinner.js';
 import { StyleProvider } from './Components/styleContext.js';
 import { useStyle } from './Components/styleContext.js';
+import { useUser } from './Components/funcionalidades/userContext.js';
+import ProtectedRoute from './protectedroute.js';
 
 const Index = lazy(() => import('./Components/headerpages/index.js'));
 const BusquedaDeEmpleo = lazy(() => import('./Components/headerpages/busquedaempleo.js'));
@@ -31,6 +33,7 @@ const BusquedaEmpleados = lazy(() => import('./Components/headerpages/busquedaEm
 const FavoritosEmpresa = lazy(() => import('./Components/fav/favoritosEmpresa.js'));
 
 function App() {
+  const {userData, logout} = useUser();
   const { style } = useStyle();
   const isLargeFont = style.font && style.fontSize > 20;
   const bodyStyle = {
@@ -38,33 +41,43 @@ function App() {
     overflowX: isLargeFont? `scroll` : 'hidden',
     // ... (other styles)
   };
+
   return (
     <div style={bodyStyle} className={`${style.highContrast ? 'contrast' : ''}  ${style.darkMode ? 'dark' : ''} ${(!style.highContrast && !style.darkMode ? 'body' : '')}`}>
     <Router>
       <Header2 />
       <Suspense fallback={<Spinner/>}>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/tengoCuenta" element={<TengoCuenta />} />
+        <Route path="/" element={<Index />} />
+          {/*RUTAS PROTEGIDAS SESION INICIADA*/}
+          <Route element={<ProtectedRoute redirectPath="/" condition={userData === null}/>}>
+             <Route path="/tengoCuenta" element={<TengoCuenta />} />
+             <Route path="/registroEmpresas" element={<RegistroEmpresa />} />
+             <Route path="/registroUsuario" element={<RegistroUsuario />} />
+             <Route path="/inicioSesion" element={<InicioSesion />} />
+             <Route path="/inicioSesionEmpresa" element={<InicioSesionEmpresa />} />
+             <Route path="/paraempresas" element={<ParaEmpresas />} />
+             <Route path="/forgotPassword" element={<ForgotPassword />} />
+          </Route>
+          {/*RUTAS SOLO PARA SESION INICIADA DE EMPRESA*/}
+          <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 2}/>}>
+            <Route path="/editarPerfilEmpresa" element={<EditarPerfilEmpresa />} />
+            <Route path="/favoritosEmpresa" element={<FavoritosEmpresa />} />
+            <Route path="/perfilEmpresa" element={<EnterpriseProfile />} />
+            <Route path="/registroOfertaTrabajo" element={<RegistroOferta />} />
+            <Route path="/ofertasCreadas" element={<OfertasCreadas />} />
+            <Route path="/editOferta" element={<EditOferta />} />
+            <Route path="/buscarEmpleados" element={<BusquedaEmpleados />} />
+            <Route path="/estadisticasPerfil" element={<Estadisticas />} />
+          </Route>
+          {/*RUTAS SOLO PARA SESION INICIADA DE CLIENTE*/}
+          <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 1}/>}>
+            <Route path="/perfilUsuario" element={<UserProfile />} /> 
+            <Route path="/misFavoritos" element={<MisFavoritos />} />
+            <Route path="/editarPerfil" element={<EditarPerfil />} />
+          </Route>
           <Route path="/busquedadeempleo" element={<BusquedaDeEmpleo />} />
-          <Route path="/paraempresas" element={<ParaEmpresas />} />
-          <Route path="/registroEmpresas" element={<RegistroEmpresa />} />
-          <Route path="/registroUsuario" element={<RegistroUsuario />} />
-          <Route path="/inicioSesion" element={<InicioSesion />} />
-          <Route path="/inicioSesionEmpresa" element={<InicioSesionEmpresa />} />
-          <Route path="/perfilUsuario" element={<UserProfile />} />
-          <Route path="/editarPerfil" element={<EditarPerfil />} />
-          <Route path="/editarPerfilEmpresa" element={<EditarPerfilEmpresa />} />
-          <Route path="/perfilEmpresa" element={<EnterpriseProfile />} />
-          <Route path="/misFavoritos" element={<MisFavoritos />} />
-          <Route path="/favoritosEmpresa" element={<FavoritosEmpresa />} />
-          <Route path="/estadisticasPerfil" element={<Estadisticas />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/registroOfertaTrabajo" element={<RegistroOferta />} />
-          <Route path="/ofertasCreadas" element={<OfertasCreadas />} />
-          <Route path="/editOferta" element={<EditOferta />} />
-          <Route path="/buscarEmpleados" element={<BusquedaEmpleados />} />
         </Routes>
       </Suspense>
       <Footer />
