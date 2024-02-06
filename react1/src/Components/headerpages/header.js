@@ -30,6 +30,9 @@ function Header2() {
   const [favoritos, setFavoritos] = useState("");
   const [smallScreenMenuVisible, setSmallScreenMenuVisible] = useState(false);
 
+  const [foto, setFoto] = useState(null);
+  const [isStored, setStored] = useState(false);
+
   const {userData, logout} = useUser();
 
 
@@ -58,6 +61,21 @@ function Header2() {
 
     }, []);
 
+
+    useEffect(() => {
+      const stored = async() => {
+        const tableName = (userData.typeUser === 1) ? 'clientes':'empresas';
+          if (userData && !data) {
+              await getFoto(userData.id, tableName, setFoto, userData.token);
+              setStored(true);
+          }
+      }
+      if (!isStored) {
+          stored();
+      }
+  }, [foto]);
+
+
     const handleMenuEI = () => {
       if (window.innerWidth <= 1000) {
         setSmallScreenMenuVisible(!smallScreenMenuVisible);
@@ -81,7 +99,7 @@ function Header2() {
         <HeaderComponent dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI} smallScreenMenuVisible={smallScreenMenuVisible} 
         setSmallScreenMenuVisible={setSmallScreenMenuVisible} cliente={true}/>
         <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
-        userExist={true} sesionLink={"#"} textInicioSesion={`Hola ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
+        userExist={true} sesionLink={"#"} textInicioSesion={`Hola ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${data.image}`:'/images/user.png'}/>
         <div ref={dropDownRef}> 
             <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={handleLogout} favoritos={'/misFavoritos'} setDropDown={setDropDown}/> 
         </div>
@@ -99,7 +117,7 @@ function Header2() {
         <HeaderComponent dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI} smallScreenMenuVisible={smallScreenMenuVisible} 
         setSmallScreenMenuVisible={setSmallScreenMenuVisible} empresa={true}/>
         <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
-        userExist={true} sesionLink={"#"} textInicioSesion={`Cuenta de ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
+        userExist={true} sesionLink={"#"} textInicioSesion={`Cuenta de ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${data.image}`:'/images/user.png'}/>
         <div ref={dropDownRef}> 
             <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={'/perfilEmpresa'} logout={handleLogout} favoritos={'/favoritosEmpresa'} setDropDown={setDropDown}/> 
         </div>

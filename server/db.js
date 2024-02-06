@@ -122,7 +122,7 @@ function ReadFromMail(table, correo) {
             if (rows.length > 0 && rows[0].id) {
                 return parseInt(rows[0].id, 10);
             } else {
-                return null; // O algún valor por defecto si es apropiado
+                return null;
             }
         })
         .catch(error => {
@@ -414,6 +414,21 @@ function getInfo(id, table) {
             : ('id, user, name, tipo_empresa sector, image, correo, tlf, descripcion,' +
             'cultura, provincia, codpostal, video');
         connection.promise().query(`SELECT ${columnsToSelect} FROM ?? WHERE id=?`, [table, id])
+        .then(([rows]) => {
+            if(rows.length > 0) {
+                resolve(rows[0]);
+            }
+        })
+        .catch(error => {
+            reject(error);
+        })
+    });
+}
+
+
+function getFoto(id, table) {
+    return new Promise((resolve, reject) => {
+        connection.promise().query(`SELECT image FROM ?? WHERE id=?`, [table, id])
         .then(([rows]) => {
             if(rows.length > 0) {
                 resolve(rows[0]);
