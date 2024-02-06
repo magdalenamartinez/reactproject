@@ -13,7 +13,7 @@ const updateData = async(formData, table, navigate, userData, updateUser) => {
                     if (responseData.dataNew === null || responseData.dataNew === '') {
                         updatedUserData = { ...userData, image: null };
                     } else {
-                        updatedUserData = { ...userData, image: dataNew };
+                        updatedUserData = { ...userData, image: responseData.dataNew };
                     }
                     updateUser(updatedUserData);
                 navigate(navigation);
