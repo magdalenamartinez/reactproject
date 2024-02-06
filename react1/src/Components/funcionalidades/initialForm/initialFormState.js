@@ -8,7 +8,7 @@ const useInitialFormState = (userData) => {
         password2:'',
         tlf:'',
         image:"/images/uploadimage2.png",
-        curriculum:'',
+        curriculum:null,
         curriculumName:'',
         calle:'',
         ciudad:'',
@@ -23,7 +23,7 @@ const useInitialFormState = (userData) => {
         habilidad:'',
         perfil:'',
         distancia:'0',
-        video:'',
+        video:null,
     };
 
 const [formValues, setFormValues] = useState(initialState);
@@ -37,8 +37,8 @@ useEffect(() => {
             password: userData.password || '',
             password2: userData.password || '',
             tlf: userData.tlf || '',
-            image: (userData.image !== '')? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "/images/uploadimage2.png",
-            curriculum: (userData.curriculum !== '')? `https://backend-empleoinclusivo.onrender.com/download/${userData.curriculum}` : '',
+            image: (userData.image && userData.image !== '')? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "/images/uploadimage2.png",
+            curriculum: (userData.curriculum && userData.curriculum !== '')? `https://backend-empleoinclusivo.onrender.com/download/${userData.curriculum}` : null,
             curriculumName: userData.curriculumName || '',
             calle: userData.calle || '',
             ciudad: userData.ciudad || '',
@@ -53,7 +53,7 @@ useEffect(() => {
             habilidad: userData.habilidad || '',
             perfil: userData.perfil || '',
             distancia: userData.ubi || "0",
-            video: (userData.video != '')? userData.video : null,
+            video: (userData.video && userData.video != '')? userData.video : null,
         }));
     }
 }, [userData]);
