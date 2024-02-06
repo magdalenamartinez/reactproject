@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import '../../css/header.css';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import DropDownMenu from '../dropDown/dropDownMenu.js';
 import { useRef } from 'react';
@@ -11,7 +9,6 @@ import Login from './header/login.js';
 import { useNavigate } from 'react-router-dom';
 import DropDownAcc from '../dropDown/dropDownAcc.js';
 import { useStyle } from '../styleContext.js';
-import getFoto from '../data/getFoto.js';
 
 function Header2() {
   const navigate = useNavigate();
