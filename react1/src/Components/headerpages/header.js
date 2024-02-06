@@ -28,10 +28,6 @@ function Header2() {
   const [favoritos, setFavoritos] = useState("");
   const [smallScreenMenuVisible, setSmallScreenMenuVisible] = useState(false);
 
-
-  const [isStored, setStored] = useState(false);
-  const [data, setData] = useState(null);
-
   const {userData, logout} = useUser();
 
 

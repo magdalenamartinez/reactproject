@@ -15,6 +15,12 @@ export const UserProvider = ({ children }) => {
     Cookies.remove('userData');
     
   };
+  
+  const updateUser = (newUserData) => {
+    setUserData(newUserData);
+    Cookies.set('userData', JSON.stringify(newUserData), { secure: true, sameSite: 'strict', expires: 1});
+  };
+
 
   useEffect(() => {
     const storedUserData = Cookies.get('userData');
@@ -24,7 +30,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userData, login, logout }}>
+    <UserContext.Provider value={{ userData, login, logout, updateUser }}>
       {children}
     </UserContext.Provider>
   );

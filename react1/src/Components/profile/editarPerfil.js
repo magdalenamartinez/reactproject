@@ -21,7 +21,7 @@ import Spinner from '../spinner.js';
 import { useStyle } from '../styleContext.js';
 import getProfile from '../data/getProfile.js';
 function EditarPerfil() {
-    const {userData, logout} = useUser();
+    const {userData, logout, updateUser} = useUser();
     const navigate = useNavigate();
     const [isStored, setStored] = useState(false);
     const [data, setData] = useState(null);
@@ -76,6 +76,10 @@ function EditarPerfil() {
         if (modifiedFields.password === true) {
             localStorage.setItem('successPasswordChange', 'true'); 
             handleLogout();
+        }
+        if (modifiedFields.imageInput === true) {
+            const updatedUserData = { ...userData, image: formValues.imageInput };
+            updateUser(updatedUserData);
         }
     };
     
