@@ -32,7 +32,7 @@ const useInitialOfertState = (ofertaData) => {
                 titulo_oferta:  ofertaData.titulo_oferta || '',
                 descripcion_oferta:  ofertaData.descripcion_oferta || '',
                 fechaInicio:  new Date(ofertaData.fechaInicio).toISOString().split('T')[0] || '',
-                image:  `https://backend-empleoinclusivo.onrender.com/${ofertaData.image}` || "/images/uploadimage2.png",
+                image:  `https://backend-empleoinclusivo.onrender.com//uploads/${ofertaData.image}` || "/images/uploadimage2.png",
                 salario:  ofertaData.salario || '',
                 provincia:  ofertaData.provincia || '',
                 codpostal:  ofertaData.codpostal || '',

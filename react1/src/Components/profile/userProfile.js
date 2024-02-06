@@ -40,7 +40,7 @@ function UserProfile() {
             const fileName = data.curriculumName;
             setFile(fileName);
             const url = data.curriculum ? `https://backend-empleoinclusivo.onrender.com/download/${data.curriculum}` : '';
-            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}` : "../images/user.png";
+            const srcImg = (userData.image) ? `https://backend-empleoinclusivo.onrender.com/uploads/${data.image}` : "../images/user.png";
             setUrl(url);
             setImg(srcImg);
             setIsSearching(data.active);
