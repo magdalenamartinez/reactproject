@@ -426,19 +426,6 @@ function getInfo(id, table) {
 }
 
 
-function getFotoDB(id, table) {
-    return new Promise((resolve, reject) => {
-        connection.promise().query(`SELECT image FROM ?? WHERE id=?`, [table, id])
-        .then(([rows]) => {
-            if(rows.length > 0) {
-                resolve(rows[0].image);
-            }
-        })
-        .catch(error => {
-            reject(error);
-        })
-    });
-}
 
 function getProfileInfo(id, table) {
     return new Promise((resolve, reject) => {
