@@ -1,5 +1,7 @@
 import getRoutesAndNavigation from "./routes";
+import { useUser } from "../funcionalidades/userContext";
 const updateData = async(formData, table, navigate) => {
+    const {userData, updateUser} = useUser();
     const { route, navigation } = getRoutesAndNavigation(table);
     try {
         const response = await fetch(route, {
@@ -9,6 +11,15 @@ const updateData = async(formData, table, navigate) => {
         if (response.ok) {
             const responseData = await response.json();
             if (responseData.success) {
+                if (formData.get('modifiedFields').includes('image')) {
+                    let updatedUserData;
+                    if (responseData.image === null || responseData.image === '') {
+                        updatedUserData = { ...userData, image: null };
+                    } else {
+                        updatedUserData = { ...userData, image: responseData.image };
+                    }
+                    updateUser(updatedUserData);
+                }
                 navigate(navigation);
             } else {
                 document.getElementById("messageError").classList.remove('hidden');
