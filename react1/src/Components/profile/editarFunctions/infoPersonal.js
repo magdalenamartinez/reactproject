@@ -32,7 +32,7 @@ const InfopersonalForm = ({ userData, formValues, handleC, handleDeleteImage, se
                     textLabel={"Número de Teléfono"}
                     value={formValues.tlf} onChange={handleC}/>
                 </div>
-                <Foto onChange={(event) => {handleC(event); InputChange2('imageInput', 'imageShoww'); setDeleteImage(false);}} style={{display: formValues.image ? 'initial' : 'none'}} handleDeleteImage={handleDeleteImage} src={formValues.image}/>
+                <Foto onChange={(event) => {handleC(event); InputChange2('imageInput', 'imageShoww'); setDeleteImage(false);}} style={{display: userData.image ? 'initial' : 'none'}} handleDeleteImage={handleDeleteImage} src={formValues.image}/>
               </div>
             <ErrorMessage hidden={"hidden"}/>                    
         </div>
