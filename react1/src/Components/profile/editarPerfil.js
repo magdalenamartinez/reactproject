@@ -19,7 +19,7 @@ import updateData from './updateData.js';
 import deleteVideoFunction from './funciones/deleteVideo.js';
 import Spinner from '../spinner.js';
 import { useStyle } from '../styleContext.js';
-
+import getProfile from '../data/getProfile.js';
 function EditarPerfil() {
     const {userData, logout} = useUser();
     const navigate = useNavigate();
