@@ -538,4 +538,5 @@ module.exports = {
     blockAccount,
     unlockAccount,
     verifySessionToken,
+    getFoto
 }

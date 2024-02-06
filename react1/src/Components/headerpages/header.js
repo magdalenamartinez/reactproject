@@ -65,16 +65,18 @@ function Header2() {
 
     useEffect(() => {
       const stored = async() => {
-        const tableName = (userData.typeUser === 1) ? 'clientes':'empresas';
+        if (userData) {
+           const tableName = (userData.typeUser === 1) ? 'clientes':'empresas';
           if (userData && !foto) {
               await getFoto(userData.id, tableName, setFoto, userData.token);
               setStored(true);
           }
-      }
-      if (!isStored) {
+        }
+        }
+      if (!isStored && userData) {
           stored();
       }
-  }, [foto]);
+  }, [foto, userData]);
 
 
     const handleMenuEI = () => {
