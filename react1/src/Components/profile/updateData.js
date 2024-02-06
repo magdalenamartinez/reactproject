@@ -1,7 +1,5 @@
 import getRoutesAndNavigation from "./routes";
-import { useUser } from "../funcionalidades/userContext";
-const updateData = async(formData, table, navigate) => {
-    const {userData, updateUser} = useUser();
+const updateData = async(formData, table, navigate, userData, updateUser) => {
     const { route, navigation } = getRoutesAndNavigation(table);
     try {
         const response = await fetch(route, {

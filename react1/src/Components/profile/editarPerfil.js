@@ -75,20 +75,12 @@ function EditarPerfil() {
         formData.append('deleteVideo', deleteVideo);
         formData.append('modifiedFields', JSON.stringify(modifiedFields));
         
-        await updateData(formData, 'clientes', navigate);
+        await updateData(formData, 'clientes', navigate, userData, updateUser);
         if (modifiedFields.password === true) {
             localStorage.setItem('successPasswordChange', 'true'); 
             handleLogout();
         }
-        if (modifiedFields.imageInput === true) {
-            let updatedUserData;
-            if (formValues.image === null || formValues.image === '') {
-                updatedUserData = { ...userData, image: null };
-            } else {
-                updatedUserData = { ...userData, image: formValues.image };
-            }
-            updateUser(updatedUserData);
-        }
+       
         
     };
     
