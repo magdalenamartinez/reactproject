@@ -22,7 +22,7 @@ import { useStyle } from '../styleContext.js';
 
 function EditarPerfilEmpresa() {
     const navigate = useNavigate();
-    const {userData, logout} = useUser();
+    const {userData, logout, updateUser} = useUser();
     const [data, setData] = useState(null);
     const [isStored, setStored] = useState(false);
     
@@ -60,7 +60,7 @@ function EditarPerfilEmpresa() {
         formData.append('deleteImage', deleteImage);
         formData.append('deleteVideo', deleteVideo);
 
-        await updateData(formData, 'empresas', navigate);
+        await updateData(formData, 'empresas', navigate, userData, updateUser);
         if (modifiedFields.password === true) {
             localStorage.setItem('successPasswordChange', 'true'); 
             handleLogout();

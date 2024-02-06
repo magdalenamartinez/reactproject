@@ -15,7 +15,7 @@ const EducacionForm = ({userData, formValues, handleC, handleDeleteCurriculum, s
                     <Input textLabel={"Institución"} idName={"institucion"} value={formValues.institucion} onChange={handleC}/>
                 </div>
                 <Curriculum handleDeleteCurriculum={handleDeleteCurriculum} onChange={(event) => { handleC(event); InputChange3('curriculumInput', 'linkDownload'); setDeleteCurriculum(false);}}
-                href={`${formValues.curriculum}?curriculumName=${formValues.curriculumName}`}
+                href={`${userData.curriculum}?curriculumName=${userData.curriculumName}`}
                 style={{ display: userData.curriculum ? 'block' : 'none' }}/>
             </div>
         </div>
