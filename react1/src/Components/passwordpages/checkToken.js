@@ -1,23 +1,18 @@
-    const checkToken = async(token, id, tableName) => {
-
-        try {
-            if (token) {
-                const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-token?token=${token}&table=${tableName}&id=${id}`);
-                if (res.ok) {
-                    const response = await res.json();
-                    if (response === true) {
-                        return true;
-                    } else {
-                        return null;
-                    }
-                } else {
-                    return null;
-                }
-            }
-
-        } catch (error) {
-            console.error('Error al verificar el correo:', error);
+const checkTokenValidity = async (token, tableName) => {
+    try {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-token', 
+        {method:'POST', headers: {'Content-Type': 'application/json',}, 
+        body: JSON.stringify({token:token, table: tableName}),});
+        if (response.ok) {
+            return true;
+        } else {
+            return false;
         }
-    };
+      
+    } catch (error) {
+        console.error('Error while verifying token:', error);
+        return { success: false, error: error.message };
+    }
+};
 
-    export default checkToken;
+export default checkTokenValidity;

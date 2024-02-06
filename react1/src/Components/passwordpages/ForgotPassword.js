@@ -51,13 +51,12 @@ function ForgotPassword () {
         const correo = document.getElementById('correo').value;
        if (getExistsMail() === true) {
         try {
-            const response = await fetch('https://backend-empleoinclusivo.onrender.com/loginUserRoute/send-mail', 
+            const response = await fetch('/loginUserRoute/send-mail', 
             {method:'POST', headers: {'Content-Type': 'application/json',}, 
             body: JSON.stringify({correo:correo, table: tableName}),});
             if (response.ok) {
                 const responseData = await response.json();
                 if (responseData.success) {
-                    //Se ha podido enviar el mail
                     localStorage.setItem('successSendMail', 'true');
                     navigate('/');
                 } else {    
