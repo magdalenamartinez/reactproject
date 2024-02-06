@@ -426,7 +426,7 @@ function getInfo(id, table) {
 }
 
 
-function getFoto(id, table) {
+function getFotoDB(id, table) {
     return new Promise((resolve, reject) => {
         connection.promise().query(`SELECT image FROM ?? WHERE id=?`, [table, id])
         .then(([rows]) => {
@@ -538,5 +538,5 @@ module.exports = {
     blockAccount,
     unlockAccount,
     verifySessionToken,
-    getFoto
+    getFotoDB,
 }

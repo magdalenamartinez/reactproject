@@ -58,7 +58,7 @@ router.post('/get-foto', async(req, res) => {
         try {
             const isValidToken = await db.verifySessionToken(id, token, table);
             if (isValidToken) {
-                const results = await db.getFoto(id, table);
+                const results = await db.getFotoDB(id, table);
                 res.json({ success: true, data: results});
             } else {
                 res.json({ success: false, number: 0, message: 'Error de recaptcha' });
