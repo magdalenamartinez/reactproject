@@ -89,7 +89,8 @@ const ResetPassword = () => {
         <div>
             <div className={` contenedor contenedor_password ${st.fondoContrast} ${st.fondoDark}`}>
                 <p className="paragraph_error hidden" style={{backgroundColor:'#611668'}} id="servererror">Se ha producido un error al guardar la contraseña, vuelva a intentarlo. </p>
-            <form className="formulario" id="form_id" method="post" action="/changePasswordRoute/change-password" onSubmit={handleSubmit} onInput={ValidateFormulary(fieldsPass)} encType='multipart/form-data'>
+                <div className="formulario">
+            <form  id="form_id" method="post" action="/changePasswordRoute/change-password" onSubmit={handleSubmit} onInput={() =>ValidateFormulary(fieldsPass)} encType='multipart/form-data'>
                 <h1 className="title_container">Reestablecer Contraseña</h1>
                 <p className="form_label">Introduzca su nueva contraseña</p>
                 <div className="form_group" id="password_group">
@@ -121,7 +122,7 @@ const ResetPassword = () => {
                 <button className="form_button" type="submit">Cambiar Contraseña</button>
                 </form>
             </div>
-        </div>
+        </div></div>
     );};
 };
 
