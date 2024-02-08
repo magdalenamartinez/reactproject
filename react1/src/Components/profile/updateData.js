@@ -9,13 +9,14 @@ const updateData = async(formData, table, navigate, userData, updateUser) => {
         if (response.ok) {
             const responseData = await response.json();
             if (responseData.success) {
+                    if (userData) {
                     let updatedUserData;
                     if (responseData.dataNew === null || responseData.dataNew === '') {
                         updatedUserData = { ...userData, image: null };
                     } else {
                         updatedUserData = { ...userData, image: responseData.dataNew };
                     }
-                    updateUser(updatedUserData);
+                    updateUser(updatedUserData);}
                 navigate(navigation);
             } else {
                 document.getElementById("messageError").classList.remove('hidden');
