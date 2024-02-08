@@ -52,7 +52,7 @@ function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken,
                     {errorType === 3 && <p className={`paragraph_error ${st.botonContrast}`} id="parr3">Su cuenta ha sido bloqueada durante {time} minutos tras superar el número máximo de intentos permitos</p>}
                 </div>
                 <div className="forgot">
-                    <button className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={handleForgotPassword}>{textPassword}</button>
+                    <button type="button" className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={handleForgotPassword}>{textPassword}</button>
                 </div>
                 <div className="forgot">
                     <button type="button" className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={()=>setAdmin(!admin)}>{admin? 'No soy Admin' : 'Admin'}</button>

@@ -3,19 +3,21 @@ import "../../css/dropdown.css";
 import DropDownItem from "./dropDownItem.js";
 import { useNavigate } from 'react-router-dom';
 
-function DropDownMenu({ openclass, profile, logout, favoritos}) {
+function DropDownMenu({ openclass, profile, logout, favoritos, admin}) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
       logout();
       navigate("/");
   }
-     
+        
   return (
     <div className={openclass} id="drop_menu">
       <ul className="list_drop_down">
+      {!admin && <>
       <DropDownItem link={profile} icon={"icons_class fa-solid fa-user"} text="Ver Perfil"/>
       <DropDownItem link={favoritos} icon={"icons_class fa-solid fa-heart"} text="Ver Favoritos" />
+      </>}
         <li className="dropDownItem">
             <i className="icons_class fa-solid fa-right-from-bracket"></i>
             <span onClick={handleLogout} className="link_drop">Cerrar Sesión</span>
