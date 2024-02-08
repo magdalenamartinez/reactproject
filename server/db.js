@@ -331,7 +331,7 @@ function Delete(table, id) {
     return connection.promise().query('DELETE FROM ?? WHERE id = ?', [table, id]);
 }
 
-function Delete(id) {
+function DeleteByIdEmpresa(id) {
     return connection.promise().query('DELETE FROM oferta_empleo WHERE id_empresa = ?', [id]);
 }
 
@@ -694,4 +694,5 @@ module.exports = {
     countOfertas,
     ReadAllNombre,
     RemoveFavById,
+    DeleteByIdEmpresa
 }
