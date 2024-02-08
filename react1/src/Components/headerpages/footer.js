@@ -1,4 +1,6 @@
 import { useStyle } from '../styleContext';
+import { useUser } from '../funcionalidades/userContext';
+
 function Footer() {
   const {style} = useStyle();
 
@@ -6,7 +8,7 @@ function Footer() {
         fondoContrast: style.highContrast ? 'blackfooter' : '',
         fondoDark: style.darkMode ? 'darkFooter':'',
       };
-
+      const {userData} = useUser();
     return(
         <footer className={`footer_class ${st.fondoContrast} ${st.fondoDark}${(userData && userData.typeUser === 3)? 'hidden':''}`}>
                 <div className='comun footercomun'>
