@@ -6,7 +6,7 @@ import ValidateFormulary from "../../funcionalidades/formulario";
 import Usuario from "../registro/usuario";
 import InputValidation from "../input/InputValidation";
 import Correo from "../registro/correo";
-import password_visibility from "../../funcionalidades/password";Oświęcim, Polonia
+import password_visibility from "../../funcionalidades/password";
 import { fieldsAdmin } from "../../funcionalidades/load/load";
 import ErrorMessage from "../registro/errorMessage";
 import updateData from "../../profile/updateData";
