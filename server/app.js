@@ -3,6 +3,9 @@ const mysql = require('mysql2'); // Importa la versión de la biblioteca que sop
 const config = require('./config');
 const path = require('path');
 const db = require('./db.js');
+const crypto = require('crypto');
+const { sendMail, generateRegistrationEmail } = require('./routes/sendmail');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 
