@@ -118,6 +118,9 @@ router.post('/admin-delete', async function(req, res) {
   try {
   const result = db.checkAdmin(id, token);
   if (result) {
+    if (req.body.table === 'empresas') {
+      await db.DeleteByIdEmpresa(req.body.id);
+  }
     const deleteResult = await db.Delete(table, id_delete);
     if (deleteResult.affectedRows > 0) {
       if (result.affectedRows > 0) {
