@@ -10,7 +10,7 @@ connection.connect(function(error) {
   
     console.log('CONEXION EXITOSA');  
 });
-//CRUD
+
 
 
 function ReadAll(table) {
@@ -75,6 +75,18 @@ function AddToFav(id, select_id, table) {
 function RemoveFromFav(id, select_id, table) {
     return new Promise((resolve, reject) => {
         connection.query('DELETE FROM ?? WHERE ID_User=? AND ID_Selected=?', [table, id, select_id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+function RemoveFavById(table, select_id) {
+    return new Promise((resolve, reject) => {
+        connection.query('DELETE FROM ?? WHERE ID_Selected=?', [table, select_id], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -319,6 +331,10 @@ function Delete(table, id) {
     return connection.promise().query('DELETE FROM ?? WHERE id = ?', [table, id]);
 }
 
+function Delete(id) {
+    return connection.promise().query('DELETE FROM oferta_empleo WHERE id_empresa = ?', [id]);
+}
+
 function getUserData(username, table) {
     return new Promise((resolve, reject) => {
         connection.promise().query('SELECT * FROM ?? WHERE user=?', [table, username])
@@ -501,7 +517,10 @@ function unlockAccount(table, id) {
 
 function Read_Ofertas_id(table, id) {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ?? WHERE id_empresa=?`,[table, id], function(error, results) {
+        connection.query(`SELECT oferta_empleo.*, empresas.name AS
+        nombre_empresa FROM ?? JOIN empresas ON oferta_empleo.id_empresa
+        = empresas.id WHERE oferta_empleo.id_empresa=?`,
+        [table, id], function(error, results) {
             if (error) {
                 reject(error);
             } else {
@@ -510,6 +529,8 @@ function Read_Ofertas_id(table, id) {
         });
     });
 }
+
+
 
 async function getNumberOfertsByDay() {
     try {
@@ -671,5 +692,6 @@ module.exports = {
     countClientes,
     countEmpresas, 
     countOfertas,
-    ReadAllNombre
+    ReadAllNombre,
+    RemoveFavById,
 }

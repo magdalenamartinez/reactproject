@@ -129,6 +129,8 @@ router.post('/operation-ofertas', async(req, res)  => {
                 const subject = 'Publicación de Oferta de Empleo'
                 sendMail(correo, subject, htmlText)
             }
+        } else {
+            await db.RemoveFavById('favoritos',id_oferta);
         }
           res.json({ success: true, data: results});
       } else {

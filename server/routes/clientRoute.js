@@ -199,6 +199,8 @@ router.post('/change-active', async(req, res) => {
           const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
           const subject = 'Perfil Activado'
           sendMail(result.correo, subject, htmlText)
+        } else {
+          await db.RemoveFavById('favoritosempresa', id);
         }
         res.json({ success: true});
 

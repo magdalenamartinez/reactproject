@@ -5,6 +5,9 @@ const router = express.Router();
 
 router.post('/delete-data', async(req, res) => {
     try {
+        if (req.body.table === 'empresas') {
+            await db.DeleteByIdEmpresa(req.body.id);
+        }
         const results = await db.Delete(req.body.table, req.body.id);
         if (results[0].affectedRows > 0) {
             console.log('hola');
