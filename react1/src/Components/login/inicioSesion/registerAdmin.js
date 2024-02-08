@@ -6,7 +6,7 @@ import ValidateFormulary from "../../funcionalidades/formulario";
 import Usuario from "../registro/usuario";
 import InputValidation from "../input/InputValidation";
 import Correo from "../registro/correo";
-import password_visibility from "../../funcionalidades/password";
+import password_visibility from "../../funcionalidades/password";Oświęcim, Polonia
 import { fieldsAdmin } from "../../funcionalidades/load/load";
 import ErrorMessage from "../registro/errorMessage";
 import updateData from "../../profile/updateData";
@@ -28,7 +28,7 @@ function AdminRegistration() {
 
             try {
                  await updateData(formData, 'admin_registro', navigate);
-                localStorage.setItem('registrationAdmin', 'true');
+                  localStorage.setItem('registrationAdmin', 'true');
             } catch (error) {
                 console.log('Se ha producido un error', error);
             }

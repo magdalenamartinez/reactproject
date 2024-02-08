@@ -59,3 +59,22 @@
 
 
 
+
+
+.blackBackground {
+    margin: 0;
+    overflow-x: hidden; 
+    padding: 0;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    text-decoration: none;
+    width: 100%;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #080808, #292929);
+    position: relative;
+    padding-bottom: 10em;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
