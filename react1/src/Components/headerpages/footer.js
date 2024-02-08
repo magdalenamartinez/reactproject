@@ -8,7 +8,7 @@ function Footer() {
       };
 
     return(
-        <footer className={`footer_class ${st.fondoContrast} ${st.fondoDark}`}>
+        <footer className={`footer_class ${st.fondoContrast} ${st.fondoDark}${(userData && userData.typeUser === 3)? 'hidden':''}`}>
                 <div className='comun footercomun'>
                     <div className='izq logo_footer_container'>
                         <img className="logo_footer" src="/images/logo_sin_fondo.png" alt="Logo de la Empresa"/>
