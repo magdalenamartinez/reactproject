@@ -22,6 +22,21 @@ router.post('/try-login', async(req, res) => {
         try {
             console.log('RECAPTCHA VALIDO');
             //Obtenemos el id del usuario
+            if (req.body.table === 'admin') {
+                const result_admin = await db.getSecretKeyAdmin(req.body.table, req.body.user);
+                console.log(result_admin);
+                if (result_admin && result_admin.secret_key) {
+                    console.log('primer if');
+                    const isAdminKeyValid = await bcrypt.compare(req.body.secret_key, result_admin.secret_key);
+                    const isValido = (1 === result_admin.Validado);
+                    console.log(isAdminKeyValid, isValido);
+                    if (!isAdminKeyValid || !isValido) {
+                        res.json({ success: false, number: 0, message: 'Clave secreta de administrador incorrecta' });
+                        return;
+                    }
+                }
+            }
+            
             const result = await db.getLogin(req.body.table, req.body.user);
             if (result && result.id && result.hashPassword) {
                 const isPasswordValid = await bcrypt.compare(req.body.password, result.hashPassword);
@@ -39,6 +54,8 @@ router.post('/try-login', async(req, res) => {
                         let type = 2;
                         if (req.body.table === 'clientes') {
                             type = 1;
+                        } else if (req.body.table === 'admin') {
+                            type = 3;
                         }
                         const { image, user } = dataUser;
                         res.json({ success: true, token, id: result.id, number: 0, typeUser:type, user, image});

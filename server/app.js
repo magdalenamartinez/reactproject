@@ -84,6 +84,53 @@ app.use('/reset-password', async(req, res) => {
 });
 
 
+app.use('/accept-admin', async(req, res) => {
+  // Lógica para manejar el restablecimiento de contraseña aquí
+    try {
+        const key = crypto.randomBytes(Math.ceil(10 / 2)).toString('hex').slice(0, 10);  
+        const keyCodificada = await bcrypt.hash(key, 10);
+        console.log(key);
+        console.log(req.query.id);
+        console.log(req.query.correo);
+        const results = await db.validateAdmin(keyCodificada, parseInt(req.query.id));
+        if (results) {
+          const title = `Su Cuenta de Administrador ha sido aceptada`;
+          const subtitle = `Su Clave Secreta para Iniciar Sesión como Administrador es <br\>
+          ${key}`;
+          const textBoton = 'Iniciar Sesión';
+          const link = 'https://frontend-empleoinclusivo.onrender.com/#/tengoCuenta';
+          const htmlText = generateRegistrationEmail(title, subtitle, textBoton, link);     
+          const subject = 'Administrador Registrado'        
+          sendMail(req.query.correo, subject, htmlText)
+          res.redirect(`https://frontend-empleoinclusivo.onrender.com/#/?admin=yes`);
+        } else {
+          res.json({success: false, message: 'Se ha producido un error.'});
+        }
+    } catch(error) {
+        console.log('Error al verificar el token', error);
+        res.status(500).json({error: 'Error interno del Servidor'});
+    }
+  
+});
+
+
+app.use('/delete-admin', async(req, res) => {
+  // Lógica para manejar el restablecimiento de contraseña aquí
+    try {
+        const results = await db.Delete('admin', req.query.id);
+        if (results[0].affectedRows > 0) {
+            res.redirect(`https://frontend-empleoinclusivo.onrender.com/#/?admin=no`);
+        } else {
+          res.json({success: false, message: 'Se ha producido un error.'});
+        }
+    } catch(error) {
+        console.log('Error al verificar el token', error);
+        res.status(500).json({error: 'Error interno del Servidor'});
+    }
+  
+});
+
+
 
 
 app.listen(app.get('port'), function() {

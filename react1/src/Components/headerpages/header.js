@@ -9,7 +9,7 @@ import Login from './header/login.js';
 import { useNavigate } from 'react-router-dom';
 import DropDownAcc from '../dropDown/dropDownAcc.js';
 import { useStyle } from '../styleContext.js';
-import getProfile from '../data/getProfile.js';
+
 function Header2() {
   const navigate = useNavigate();
   const {style} = useStyle();
@@ -112,6 +112,26 @@ function Header2() {
         })()}
         </>
     )}
+    {/*ADMIN*/}
+    {userData && userData.typeUser === 3 && (
+        <>
+        <HeaderComponent  admin={true} smallScreenMenuVisible={smallScreenMenuVisible} dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI}
+        setSmallScreenMenuVisible={setSmallScreenMenuVisible}/>
+        <Login  setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
+        userExist={true} sesionLink={"#"} textInicioSesion={`Admin ${userData.user}`} srcImage={'/images/user.png'}/>
+        <div ref={dropDownRef}> 
+            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} logout={handleLogout} admin={true} setDropDown={setDropDown}/> 
+        </div>
+        {(() => {
+            chatStyleRef.current = 'chat'
+            inicioSesionLinkRef.current = '/inicioSesion'
+            favs.current = '/favoritosEmpresa'
+
+            return null;
+        })()}
+        </>
+    )}
+
     {/*SIN INICIAR SESION*/}
     { !userData && (
         <>
@@ -125,14 +145,14 @@ function Header2() {
         })()}
         </>
     )}
-
+    {(!userData || userData.typeUser!==3) &&
       <div className='acc_group' ref={dropDownAccRef}>
       <div className="accesibilidad">
         <img className="image_class" src="/images/accesibilidad.png" alt="" onClick={() => setDropDownAcc(!dropDownAcc)}/>
       </div>
       <DropDownAcc openclass={`drop_down_acc ${dropDownAcc? 'active':'inactive'}  ${st.menu} ${st.dark}`}/>
       </div>
-     
+    }
       <div className='chat_group'>
         <div className={chatStyleRef.current}>
           <img src='/images/chat.png' className="image_class" alt='chat' onClick={() => setDropDownChat(!dropDownChat)}/>

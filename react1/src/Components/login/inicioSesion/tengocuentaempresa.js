@@ -11,7 +11,8 @@ function InicioSesionEmpresa() {
     const navigate = useNavigate();
     const [recaptchaToken, setRecaptchaToken] = useState("");
     const [time, setTime] = useState(0);
-    
+    const [admin, setAdmin] = useState(false);
+
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://www.google.com/recaptcha/api.js';
@@ -21,9 +22,15 @@ function InicioSesionEmpresa() {
       }, []);
 
       const handleSubmit = async(event) => {
+        let secret_key = null;
+        let table = 'empresas';
+        if (admin) {
+          secret_key = document.getElementById('secret_key').value;
+          table = 'admin';
+        }
         const user = document.getElementById('user').value;
         const password = document.getElementById('password').value;
-        await handleLogin(event, 'empresas', user, password, recaptchaToken, login, navigate, setTime);
+        await handleLogin(event, table, user, password, recaptchaToken, login, navigate, setTime, secret_key);
       }
 
       function handleForgotPassword() {
@@ -34,7 +41,8 @@ function InicioSesionEmpresa() {
   return (
         <LoginForm text={'Iniciar Sesión Cuenta Empresarial'} textPassword={'¿Olvidó su Contraseña Coorporativa?'}
         handleSubmit={handleSubmit} handleForgotPassword={handleForgotPassword} setRecaptchaToken={setRecaptchaToken}
-        textAccount={'Crear Cuenta Empresarial'} time={time}/>
+        textAccount={'Crear Cuenta Empresarial'} time={time} registroLink={'/registroEmpresas'}
+        setAdmin={setAdmin} admin={admin}/>
   );
 };
 

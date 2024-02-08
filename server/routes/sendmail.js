@@ -63,10 +63,58 @@ function generateRegistrationEmail(title, subtitle, textBoton, link) {
     `;
   }
   
- 
+  function generateRegistrationEmail2(title, subtitle,  link, link2, textBoton, textBoton2) {
+    return `
+    <div style="text-align: center; font-weight: bold; font-family: 'Poppins', sans-serif; color: #333;">
+      <h1 style="font-size: 20px; margin-bottom: 20px;">
+          ${title}
+      </h1>
+      <p style="font-size: 16px; margin-bottom: 20px;">
+          ${subtitle}
+      </p>
+    </div>
+    <img src="cid:logo" style="display:block; border-radius:50%; width: 200px; margin: 0 auto; margin-bottom:30px;" alt="Logo de la aplicación"/>
+    <div style="text-align: center; display:flex;">
+    <a href="${link ? link : 'http://localhost:3000'}" style="
+      flex: 1;
+      background: linear-gradient(to right, #247eab, #611668);
+      color: #FFFFFF;
+      border: none;
+      padding: 30px 30px;
+      border-radius: 25px;
+      font-size: 20px;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      text-decoration:none;
+      margin: 0 auto;
+      vertical-align: middle;
+    ">
+      ${textBoton}
+    </a>
+    <a href="${link2 ? link2 : 'http://localhost:3000'}" style="
+      flex: 1;
+      background: linear-gradient(to right, #247eab, #611668);
+      color: #FFFFFF;
+      border: none;
+      padding: 30px 30px;
+      border-radius: 25px;
+      font-size: 20px;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      text-decoration:none;
+      margin: 0 auto;
+      vertical-align: middle;
+      ${link2 ? 'margin-left: 10px;' : ''}
+    ">
+      ${textBoton2}
+    </a>
+    </div>
+  `;
+}
    
 
 module.exports = {
     sendMail,
-    generateRegistrationEmail
+    generateRegistrationEmail,
+    generateRegistrationEmail2,
 };

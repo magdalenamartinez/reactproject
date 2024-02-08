@@ -49,3 +49,12 @@ export const fieldsPass = {
     correo: true,
     tlf: true
 }
+
+
+export const fieldsAdmin = {
+    user: false,
+    name: true,
+    password: false,
+    correo: false,
+    tlf: true
+}

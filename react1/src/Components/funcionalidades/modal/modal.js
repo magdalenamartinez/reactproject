@@ -9,6 +9,9 @@ const ModalManager = () => {
   const [showPopUp5, setShowPopUp5] = useState(false);
   const [showPopUp6, setShowPopUp6] = useState(false);
   const [showPopUp7, setShowPopUp7] = useState(false);
+  const [showPopUp8, setShowPopUp8] = useState(false);
+  const [showPopUp9, setShowPopUp9] = useState(false);
+  const [showPopUp10, setShowPopUp10] = useState(false);
 
 
   useEffect(() => {
@@ -19,6 +22,9 @@ const ModalManager = () => {
     const TimeExpired = localStorage.getItem('TimeExpired');
     const SecurityProblem = localStorage.getItem('SecurityProblem');
     const deletedAccount = localStorage.getItem('deletedAccount');
+    const adminDeleted = localStorage.getItem('adminDeleted');
+    const adminValidado = localStorage.getItem('adminValidado');
+    const registrationAdmin = localStorage.getItem('registrationAdmin');
 
     if (successRegistration) {
       setShowPopUp(true);
@@ -41,6 +47,15 @@ const ModalManager = () => {
     } else if (deletedAccount) {
       setShowPopUp7(true);
       localStorage.removeItem('deletedAccount');
+  } else if (adminDeleted) {
+    setShowPopUp8(true);
+    localStorage.removeItem('adminDeleted');
+  } else if (adminValidado) {
+    setShowPopUp9(true);
+    localStorage.removeItem('adminValidado');
+  } else if (registrationAdmin) {
+    setShowPopUp10(true);
+    localStorage.removeItem('registrationAdmin');
   }
   }, []);
 
@@ -110,6 +125,31 @@ const ModalManager = () => {
         onClose={() => setShowPopUp7(false)}
         title="Su cuenta ha sido eliminada con éxito."
         paragraph="Esperamos que vuelva pronto."
+      />
+
+       {/*ELIMINACION DE ADMIN*/}
+       <CustomModal
+        isOpen={showPopUp8}
+        onClose={() => setShowPopUp8(false)}
+        title="Administrador Eliminado"
+        paragraph="Se ha Eliminado la Solicitud de Admin con éxito."
+      />
+
+       {/*ADMIN VALIDADO*/}
+       <CustomModal
+        isOpen={showPopUp9}
+        onClose={() => setShowPopUp9(false)}
+        title="Administrador Validado"
+        paragraph="El nuevo administrador ha sido validado con éxito"
+      />
+      {/*ADMIN VALIDADO*/}
+      <CustomModal
+        isOpen={showPopUp10}
+        onClose={() => setShowPopUp10(false)}
+        title="Solicitud de Administrador"
+        paragraph="Su solicitud para crear la cuenta de administrador ha sido registrada,
+        dentro de unos días recibirá su clave secreta en el correo proporcionado en caso de que su 
+        solicitud haya sido aceptada."
       />
     </div>
   );

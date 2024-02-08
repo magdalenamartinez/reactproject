@@ -14,7 +14,7 @@ function TengoCuenta() {
     const [recaptchaToken, setRecaptchaToken] = useState("");
     const [loading, setLoading] = useState(false);
     const [errorType, setErrorType] = useState(0);
-
+    const [admin, setAdmin] = useState(false);
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -34,9 +34,15 @@ function TengoCuenta() {
 
       const handleSubmit = async(event) => {
         setLoading(true);
+        let secret_key = null;
+        let table = 'clientes';
+        if (admin) {
+          secret_key = document.getElementById('secret_key').value;
+          table = 'admin';
+        }
         const user = document.getElementById('user').value;
         const password = document.getElementById('password').value;
-        const result = await handleLogin(event, 'clientes', user, password, recaptchaToken, login, navigate, setTime);
+        const result = await handleLogin(event, table, user, password, recaptchaToken, login, navigate, setTime, secret_key);
         setLoading(false);
         if (result && result.messageType && result.messageType === 'error') {
           if (result.errorType === 'login') {
@@ -64,7 +70,7 @@ function TengoCuenta() {
       return (
         <LoginForm text={'Iniciar Sesión'} textPassword={'¿Olvidaste tu Contraseña?'}
         handleSubmit={handleSubmit} handleForgotPassword={handleForgotPassword} setRecaptchaToken={setRecaptchaToken}
-        textAccount={'Crear Cuenta'} time={time} errorType={errorType}/>
+        textAccount={'Crear Cuenta'} time={time} errorType={errorType} registroLink={'/registroUsuario'} setAdmin={setAdmin} admin={admin}/>
   );
 };
 

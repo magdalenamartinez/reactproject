@@ -4,6 +4,24 @@ import ModalManager from '../funcionalidades/modal/modal.js';
 import { useStyle } from '../styleContext.js';
 const Index = () => {
  const {style} = useStyle();
+ 
+ const checkAdminParam = () => {
+  const urlParams = new URLSearchParams(window.location.hash.substring(2));
+  if (urlParams.has('admin')) {
+      const valor = urlParams.get('admin');
+      console.log(valor);
+      if (valor === 'no') {
+        localStorage.setItem('adminDeleted', 'true');
+      } else if (valor === 'yes') {
+        localStorage.setItem('adminValidado', 'true');
+      }
+  }
+};
+
+useEffect(() => {
+  checkAdminParam();
+}, []);
+
   return (
     <div className="index_class">
     <div className="index">

@@ -31,6 +31,12 @@ const OfertasCreadas = lazy(() => import('./Components/ofertasTrabajo/ofertasCre
 const EditOferta = lazy(() => import('./Components/ofertasTrabajo/editOferta.js'));
 const BusquedaEmpleados = lazy(() => import('./Components/headerpages/busquedaEmpleados.js'));
 const FavoritosEmpresa = lazy(() => import('./Components/fav/favoritosEmpresa.js'));
+const DashBoard = lazy(() => import('./Components/admin/dashboard.js'));
+const AdminEmpresas = lazy(() => import('./Components/admin/adminempresas.js'));
+const AdminClientes = lazy(() => import('./Components/admin/adminclientes.js'));
+const AdminOfertas = lazy(() => import('./Components/admin/adminofertas.js'));
+const AdminRegistration = lazy(() => import('./Components/login/inicioSesion/registerAdmin.js'));
+const OfertasPorEmpresa = lazy(() => import('./Components/admin/ofertasPorEmpresa.js'));
 
 function App() {
   const {userData, logout} = useUser();
@@ -43,12 +49,15 @@ function App() {
   };
 
   return (
-    <div style={bodyStyle} className={`${style.highContrast ? 'contrast' : ''}  ${style.darkMode ? 'dark' : ''} ${(!style.highContrast && !style.darkMode ? 'body' : '')}`}>
+    <div style={bodyStyle} className={`${style.highContrast ? 'contrast' : ''}  ${style.darkMode ? 'dark' : ''} ${(!style.highContrast && !style.darkMode && (!userData || (userData && userData.typeUser !== 3))? 'body' : '')} ${(userData && userData.typeUser === 3 )? 'blackBackground':''}`}>
     <Router>
       <Header2 />
       <Suspense fallback={<Spinner/>}>
-        <Routes>
-        <Route path="/" element={<Index />} />
+      <Routes>
+          <Route element={<ProtectedRoute redirectPath="/dashboard_admin" condition={userData === null || userData.typeUser !== 3}/>}>
+            <Route path="/" element={<Index />} />
+            <Route path="/busquedadeempleo" element={<BusquedaDeEmpleo />} />
+            </Route>
           {/*RUTAS PROTEGIDAS SESION INICIADA*/}
           <Route element={<ProtectedRoute redirectPath="/" condition={userData === null}/>}>
              <Route path="/tengoCuenta" element={<TengoCuenta />} />
@@ -58,6 +67,8 @@ function App() {
              <Route path="/inicioSesionEmpresa" element={<InicioSesionEmpresa />} />
              <Route path="/paraempresas" element={<ParaEmpresas />} />
              <Route path="/forgotPassword" element={<ForgotPassword />} />
+             <Route path="/registerAdmin" element={<AdminRegistration />} />
+             <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
           {/*RUTAS SOLO PARA SESION INICIADA DE EMPRESA*/}
           <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 2}/>}>
@@ -76,8 +87,14 @@ function App() {
             <Route path="/misFavoritos" element={<MisFavoritos />} />
             <Route path="/editarPerfil" element={<EditarPerfil />} />
           </Route>
-          <Route path="/busquedadeempleo" element={<BusquedaDeEmpleo />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          {/*RUTAS SOLO PARA ADMIN*/}
+          <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 3}/>}>
+            <Route path="/dashboard_admin" element={<DashBoard />} />
+            <Route path="/adminOfertas" element={<AdminOfertas />} />
+            <Route path="/adminClientes" element={<AdminClientes />} />
+            <Route path="/adminEmpresas" element={<AdminEmpresas />} />
+            <Route path="/ofertasPorEmpresa/:empresaName/:empresaId" element={<OfertasPorEmpresa />} />
+          </Route>
         </Routes>
       </Suspense>
       <Footer />

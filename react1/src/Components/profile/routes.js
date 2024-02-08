@@ -21,6 +21,9 @@ const getRoutesAndNavigation = (table) => {
     } else if (table ==='empresas_registro'){
       route = 'https://backend-empleoinclusivo.onrender.com/enterpriseRoute/save-data2';
       navigation = '/';
+    } else if (table === 'admin_registro') {
+      route = 'https://backend-empleoinclusivo.onrender.com/adminRoute/register-admin';
+      navigation = '/';
     }
   
     return { route, navigation };

@@ -2,8 +2,8 @@ import React from "react";
 import password_visibility from '../../funcionalidades/password';
 import ReCAPTCHA from "react-google-recaptcha";
 import { useStyle } from "../../styleContext";
-
-function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken, textPassword, textAccount, time, errorType})
+import {Link} from 'react-router-dom'
+function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken, textPassword, textAccount, time, errorType, registroLink, setAdmin, admin})
 {
     const recaptchaChange = (token) => {
         setRecaptchaToken(token)
@@ -32,6 +32,15 @@ function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken,
                         <input type="text" className={`form_input ${st.inputContrast} ${st.inputDark} `} name="user" id="user"/>
                     </div>
                 </div>
+                {admin && (
+                     <div className="form_group" id="secretKey_group">
+                     <label htmlFor="secret_key" className="form_label">Clave Secreta</label>
+                     <div className="input_group">
+                         <input type="password" className={`form_input ${st.inputContrast} ${st.inputDark} `} name="secret_key" id="secret_key"/>
+                         <i className="eye_form pas7 fa-regular fa-eye" onClick={() => password_visibility('secret_key', 'pas7')}></i>
+                     </div>
+                 </div>
+                )}  
                 <div className="form_group" id="password_group">
                     <label htmlFor="password" className="form_label">Contraseña</label>
                     <div className="input_group">
@@ -45,12 +54,15 @@ function LoginForm({text, handleSubmit, handleForgotPassword, setRecaptchaToken,
                 <div className="forgot">
                     <button className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={handleForgotPassword}>{textPassword}</button>
                 </div>
+                <div className="forgot">
+                    <button type="button" className={`${style.highContrast ? st.botonContrast : 'form_link'}`} onClick={()=>setAdmin(!admin)}>{admin? 'No soy Admin' : 'Admin'}</button>
+                </div>
                 <div className='recaptchaClass'>
                     <ReCAPTCHA  sitekey="6LcbpF8pAAAAACntAJXGCyc1OggIYeI6OqfvVsh_" onChange={recaptchaChange}></ReCAPTCHA>
                 </div>
                 <button className={`submit_button ${st.botonContrast}`} type="submit">Iniciar Sesión</button>
                 <div className="nuevacuenta">
-                    <a href="/registroEmpresas" className={`${style.highContrast ? st.botonContrast : 'sincuenta form_link'}`}>{textAccount}</a>
+                    <Link to={admin? '/registerAdmin' : registroLink} className={`${style.highContrast ? st.botonContrast : 'sincuenta form_link'}`}>{admin? 'Crear Cuenta Admin' : textAccount}</Link>
                 </div>
             </form>
             </div> 
