@@ -26,6 +26,22 @@ function ReadAll(table) {
 }
 
 
+function ReadAllNombre(table) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+            SELECT oferta_empleo.*, empresas.name AS nombre_empresa
+            FROM ${table}
+            JOIN empresas ON oferta_empleo.id_empresa = empresas.id
+        `, function (error, results) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
 
 function existFav(id, select_id, table)
 {
@@ -654,5 +670,6 @@ module.exports = {
     getInfoAdmin,
     countClientes,
     countEmpresas, 
-    countOfertas
+    countOfertas,
+    ReadAllNombre
 }
