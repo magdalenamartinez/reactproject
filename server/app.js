@@ -32,9 +32,11 @@ const loginUserRoute = require('./routes/loginUserRoute');
 const changePasswordRoute = require('./routes/changePasswordRoute');
 const ofertaRoute = require('./routes/ofertaRoute');
 const favRoute = require('./routes/favRoute');
+const adminRoute = require('./routes/adminRoute');
 
 
 app.use('/clientRoute', clientRoute);
+app.use('/adminRoute', adminRoute);
 app.use('/mailRoute', mailRoute);
 app.use('/infoRoute', infoRoute);
 app.use('/deleteRoute', deleteRoute);
