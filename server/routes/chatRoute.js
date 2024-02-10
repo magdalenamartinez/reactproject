@@ -10,7 +10,7 @@ router.post('/get-messages', async (req, res) => {
     try {
         const id = req.body.sender_id;
         const type = req.body.type;
-        const table = (type === 1 || type === '1')? 'chat_mesages':'chat_messages_empresa';
+        const table = (type === 1 || type === '1')? 'chat_messages':'chat_messages_empresa';
         const table2 = (type === 1 || type === '1')? 'clientes':'empresas';
         const admin = req.body.admin;
         const column = (admin === true)? 'readByAdmin':'readByUser';
@@ -38,7 +38,7 @@ router.post('/save-message', async(req, res) => {
         const message = req.body.message;
         const type = req.body.type;
         const kind = req.body.kind;
-        const table = (type === 1 || type === '1')? 'chat_mesages':'chat_messages_empresa';
+        const table = (type === 1 || type === '1')? 'chat_messages':'chat_messages_empresa';
         const table2 = (type === 1 || type === '1')? 'clientes':'empresas';
         const column = (kind === 'user')? 'readByAdmin':'readByUser';
         await dbChat.changeReadToFalse(id, table2, column);
