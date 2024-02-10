@@ -19,7 +19,7 @@ const DatosGenerales = ({ enterpriseData, formValues, handleC, handleDeleteImage
                     <Select textLabel={"Tipo de Empresa"} idName={"tipo_empresa"} mapName={tiposEmpresa} value={formValues.tipo_empresa} onChange={handleC}/>
                     <Select textLabel={"Sector de la Industria"} idName={"sector"} mapName={sectores} value={formValues.sector} onChange={handleC}/>
                 </div>
-                <Foto onChange={(event) => {handleC(event); InputChange2('imageInput', 'imageShoww'); setDeleteImage(false);}} style={{display: enterpriseData.image ? 'initial' : 'none'}} handleDeleteImage={handleDeleteImage} src={formValues.image}/>
+                <Foto onChange={(event) => {handleC(event); InputChange2('imageInput', 'imageShoww'); setDeleteImage(false);}} styleFoto={{display: enterpriseData.image ? 'initial' : 'none'}} handleDeleteImage={handleDeleteImage} src={formValues.image}/>
             </div>
         </div>
     )

@@ -111,7 +111,7 @@ function RegistroUsuario() {
                             errorText={"Su número de teléfono solo puede estar formado por números y como máximo tener 14 dígitos."}
                             textLabel={"Número de Teléfono"}/>
                         </div>
-                        <Foto handleDeleteImage={handleDeleteImage} style={{display: 'none'}} onChange={() => {InputChange2('imageInput', 'imageShoww'); }}/>
+                        <Foto handleDeleteImage={handleDeleteImage} styleFoto={{display: 'none'}} onChange={() => {InputChange2('imageInput', 'imageShoww'); }}/>
                     </div>
                     <ErrorMessage/>
                 </div>

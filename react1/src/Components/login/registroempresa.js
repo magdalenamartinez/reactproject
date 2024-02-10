@@ -85,7 +85,7 @@ function RegistroEmpresa() {
                                 <Select textLabel={"Tipo de Empresa"} idName={"tipo_empresa"} mapName={tiposEmpresa}/>
                                 <Select textLabel={"Sector de la Industria"} idName={"sector"} mapName={sectores}/>
                             </div>
-                            <Foto handleDeleteImage={handleDeleteImage} style={{display: 'none'}} onChange={() => {InputChange2('imageInput', 'imageShoww'); }}/>
+                            <Foto handleDeleteImage={handleDeleteImage} styleFoto={{display: 'none'}} onChange={() => {InputChange2('imageInput', 'imageShoww'); }}/>
                         </div>
                     </div>
                     <div className="bloque_form" id="datos_personales">
