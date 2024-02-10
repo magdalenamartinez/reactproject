@@ -32,7 +32,7 @@ const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 function RegistroUsuario() {
     const navigate = useNavigate();
-
+    const [isLoading, setLoading] = useState(false);
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteCurriculum, setDeleteCurriculum] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
@@ -54,6 +54,7 @@ function RegistroUsuario() {
     }
 
     const handleSubmit = async(event) => {
+        setLoading(true);
         event.preventDefault();
         const areAllFieldsValid = Object.values(fields).every((value) => value === true);
         
@@ -69,7 +70,7 @@ function RegistroUsuario() {
         } else {
             alert('Compruebe que toda la información añadida es correcta.');
         }
-
+        setLoading(false);
     };
 
     const {style} = useStyle();
@@ -82,6 +83,11 @@ function RegistroUsuario() {
         bloqueContrast: style.highContrast ? 'bloque_contrast' : '',
       };
    
+      if (isLoading) {
+        return(
+            <Spinner/>
+        );
+    }
   return (
   
         <div className='contenedor margen'>

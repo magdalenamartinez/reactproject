@@ -28,7 +28,7 @@ const {checkUserName, getExistsUser, checkMail, getExistsMail} = checkFolder;
 
 function RegistroEmpresa() {
     const navigate = useNavigate();
-
+    const [isLoading, setLoading] = useState(false);
     const [deleteImage, setDeleteImage] = useState(false);
     const [deleteVideo, setDeleteVideo] = useState(false);
     const handleDeleteImage = () => {
@@ -42,6 +42,7 @@ function RegistroEmpresa() {
     }
 
     const handleSubmit = async(event) => {
+        setLoading(true);
         event.preventDefault();
         const areAllFieldsValid = Object.values(fields).every((value) => value === true);
 
@@ -57,6 +58,7 @@ function RegistroEmpresa() {
         } else {
             alert('Compruebe que toda la información añadida es correcta.');
         }      
+        setLoading(false);
     }    
 
     const {style} = useStyle();
@@ -67,6 +69,12 @@ function RegistroEmpresa() {
         cont2: style.highContrast ? 'inputContrast' : '',
         botonContrast: style.highContrast ? 'yellow_button' : '',
       };
+
+      if (isLoading) {
+        return(
+            <Spinner/>
+        );
+    }
 
   return (
         <div className='contenedor margen'>
