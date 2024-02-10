@@ -38,12 +38,11 @@ function ChatClientes() {
     },[dataObtained, currentPagina]);
 
     useEffect(() => {
-        if (dataObtained) {
         const interval = setInterval(() => {
             getConversaciones();
         }, 30000);
        
-    return () => clearInterval(interval);}
+    return () => clearInterval(interval);
     }, []);
 
     if (!datosObtenidosFinal) {

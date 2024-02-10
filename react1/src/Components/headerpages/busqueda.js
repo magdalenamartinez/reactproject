@@ -12,6 +12,7 @@ function Busqueda({handleSearch}) {
 
     const handleKey = async(event) => {
         if (event.key === 'Enter') {
+            event.preventDefault();
             handleChange();
         }
     }
@@ -24,7 +25,7 @@ function Busqueda({handleSearch}) {
     return(
         <div className="contenedor formc">
             <div className='busqueda_izq'>
-                <form action="/busqueda" method="get" className={`form_search `}>
+                <form className={`form_search `}>
                             <input type="text" className={`texto_barra ${st.busquedaContrast} ${st.busquedaDark}`} name="searchText" id="searchText" placeholder="Buscar..." 
                             onKeyDown={handleKey}/>
                             <button className="button_class" type="button" onClick={handleChange}>
