@@ -39,6 +39,7 @@ const OfertasPorEmpresa = lazy(() => import('./Components/admin/ofertasPorEmpres
 const ChatClientes = lazy(() => import('./Components/admin/chat/chatClientes.js'));
 const ChatEmpresas = lazy(() => import('./Components/admin/chat/chatEmpresas.js'));
 const ChatById = lazy(() => import('./Components/admin/chat/chatbyid.js'));
+const BeneficiosInclusion = lazy(() => import('./Components/profile/beneficios.js'));
 
 function App() {
   const {userData, logout} = useUser();
