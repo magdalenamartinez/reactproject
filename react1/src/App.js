@@ -21,7 +21,6 @@ const InicioSesionEmpresa = lazy(() => import('./Components/login/inicioSesion/t
 const UserProfile = lazy(() => import('./Components/profile/userProfile.js'));
 const EnterpriseProfile = lazy(() => import('./Components/profile/enterpriseProfile.js'));
 const MisFavoritos = lazy(() => import('./Components/fav/Favoritos.js'));
-const Estadisticas = lazy(() => import('./Components/profile/estadisticas.js'));
 const EditarPerfil = lazy(() => import('./Components/profile/editarPerfil.js'));
 const EditarPerfilEmpresa = lazy(() => import('./Components/profile/editarPerfilEmpresa.js'));
 const ForgotPassword = lazy(() => import('./Components/passwordpages/ForgotPassword.js'));
