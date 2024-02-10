@@ -93,11 +93,14 @@ router.post('/get-messages', async(req, res) => {
   const token = req.body.token;
   console.log(id,'',table,'token', token);
   const result = await dbAdmin.checkAdmin(id, token);
+  console.log('admin checked ', result);
   if (result) {
     try {
       const ids = await dbChat.getUniqueIdChat(table);
+      console.log('ids',ids);
       if (ids) {
         let data = await (table === 'chat_messages' ? dbLogin.getHeaderDataIds('clientes', ids) : dbLogin.getHeaderDataIds('empresas', ids));
+      console.log("DATA", data);
         res.json({ success: true, data: data });
       } else{
         res.json({ success: false, data: null });
