@@ -12,7 +12,7 @@ const DropDownChat = ({ openclass, userData }) => {
   
   const getAllMessages = async () => {
     try {
-      await getMessages(userData.id, userData.typeUser, setMessages);
+      await getMessages(userData.id, userData.typeUser, setMessages, false);
       setData(true);
     } catch (error) {
       console.error('Error al recuperar los mensajes:', error);
