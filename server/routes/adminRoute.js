@@ -91,6 +91,7 @@ router.post('/get-messages', async(req, res) => {
   const id = req.body.id;
   const table = req.body.table;
   const token = req.body.token;
+  console.log(id,'',table,'token', token);
   const result = await dbAdmin.checkAdmin(id, token);
   if (result) {
     try {
