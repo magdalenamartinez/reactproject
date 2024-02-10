@@ -1,6 +1,6 @@
 import React from "react";
 
-const getConversationsAdmin = async(id, token, table, setConversaciones) => {
+const getConversationsAdmin = async(id, token, table, setConversaciones, setDeleteStates) => {
     try {
         const response = await fetch('https://backend-empleoinclusivo.onrender.com/adminRoute/get-messages', {
           method: 'POST',
@@ -10,7 +10,12 @@ const getConversationsAdmin = async(id, token, table, setConversaciones) => {
         if (response.ok) {
           const responseData = await response.json();
           if (responseData.success) {
-                setConversaciones(responseData.data);
+              setConversaciones(responseData.data);
+              const initialDeleteStates = responseData.data.reduce((acumulador, oferta) => {
+                acumulador[oferta.id] = false;
+                return acumulador;
+              }, {});
+              setDeleteStates(initialDeleteStates);
           }
         }
       } catch (error) {

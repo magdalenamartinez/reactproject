@@ -7,6 +7,8 @@ import { indicesCalculados, nextPage, prevPage } from "../ofertasTrabajo/paginac
 import Spinner from "../spinner.js";
 import deleteData from "./deletedata.js";
 import CustomModal2 from "../funcionalidades/modal/custommodal2.js";
+import Busqueda from "../headerpages/busqueda.js";
+import handleSearch from "../headerpages/handleSearch.js";
 
 function AdminClientes() {
     const [currentPagina, setCurrentPagina] = useState(1);
@@ -18,6 +20,8 @@ function AdminClientes() {
     const [currentData, setCurrentData] = useState([]);
     const [datosObtenidosFinal, setDatosObtenidosFinal] = useState(false);
     const [showPopUp, setShowPopUp] = useState(false);
+    const [searchState, setSearchState] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(null);
     const [idToDelete, setIdToDelete] = useState(0);
     const [deleteStates, setDeleteStates] = useState({});
     const {userData} = useUser();
@@ -57,6 +61,11 @@ function AdminClientes() {
         setShowPopUp(false);
     }
 
+    const handleSearchFunction = (value) => {
+        handleSearch(value, setSearchState, setSearchTerm, 'name', setNumDatos, setCurrentData,
+        setCurrentPagina, data);
+    }
+
     if(!datosObtenidosFinal) {
         return(
           <Spinner/>
@@ -67,6 +76,7 @@ function AdminClientes() {
         <div className="dashboard">
             <Sidebar/>
             <div className="contenedor">
+                <Busqueda handleSearch={handleSearchFunction} adminSearch={true}/>
                 <BloqueAdmin currentData={currentData} setDetalles={setDetalles} detalles={detalles} isCliente={true} term={'titulo_oferta'} deleteStates={deleteStates} setShowPopUp={setShowPopUp} setIdToDelete={setIdToDelete}/>
                 <div className="form_group">
                     <button className="form_button disabled_button" onClick={() => prevPage(currentPagina, setCurrentPagina)} disabled={currentPagina === 1}>Anterior</button>

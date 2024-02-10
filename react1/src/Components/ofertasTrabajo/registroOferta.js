@@ -19,6 +19,7 @@ function RegistroOferta() {
     const navigate = useNavigate();
     const [enterpriseId, setEnterpriseId] = useState("");
     const [formValues, setFormValues] = useState(null);
+    const [isLoading, setLoading] = useState(false);
     const {userData} = useUser();
 
     useEffect(() => {
@@ -40,7 +41,9 @@ function RegistroOferta() {
         const form = document.getElementById('form_id');
         const formData = new FormData(form);
         formData.append('id_empresa', enterpriseId);
+        setLoading(true);
         await updateData(formData, 'oferta_empleo', navigate);
+        setLoading(false);
     };
 
     const handleDeleteImage = () => {
@@ -60,7 +63,7 @@ function RegistroOferta() {
         botonContrast: style.highContrast ? 'yellow_button' : '',
       };
 
-    if (!userData) {
+    if (!userData || isLoading) {
         return(
             <Spinner/>
         );

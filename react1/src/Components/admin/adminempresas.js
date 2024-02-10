@@ -8,6 +8,9 @@ import Spinner from "../spinner.js";
 import deleteData from "./deletedata.js";
 import CustomModal2 from "../funcionalidades/modal/custommodal2.js";
 import { useNavigate } from "react-router-dom";
+import Busqueda from "../headerpages/busqueda.js";
+import handleSearch from "../headerpages/handleSearch.js";
+
 function AdminEmpresas() {
     const navigate = useNavigate();
     const [currentPagina, setCurrentPagina] = useState(1);
@@ -19,6 +22,8 @@ function AdminEmpresas() {
     const [currentData, setCurrentData] = useState([]);
     const [datosObtenidosFinal, setDatosObtenidosFinal] = useState(false);
     const [showPopUp, setShowPopUp] = useState(false);
+    const [searchState, setSearchState] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(null);
     const [idToDelete, setIdToDelete] = useState(0);
     const [deleteStates, setDeleteStates] = useState({});   
     const {userData} = useUser();
@@ -62,6 +67,10 @@ function AdminEmpresas() {
         navigate(`/ofertasPorEmpresa/${empresaName}/${empresaId}`)
     }
 
+    const handleSearchFunction = (value) => {
+        handleSearch(value, setSearchState, setSearchTerm, 'name', setNumDatos, setCurrentData,
+        setCurrentPagina, data);
+    }
 
     if(!datosObtenidosFinal) {
         return(
@@ -73,6 +82,7 @@ function AdminEmpresas() {
         <div className="dashboard">
             <Sidebar/>
             <div className="contenedor">
+                <Busqueda handleSearch={handleSearchFunction} adminSearch={true}/>
                 <BloqueAdmin currentData={currentData} isEmpresa={true} showOfertas={showOfertas} setDetalles={setDetalles} detalles={detalles} isCliente={true} term={'titulo_oferta'} deleteStates={deleteStates} setShowPopUp={setShowPopUp} setIdToDelete={setIdToDelete}/>
                 <div className="form_group">
                     <button className="form_button disabled_button" onClick={() => prevPage(currentPagina, setCurrentPagina)} disabled={currentPagina === 1}>Anterior</button>

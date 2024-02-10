@@ -56,11 +56,15 @@ function changeReadToFalse(id, table, variable)
     return connection.promise().query(`UPDATE ?? SET ${variable} = 0 WHERE id = ?`, [table,id]);
 }
 
+function DeleteChat(table, id) {
+    return connection.promise().query('DELETE FROM ?? WHERE sender_id = ?', [table, id]);
+}
 
 module.exports = {
     getUniqueIdChat,
     getMessages,
     saveMessage,
     changeRead,
-    changeReadToFalse
+    changeReadToFalse,
+    DeleteChat
 }

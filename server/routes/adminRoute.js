@@ -88,6 +88,24 @@ router.get('/get-by-fecha', async function(req, res) {
 
 });
 
+
+router.post('/delete-conversation', async (req, res) => {
+  try {
+      const table = req.body.table;
+      const id = req.body.id;
+          try {
+              await dbChat.DeleteChat(table, id);
+              res.json({ success: true});
+          } catch (error) {
+              console.error('Error al obtener mensajes:', error);
+              res.status(500).json({ success: false, message: 'Error interno del Servidor' });
+          }
+  } catch (error) {
+      console.log('Error al añadir mensaje', error);
+      res.status(500).json({ success: false, message: 'Error interno del Servidor' });
+  }
+});
+
 router.post('/get-messages', async(req, res) => {
   const id = req.body.id;
   const table = req.body.table;

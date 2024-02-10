@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useStyle } from '../styleContext.js';
 
-function Busqueda({handleSearch}) {
+function Busqueda({handleSearch, adminSearch}) {
     const [dropDown, setDropDown] = useState(false);
     const {style} = useStyle();
 
@@ -23,7 +23,7 @@ function Busqueda({handleSearch}) {
       }
       
     return(
-        <div className="contenedor formc">
+        <div className={adminSearch? '':"contenedor formc"}>
             <div className='busqueda_izq'>
                 <form className={`form_search `}>
                             <input type="text" className={`texto_barra ${st.busquedaContrast} ${st.busquedaDark}`} name="searchText" id="searchText" placeholder="Buscar..." 

@@ -118,7 +118,7 @@ function Header2() {
         <HeaderComponent  admin={true} smallScreenMenuVisible={smallScreenMenuVisible} dropDownMenuEIRef={dropDownMenuEIRef} handleMenuEI={handleMenuEI}
         setSmallScreenMenuVisible={setSmallScreenMenuVisible}/>
         <Login  setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
-        userExist={true} sesionLink={"#"} textInicioSesion={`Admin ${userData.user}`} srcImage={'/images/user.png'}/>
+        userExist={true} sesionLink={"#"} textInicioSesion={`Admin ${userData.user}`} srcImage={'/images/admin.png'}/>
         <div ref={dropDownRef}> 
             <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} logout={handleLogout} admin={true} setDropDown={setDropDown}/> 
         </div>
