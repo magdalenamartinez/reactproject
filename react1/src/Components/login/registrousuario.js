@@ -28,6 +28,7 @@ import DeleteVideo from '../funcionalidades/handleDelete/handleDeleteVideo.js';
 import DeleteCurriculum from '../funcionalidades/handleDelete/handleDeleteCurriculum.js';
 import sendMail from '../funcionalidades/sendMail.js';
 import { useStyle } from '../styleContext.js';
+import Spinner from '../spinner.js';
 const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 function RegistroUsuario() {

@@ -24,6 +24,7 @@ import changeProvincia from '../profile/funciones/provincia.js';
 import updateData from '../profile/updateData.js';
 import DeleteVideo from '../funcionalidades/handleDelete/handleDeleteVideo.js';
 import { useStyle } from '../styleContext.js';
+import Spinner from '../spinner.js';
 const {checkUserName, getExistsUser, checkMail, getExistsMail} = checkFolder;
 
 function RegistroEmpresa() {
