@@ -107,7 +107,6 @@ function UserProfile() {
                     <div className='leftright profilelr'>
                         <div className='left'>
                             <Link className={`button_big ${st.botonContrast}`} style={{height:'500px'}} to="/misFavoritos">Ver Ofertas de<br/> Trabajo Guardadas</Link>
-                            <Link className={`button_big ${st.botonContrast}`} to='/estadisticasPerfil'>Estadísticas de<br/> Mi Cuenta</Link>
                         </div>
                         <div className='right'>
                         { (data.curriculum !== '') && (

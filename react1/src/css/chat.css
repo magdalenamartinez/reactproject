@@ -72,7 +72,7 @@
 
 
 .chat-messages{
-    max-height: calc(100vh - 125px);
+    max-height: calc(100vh - 135px);
     overflow-y: auto;
   }
   

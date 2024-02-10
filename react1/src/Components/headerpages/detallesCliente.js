@@ -4,7 +4,8 @@ import React from "react";
 function DetallesCliente({cliente}) {
     return(
         <div className="detalles_container">
-            <h1 className="paragraph_label">Más Información</h1>
+            {cliente.video || cliente.educacion || cliente.perfil || cliente.habilidad || cliente.curriculum
+            && <h1 className="paragraph_label">Más Información</h1>}
             <div className="leftright">
                 {cliente.video &&
                     <div className="left">
