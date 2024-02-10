@@ -43,7 +43,7 @@ function ChatClientes() {
     useEffect(() => {
         const interval = setInterval(() => {
             getConversaciones();
-        }, 10000);
+        }, 5000);
        
     return () => clearInterval(interval);
     }, []);

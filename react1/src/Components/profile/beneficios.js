@@ -27,9 +27,9 @@ function BeneficiosInclusion() {
       <section className={`section ${sectionsVisible.section1 ? 'visible' : ''}`} id="section1">
         <h2 className="title_container">Oportunidad y Equidad</h2>
         <p className="paragraph_beneficios" id="paragraph1">
-            La inclusión en el empleo brinda oportunidades a personas que pueden enfrentar barreras adicionales
+            La inclusión en el empleo brinda oportunidades a personas que pueden afrontar barreras adicionales
             debido a su discapacidad. Al ofrecerles empleo, no solo estamos cumpliendo con nuestro deber de
-            proporcionar igualdad de oportunidades sino que también estamos reconociendo su valía componente
+            proporcionar igualdad de oportunidades sino que también estamos reconociendo su valía como
             miembros activos y productivos de la sociedad.
         </p>
            <p className="paragraph_beneficios"> Estas personas al igual que cualquier otro individuo 
@@ -65,6 +65,27 @@ function BeneficiosInclusion() {
            entorno donde todas las personas, independientemente de sus capacidades, pueden alcanzar
            su máximo potencial y contribuir significativamente al bienestar colectivo.</p>
       </section>
+      {/* Sección 4 */}
+      <section className={`section ${sectionsVisible.section4 ? 'visible' : ''}`} id="section3">
+      <h2 className="title_container">Cuota de Reserva de empleo</h2>
+        <p className="paragraph_beneficios" id="paragraph1">
+          Las empresas con una plantilla superior a un determinado tamaño están obligadas a reservar un 
+          porcentaje de sus puestos de trabajo a personas con discapacidad.
+        </p>
+           <p className="paragraph_beneficios">La cuota puede variar dependiendo de la legislación local
+           pero suele ser alrededor del 2 al 7%.</p>
+      </section>
+      {/* Sección 5 */}
+      <section className={`section ${sectionsVisible.section5 ? 'visible' : ''}`} id="section3">
+      <h2 className="title_container">Mejora de Imagen y Reputación</h2>
+        <p className="paragraph_beneficios" id="paragraph1">
+        La adopción de prácticas inclusivas refleja valores corporativos de responsabilidad social y equidad, 
+        lo que puede mejorar la imagen de la empresa ante los clientes, socios comerciales y la comunidad en general.
+        </p>
+           <p className="paragraph_beneficios">Esto puede traducirse en una mayor lealtad de los clientes y 
+           en relaciones más sólidas con otras partes interesadas.</p>
+      </section>
+    
     </div>
   );
 
