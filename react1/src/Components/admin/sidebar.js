@@ -21,6 +21,15 @@ function Sidebar() {
                 <i className="fa-solid fa-tag"></i>
                 <Link to="/adminOfertas" className="link_dash"> Gestionar Ofertas</Link>
             </div>
+            <div className="sidebar_object">
+                <i className="fa-solid fa-message"></i>
+                
+                <Link to="/chatClientes/mensajesClientes/chat_messages/1" className="link_dash"> Chat Clientes</Link>
+            </div>
+            <div className="sidebar_object">
+                <i className="fa-solid fa-message"></i>
+                <Link to="/chatEmpresas/mensajesEmpresas/chat_messages_empresa/2" className="link_dash"> Chat Empresas</Link>
+            </div>
         </div>
         </>
     );

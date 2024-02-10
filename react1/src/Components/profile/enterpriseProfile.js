@@ -92,13 +92,12 @@ function EnterpriseProfile() {
                                 <video controls className="videoPresentacion form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${data.video}`}></video>
                         )}
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} style={{height:'500px'}} to="/ofertasCreadas">Ver Ofertas de<br/> Trabajo Creadas</Link>
-                        <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`}to='/estadisticasPerfil'>Estadísticas de<br/>Inclusión</Link>
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} style={{height:'500px'}} to='/buscarEmpleados'>Búsqueda de<br/>Empleados</Link>
                     </div>
                     <div className='right'>
                     <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} to="/registroOfertaTrabajo">Crear Nueva Oferta<br/> de trabajo</Link>
                     <Link className={`button_big ${st.botonContrastBig}  ${st.botonDark}`} style={{height:'700px'}} to="/beneficiosInclusion">Beneficios de la<br/>Inclusión</Link>
-                    <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} to="/registroOfertaTrabajo">Ver Candidatos<br/>Guardados</Link>
+                    <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} to="/favoritosEmpresa">Ver Candidatos<br/>Guardados</Link>
                     </div>
                 </div>
             </div>

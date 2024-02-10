@@ -76,6 +76,65 @@
     margin-right: auto;
 }
 
+.img1 {
+    cursor: pointer;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    display: block;
+    height: auto;
+    transition: transform 1s;
+    animation: floatImage 3s ease-in-out infinite;
+}
+
+.img1:hover {
+    animation: floatImageScale 5s ease-in-out infinite;
+}
+
+.img2:hover {
+    animation: floatImageScale 5s ease-in-out infinite;
+}
+
+.img2 {
+    animation: floatImage 2s ease-in-out infinite;
+    cursor: pointer;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    display: block;
+    height: auto;
+}
+
+
+@keyframes floatImage {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatImageScale {
+    5% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
 .text_second {
     font-size: 2em;
 }
@@ -87,7 +146,6 @@
 
 .paraempresas {
     background: linear-gradient(to bottom, #89d8ff00, #611668), url(./../../public/images/fondo.png) no-repeat center center;
-    
 }
 
 

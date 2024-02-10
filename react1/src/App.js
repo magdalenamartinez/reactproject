@@ -37,6 +37,9 @@ const AdminClientes = lazy(() => import('./Components/admin/adminclientes.js'));
 const AdminOfertas = lazy(() => import('./Components/admin/adminofertas.js'));
 const AdminRegistration = lazy(() => import('./Components/login/inicioSesion/registerAdmin.js'));
 const OfertasPorEmpresa = lazy(() => import('./Components/admin/ofertasPorEmpresa.js'));
+const ChatClientes = lazy(() => import('./Components/admin/chat/chatClientes.js'));
+const ChatEmpresas = lazy(() => import('./Components/admin/chat/chatEmpresas.js'));
+const ChatById = lazy(() => import('./Components/admin/chat/chatbyid.js'));
 
 function App() {
   const {userData, logout} = useUser();
@@ -45,7 +48,6 @@ function App() {
   const bodyStyle = {
     fontSize: style.font ? `${style.fontSize}px` : '15px',
     overflowX: isLargeFont? `scroll` : 'hidden',
-    // ... (other styles)
   };
 
   return (
@@ -79,7 +81,7 @@ function App() {
             <Route path="/ofertasCreadas" element={<OfertasCreadas />} />
             <Route path="/editOferta" element={<EditOferta />} />
             <Route path="/buscarEmpleados" element={<BusquedaEmpleados />} />
-            <Route path="/estadisticasPerfil" element={<Estadisticas />} />
+            <Route path="/BeneficiosInclusion" element={<BeneficiosInclusion />} />
           </Route>
           {/*RUTAS SOLO PARA SESION INICIADA DE CLIENTE*/}
           <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 1}/>}>
@@ -94,6 +96,9 @@ function App() {
             <Route path="/adminClientes" element={<AdminClientes />} />
             <Route path="/adminEmpresas" element={<AdminEmpresas />} />
             <Route path="/ofertasPorEmpresa/:empresaName/:empresaId" element={<OfertasPorEmpresa />} />
+            <Route path="/conversacionById/:id/:type/:user" element={<ChatById />} />
+            <Route path="/chatClientes/mensajesClientes/:table/:type" element={<ChatClientes />} />
+            <Route path="/chatEmpresas/mensajesEmpresas/:table/:type" element={<ChatEmpresas />} />
           </Route>
         </Routes>
       </Suspense>

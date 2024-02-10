@@ -1,10 +1,12 @@
 const express = require('express');
-const db = require('../db');
+const dbCRUD = require('../database/CRUD');
+const dbToken = require('../database/token');
+const dbMail = require('../database/mail');
 const router = express.Router();
 
 router.get('/check-username', async(req, res) => {
     try {
-        const results = await db.ReadUsername(req.query.table, req.query.username);
+        const results = await dbCRUD.ReadUsername(req.query.table, req.query.username);
         if (results[0].length > 0) {
             res.json(true);
         } else {
@@ -19,7 +21,7 @@ router.get('/check-username', async(req, res) => {
 
 router.get('/check-mail', async(req, res) => {
     try {
-        const results = await db.ReadMail(req.query.table, req.query.correo);
+        const results = await dbMail.ReadMail(req.query.table, req.query.correo);
         console.log(req.query.correo);
         if (results[0].length > 0) {
             res.json(true);
@@ -35,7 +37,7 @@ router.get('/check-mail', async(req, res) => {
 
 router.post('/check-token', async(req, res) => {
     try {
-        const id = await db.ReadToken(req.body.table, req.body.token);
+        const id = await dbToken.ReadToken(req.body.table, req.body.token);
         console.log(id);
         if (id ) {
             res.json({success: true});

@@ -1,9 +1,12 @@
 const express = require('express');
-const db = require('../db');
+const dbLogin = require('../database/login');
+const dbBlock = require('../database/block');
+const dbAdmin = require('../database/admin');
+const dbToken = require('../database/token');
+const dbMail = require('../database/mail');
 const Recaptcha = require('express-recaptcha');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-//para generar tokens
 const jwt = require('jsonwebtoken');
 
 const site_key = process.env.RECAPTCHA_SITE_KEY || 'error';
@@ -23,7 +26,7 @@ router.post('/try-login', async(req, res) => {
             console.log('RECAPTCHA VALIDO');
             //Obtenemos el id del usuario
             if (req.body.table === 'admin') {
-                const result_admin = await db.getSecretKeyAdmin(req.body.table, req.body.user);
+                const result_admin = await dbAdmin.getSecretKeyAdmin(req.body.table, req.body.user);
                 console.log(result_admin);
                 if (result_admin && result_admin.secret_key) {
                     console.log('primer if');
@@ -37,20 +40,20 @@ router.post('/try-login', async(req, res) => {
                 }
             }
             
-            const result = await db.getLogin(req.body.table, req.body.user);
+            const result = await dbLogin.getLogin(req.body.table, req.body.user);
             if (result && result.id && result.hashPassword) {
                 const isPasswordValid = await bcrypt.compare(req.body.password, result.hashPassword);
                 if (isPasswordValid && result.block === 0) {
-                    await db.RestoreAttemps(result.id, req.body.table);
+                    await dbBlock.RestoreAttemps(result.id, req.body.table);
                     const token = jwt.sign({ userId: result.id }, secretKey, { expiresIn: '1h' });
                     const data = {
                         token: token,
                         user_id: result.id,
                         tableName: req.body.table,
                     };
-                    const storetoken = await db.storeTokenSesion(data);
+                    const storetoken = await dbToken.storeTokenSesion(data);
                     try {
-                        const dataUser = await db.getHeaderData(req.body.table, result.id);
+                        const dataUser = await dbLogin.getHeaderData(req.body.table, result.id);
                         let type = 2;
                         if (req.body.table === 'clientes') {
                             type = 1;
@@ -64,9 +67,9 @@ router.post('/try-login', async(req, res) => {
                         console.log(error);
                     }
                 } else {
-                    const intentos = await db.IncrementAttemps(result.id, req.body.table);
+                    const intentos = await dbBlock.IncrementAttemps(result.id, req.body.table);
                     if (intentos > 3) {
-                        await db.blockAccount(result.id, req.body.table, 10*(intentos-3));
+                        await dbBlock.blockAccount(result.id, req.body.table, 10*(intentos-3));
                         const title = `Se ha Bloqueado su Cuenta en Empleo Inclusivo`;
                         const subtitle = `Tras detectar varios intentos fallidos de Inicio de Sesión,<br\> se ha Bloqueado su cuenta
                         durante ${10*(intentos-3)} minutos. <br\>
@@ -77,7 +80,7 @@ router.post('/try-login', async(req, res) => {
                         const textBoton = 'Ir a Empleo Inclusivo';
                         const htmlText = generateRegistrationEmail(title, subtitle, textBoton);     
                         const subject = 'Bloqueo de Cuenta'
-                        const correo = await db.GetMail(req.body.table, result.id);
+                        const correo = await dbMail.GetMail(req.body.table, result.id);
                         sendMail(correo, subject, htmlText);
                         res.json({ success: false, number: 2, time: 10*(intentos-3)});
                     } else{
@@ -101,23 +104,19 @@ router.post('/try-login', async(req, res) => {
 });
 
 
-//Genero una clave secreta de forma aleatoria
 const crypto = require('crypto');
-// Genera una clave secreta aleatoria con 64 bytes de longitud
 const secretKey = crypto.randomBytes(32).toString('hex');
-// Almacenar token y tiempo de expiración en la base de datos
-//await db.storeResetToken(usuario.id, token, new Date(Date.now() + 3600000)); // 1 hora de expiración
 const url = require('url');
 
 
 router.post('/send-mail', async(req, res) => {
     try {
         const { table, correo } = req.body;
-        const id = await db.ReadFromMail(table, correo);
+        const id = await dbMail.GetIdByMail(table, correo);
         const token = jwt.sign({ userId: id }, secretKey, { expiresIn: '1h' });
         let expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + 1);
-        const results2 = await db.storeToken(id, token, expirationDate, table);
+        const results2 = await dbToken.storeToken(id, token, expirationDate, table);
         
         const resetLink = url.format({
             protocol: req.protocol,

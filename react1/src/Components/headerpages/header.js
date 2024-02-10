@@ -158,7 +158,9 @@ function Header2() {
           <img src='/images/chat.png' className="image_class" alt='chat' onClick={() => setDropDownChat(!dropDownChat)}/>
         </div>
         <div ref={dropDownChatRef}>
-        <DropDownChat openclass={`drop_down_chat ${dropDownChat? 'active':'inactive'}  ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={logout} favoritos={favoritos}/> 
+          {(userData && userData.typeUser !== 3)  &&
+            <DropDownChat userData={userData} openclass={`chatStyle ${dropDownChat? 'active':'inactive'}  ${st.menu} ${st.dark}`}/> 
+          } 
         </div>
       </div>
       

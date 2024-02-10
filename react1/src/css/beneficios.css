@@ -1,0 +1,81 @@
+.title_beneficios {
+    text-align: center;
+    font-size: 7em;
+    animation: beneficios 5s ease-in-out infinite;
+    margin-top: 100px;
+}
+
+@keyframes beneficios {
+    0% {
+        transform: scale(1 );
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+  
+  .section {
+    padding: 50px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 3s ease-in-out;
+  }
+  
+  .visible {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  .section img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+
+  .beneficios_container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .paragraph_beneficios {
+    font-size: 1.5em;
+    color: #ffffffaf;
+  }
+
+  
+.beneficiosimagen {
+    background: linear-gradient(to bottom, #89d8ff00, #61166800), url(./../../public/images/beneficios3.png) no-repeat center top;
+}
+
+.height_container {
+    height: 90vh;
+}
+
+.img_beneficios_container {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.beneficiosimagen2 {
+    background: linear-gradient(to bottom, rgba(137, 216, 255, 0.705), rgba(97, 22, 104, 0.596)), url(./../../public/images/beneficios5.jpg) no-repeat center top;
+    height: 100vh;
+    border-radius: 20px;
+    box-shadow: 0 0 20px #FFFFFF;
+}
+
+.colorstrong
+{
+    color: #FFFFFF;
+}
+.img_beneficios {
+    border-radius: 15px;
+    box-shadow: 0 0 20px #FFFFFF;
+}
+
+

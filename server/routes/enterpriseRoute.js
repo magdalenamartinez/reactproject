@@ -1,5 +1,6 @@
 const express = require('express');
-const db = require('../db');
+const dbCRUD = require('../database/CRUD');
+const dbLogin = require('../database/login');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
@@ -31,7 +32,7 @@ async function(req, res) {
         codpostal: parseInt(req.body.codpostal,10)
             };
 
-        db.Create('empresas', data)
+        dbCRUD.Create('empresas', data)
         .then(result => {
             console.log('DATOS GUARDADOS EN LA BASE');
             const title = `¡Gracias por registrar a su Empresa  ${req.body.name} en la plataforma Empleo Inclusivo`;
@@ -92,8 +93,8 @@ async(req, res) => {
 
           }
 
-        db.Update('empresas', data, data.user)
-            const dataNew =  await db.getUserData(data.user, 'empresas');
+        dbCRUD.Update('empresas', data, data.user)
+            const dataNew =  await dbLogin.getUserData(data.user, 'empresas');
             console.log(dataNew);
             if (modifiedFields.password === true) {
               const title = `Contraseña Actualizada`;

@@ -1,19 +1,18 @@
 const express = require('express');
-const db = require('../db');
+const dbOfertas = require('../database/ofertas');
+const dbCRUD = require('../database/CRUD');
 const router = express.Router();
 
 
 router.post('/delete-data', async(req, res) => {
     try {
         if (req.body.table === 'empresas') {
-            await db.DeleteByIdEmpresa(req.body.id);
+            await dbOfertas.DeleteByIdEmpresa(req.body.id);
         }
-        const results = await db.Delete(req.body.table, req.body.id);
+        const results = await dbCRUD.Delete(req.body.table, req.body.id);
         if (results[0].affectedRows > 0) {
-            console.log('hola');
             res.json(true);
         } else {
-            console.log('adios');
             res.json(false);
         }
     } catch(error) {

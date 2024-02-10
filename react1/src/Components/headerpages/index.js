@@ -34,9 +34,8 @@ useEffect(() => {
               </h1>
             </div>
             <div className="dch">
-              <img src="/images/1.png" alt="" className="img1" />
-              <img src="/images/2.png" alt="" className="img2" />
-              <img src3="/images/3.png" alt="" className="img3" />
+              <img src="/images/index_imagen3.png" alt="" className="img1" />
+              <img src="/images/index_imagen4.png" alt="" className="img2" />
             </div>
           </div>
           <div className="contenedor">
@@ -51,8 +50,8 @@ useEffect(() => {
           <div className="contendor">
             <div className="comun">
               <div className="izq">
-                  <img src="/images/4.png" alt="" className="img2" />
-                  <img src="/images/5.png" alt="" className="img1" />
+                <img src="/images/index_imagen2.png" alt="" className="img1" />
+                <img src="/images/index_imagen.png" alt="" className="img2" />
               </div>
             <div className='dch'>
               <div className="text_third">

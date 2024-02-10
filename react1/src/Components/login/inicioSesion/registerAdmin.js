@@ -11,6 +11,7 @@ import { fieldsAdmin } from "../../funcionalidades/load/load";
 import ErrorMessage from "../registro/errorMessage";
 import updateData from "../../profile/updateData";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const { getExistsUser, getExistsMail, checkUserName, checkMail} = checkFolder;
 
 
@@ -50,6 +51,7 @@ function AdminRegistration() {
 
     return(
         <div className="contenedor">
+        <Link className='back_link' to='/tengoCuenta'><i className="fa-solid fa-circle-chevron-left"></i></Link>
             <div className={`formulario form_container ${st.fondoContrast} ${st.fondoDark}`}>
                 <div className='text_container'>
                 <h1 className='title_container'>Registro Admin</h1>

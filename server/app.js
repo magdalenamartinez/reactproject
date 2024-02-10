@@ -2,7 +2,8 @@ const express = require('express');
 const mysql = require('mysql2'); // Importa la versión de la biblioteca que soporta promesas
 const config = require('./config');
 const path = require('path');
-const db = require('./db.js');
+const dbAdmin = require('./database/admin.js');
+const dbCRUD = require('./database/CRUD.js');
 const crypto = require('crypto');
 const { sendMail, generateRegistrationEmail } = require('./routes/sendmail');
 const bcrypt = require('bcrypt');
@@ -36,8 +37,9 @@ const changePasswordRoute = require('./routes/changePasswordRoute');
 const ofertaRoute = require('./routes/ofertaRoute');
 const favRoute = require('./routes/favRoute');
 const adminRoute = require('./routes/adminRoute');
+const chatRoute = require('./routes/chatRoute');
 
-
+app.use('/chatRoute', chatRoute);
 app.use('/clientRoute', clientRoute);
 app.use('/adminRoute', adminRoute);
 app.use('/mailRoute', mailRoute);
@@ -57,7 +59,6 @@ app.get('/download/:filename', async (req, res) => {
       const curriculumName = req.query.curriculumName || 'file.pdf';
       const filePath = path.join(__dirname, 'uploads', filename);
   
-      // Envía el archivo como respuesta
       res.download(filePath, curriculumName);
     } catch (error) {
       console.error('Error al descargar el archivo:', error);
@@ -67,7 +68,6 @@ app.get('/download/:filename', async (req, res) => {
   
 
 app.use('/reset-password', async(req, res) => {
-  // Lógica para manejar el restablecimiento de contraseña aquí
     try {
         const id = await db.ReadToken(req.query.t, req.query.token);
         if (id) {
@@ -90,14 +90,10 @@ app.use('/reset-password', async(req, res) => {
 
 
 app.use('/accept-admin', async(req, res) => {
-  // Lógica para manejar el restablecimiento de contraseña aquí
     try {
         const key = crypto.randomBytes(Math.ceil(10 / 2)).toString('hex').slice(0, 10);  
         const keyCodificada = await bcrypt.hash(key, 10);
-        console.log(key);
-        console.log(req.query.id);
-        console.log(req.query.correo);
-        const results = await db.validateAdmin(keyCodificada, parseInt(req.query.id));
+        const results = await dbAdmin.validateAdmin(keyCodificada, parseInt(req.query.id));
         if (results) {
           const title = `Su Cuenta de Administrador ha sido aceptada`;
           const subtitle = `Su Clave Secreta para Iniciar Sesión como Administrador es <br\>
@@ -120,9 +116,8 @@ app.use('/accept-admin', async(req, res) => {
 
 
 app.use('/delete-admin', async(req, res) => {
-  // Lógica para manejar el restablecimiento de contraseña aquí
     try {
-        const results = await db.Delete('admin', req.query.id);
+        const results = await dbCRUD.Delete('admin', req.query.id);
         if (results[0].affectedRows > 0) {
             res.redirect(`https://frontend-empleoinclusivo.onrender.com/#/?admin=no`);
         } else {
@@ -134,9 +129,6 @@ app.use('/delete-admin', async(req, res) => {
     }
   
 });
-
-
-
 
 app.listen(app.get('port'), function() {
     console.log(`El servidor esta escuchando en el puerto ${app.get('port')}`);

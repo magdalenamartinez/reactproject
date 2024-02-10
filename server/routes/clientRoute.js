@@ -1,5 +1,9 @@
 const express = require('express');
-const db = require('../db');
+const dbCRUD = require('../database/CRUD');
+const dbLogin = require('../database/login');
+const dbClient = require('../database/client');
+const dbState = require('../database/state');
+const dbFav = require('../database/fav');
 const router = express.Router();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
@@ -56,7 +60,7 @@ router.post('/save-data', upload.fields([
        curriculumName: fileFile ? fileFile.originalname : '',
       };
    
-      db.Create('clientes', data)
+      dbCRUD.Create('clientes', data)
       .then(async result => {
         console.log('DATOS GUARDADOS EN LA BASE');
         const title = `¡Gracias por registrarte en la plataforma Empleo Inclusivo, ${req.body.name}!`;
@@ -96,13 +100,7 @@ router.post('/update-data',  upload.fields([
         const videoHash = videoFile ? videoFile.filename : '';
         const fileHash = fileFile ? fileFile.filename : '';
 
-        console.log(fileHash);
-        const formData = req.body; // Accede directamente a los datos del formulario
-
-      // Resto del código
-
-
-        console.log(modifiedFields);
+        const formData = req.body;
 
         const data = {
             user: req.body.user,
@@ -144,8 +142,8 @@ router.post('/update-data',  upload.fields([
             data.password = hashPassword;
           }
           
-          db.Update('clientes', data, data.user)
-          const dataNew =  await db.getUserData(data.user, 'clientes');
+          dbCRUD.Update('clientes', data, data.user)
+          const dataNew =  await dbLogin.getUserData(data.user, 'clientes');
           console.log(dataNew);
           if (modifiedFields.password === true) {
             const title = `Contraseña Actualizada`;
@@ -162,8 +160,6 @@ router.post('/update-data',  upload.fields([
     }
     catch (error) {
           console.error("Error:", error);
-
-          // Enviar una respuesta de error al cliente
           res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
@@ -171,7 +167,7 @@ router.post('/update-data',  upload.fields([
 
 router.get('/get-clientes', async(req, res) => {
   try {
-      const results = await db.ReadClientes();
+      const results = await dbClient.ReadClientes();
       console.log(results[0]);
       if (results.length>0) {
           res.json({success: true, data:results});
@@ -189,9 +185,9 @@ router.get('/get-clientes', async(req, res) => {
 router.post('/change-active', async(req, res) => {
   try {
       const id = req.body.id;
-      const results = await db.ClientState(id);
+      const results = await dbState.SetState(id);
       if (results.length > 0) {
-        const result = await db.GetState(id);
+        const result = await dbState.GetState(id);
         if (result.active === 1) {
           const title = `Su perfil se encuentra ahora activo`;
           const subtitle = `Las empresas podrán ver su perfil a partir de ahora, lo podrá volver a cambiar desde su perfil cuando desee`;
@@ -200,7 +196,7 @@ router.post('/change-active', async(req, res) => {
           const subject = 'Perfil Activado'
           sendMail(result.correo, subject, htmlText)
         } else {
-          await db.RemoveFavById('favoritosempresa', id);
+          await dbFav.RemoveFavById('favoritosempresa', id);
         }
         res.json({ success: true});
 

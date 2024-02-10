@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const config = require('./config');
+const config = require('../config');
 const { resolve } = require('path-browserify');
 require('dotenv').config();
 
@@ -12,8 +12,9 @@ connection.connect(function(error) {
 });
 
 
+module.exports = connection;
 
-function ReadAll(table) {
+/* function ReadAll(table) {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ${table}`, function (error, results) {
             if (error) {
@@ -24,9 +25,9 @@ function ReadAll(table) {
         });
     });
 }
+ */
 
-
-function ReadAllNombre(table) {
+/* function ReadAllNombre(table) {
     return new Promise((resolve, reject) => {
         connection.query(`
             SELECT oferta_empleo.*, empresas.name AS nombre_empresa
@@ -41,9 +42,9 @@ function ReadAllNombre(table) {
         });
     });
 }
+ */
 
-
-function existFav(id, select_id, table)
+/* function existFav(id, select_id, table)
 {
     return new Promise((resolve, reject) => {
         connection.promise().query('SELECT * FROM ?? WHERE ID_User=? AND ID_Selected=?', [table, id, select_id])
@@ -58,9 +59,9 @@ function existFav(id, select_id, table)
             reject(error);
         })
     });
-}
+} */
 
-function AddToFav(id, select_id, table) {
+/* function AddToFav(id, select_id, table) {
     return new Promise((resolve, reject) => {
         connection.query('INSERT INTO ?? SET ?', [table, { ID_User: id, ID_Selected: select_id }], (error, results) => {
             if (error) {
@@ -82,9 +83,9 @@ function RemoveFromFav(id, select_id, table) {
             }
         });
     });
-}
+} */
 
-function RemoveFavById(table, select_id) {
+/* function RemoveFavById(table, select_id) {
     return new Promise((resolve, reject) => {
         connection.query('DELETE FROM ?? WHERE ID_Selected=?', [table, select_id], (error, results) => {
             if (error) {
@@ -94,12 +95,12 @@ function RemoveFavById(table, select_id) {
             }
         });
     });
-}
+} */
 
 
 
 
-function ReadPublished() {
+/* function ReadPublished() {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM oferta_empleo WHERE publish=1`, function (error, results) {
             if (error) {
@@ -109,11 +110,11 @@ function ReadPublished() {
             }
         });
     });
-}
+} */
 
 
 
-function ReadOne(table, id) {
+/* function ReadOne(table, id) {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM ?? WHERE id=?`,[table, id], function(error, results) {
             if (error) {
@@ -127,13 +128,13 @@ function ReadOne(table, id) {
 
 function ReadUsername(table, username) {
     return connection.promise().query(`SELECT user FROM ${table} WHERE user=?`, [username]);
-}
+} */
 
-function ReadMail(table, correo) {
+/* function ReadMail(table, correo) {
     return connection.promise().query(`SELECT correo FROM ${table} WHERE correo=?`, [correo]);
 }
-
-function ReadFromMail(table, correo) {
+ */
+/* function ReadFromMail(table, correo) {
     return connection.promise().query(`SELECT id FROM ${table} WHERE correo=?`, [correo])
         .then(([rows]) => {
             if (rows.length > 0 && rows[0].id) {
@@ -147,8 +148,8 @@ function ReadFromMail(table, correo) {
             throw error;
         });
 }
-
-function GetMail(table, id) {
+ */
+/* function GetMail(table, id) {
     return connection.promise().query(`SELECT correo FROM ?? WHERE id=?`, [table, id])
         .then(([rows]) => {
             if (rows.length > 0 && rows[0].correo) {
@@ -161,9 +162,9 @@ function GetMail(table, id) {
             console.error('Error al leer desde la base de datos:', error);
             throw error;
         });
-}
+} */
 
-function ReadToken(table, token) {
+/* function ReadToken(table, token) {
     return connection.promise().query(`SELECT id, resetTokenExpiration FROM ?? WHERE resetToken=?`, [table, token])
         .then(([rows]) => {
             if (rows.length > 0) {
@@ -185,9 +186,9 @@ function ReadToken(table, token) {
             console.error('Error al leer desde la base de datos:', error);
             throw error;
         });
-}
+} */
 
-async function getLogin(table, username) {
+/* async function getLogin(table, username) {
     try {
         const [rows] = await connection.promise().query(`SELECT id, password, block FROM ?? WHERE user=?`, [table, username]);
         if (rows.length > 0) {
@@ -203,10 +204,10 @@ async function getLogin(table, username) {
         console.error('Error en la consulta SQL:', error);
         throw error;
     }
-}
+} */
 
 
-function Update(table, data, userid) {
+/* function Update(table, data, userid) {
     return new Promise((resolve, reject) => {
         const updatedQueries = [];
 
@@ -229,9 +230,9 @@ function Update(table, data, userid) {
             }
         });
     });
-}
+} */
 
-function updatePassword(table, id, password) {
+/* function updatePassword(table, id, password) {
     return connection.promise().query('UPDATE ?? SET password = ? WHERE id = ?', [table, password, id])
     .then(result => {
         return result.changedRows;
@@ -240,13 +241,13 @@ function updatePassword(table, id, password) {
         console.error('Error en la consulta SQL:', error);
         throw error;
     });
-}
+} */
 
-function PublishOferta(id) {
+/* function PublishOferta(id) {
     return connection.promise().query('UPDATE oferta_empleo SET publish = CASE WHEN publish = 0 THEN 1 ELSE 0 END WHERE id = ?', [id]);
-  }
+  } */
 
-  function ClientState(id) {
+/*   function ClientState(id) {
     return connection.promise().query('UPDATE clientes SET active = CASE WHEN active = 0 THEN 1 ELSE 0 END WHERE id = ?', [id]);
   }
   
@@ -263,9 +264,9 @@ function PublishOferta(id) {
         console.error('Error en la consulta SQL:', error);
         throw error;
     });
-  }
+  } */
 
-  function GetPublish(id) {
+/*   function GetPublish(id) {
     return connection.promise().query('SELECT publish FROM oferta_empleo WHERE id = ?', [id])
     .then(([rows]) => {
         if (rows.length > 0) {
@@ -278,19 +279,19 @@ function PublishOferta(id) {
         console.error('Error en la consulta SQL:', error);
         throw error;
     });
-  }
+  } */
   
 
-function storeToken (id, token, expirationDate, table) {
+/* function storeToken (id, token, expirationDate, table) {
     return connection.promise().query('UPDATE ?? SET resetToken = ?, resetTokenExpiration = ? WHERE id = ?', [table, token, expirationDate, id]);
 
 }
 
 function storeTokenSesion(data) {
     return connection.promise().query('INSERT INTO session_tokens SET ?', data);
-}
+} */
 
-function Create(table, data) {
+/* function Create(table, data) {
     return new Promise((resolve, reject) => {
       connection.query(`INSERT INTO ${table} SET ?`, data, function (error, result) {
         if (error) {
@@ -301,10 +302,10 @@ function Create(table, data) {
         }
       });
     });
-}
+} */
   
 
-function getHeaderData(table, id) {
+/* function getHeaderData(table, id) {
     return new Promise((resolve, reject) => {
         connection.query('SELECT image, user FROM ?? WHERE id=?', [table, id], (error, results) => {
             if (error) {
@@ -314,8 +315,8 @@ function getHeaderData(table, id) {
             }
         });
     });
-}
-
+} */
+/* 
 async function verifySessionToken(userId, token, tableName) {
     try {
         const [rows] = await connection.promise().query('SELECT * FROM session_tokens WHERE user_id = ? AND token = ? AND tableName = ?', [userId, token, tableName]);
@@ -325,17 +326,17 @@ async function verifySessionToken(userId, token, tableName) {
         throw error;
     }
 }
-
-
+ */
+/* 
 function Delete(table, id) {
     return connection.promise().query('DELETE FROM ?? WHERE id = ?', [table, id]);
-}
+} */
 
-function DeleteByIdEmpresa(id) {
+/* function DeleteByIdEmpresa(id) {
     return connection.promise().query('DELETE FROM oferta_empleo WHERE id_empresa = ?', [id]);
-}
+} */
 
-function getUserData(username, table) {
+/* function getUserData(username, table) {
     return new Promise((resolve, reject) => {
         connection.promise().query('SELECT * FROM ?? WHERE user=?', [table, username])
         .then(([rows]) => {
@@ -348,8 +349,8 @@ function getUserData(username, table) {
         })
     });
 }
-
-
+ */
+/* 
   function GetFavs(id, table) {
     return new Promise((resolve, reject) => {
       connection.promise().query('SELECT ID_Selected FROM ?? WHERE ID_User=?', [table, id])
@@ -361,10 +362,10 @@ function getUserData(username, table) {
           reject(error);
         });
     });
-  }
+  } */
 
 
-function getOfertasFavs(table, ids) {
+/* function getOfertasFavs(table, ids) {
     const idsStr = ids.join(',');
     return new Promise((resolve, reject) => {
         connection.promise().query(`SELECT * FROM ?? WHERE id IN (${idsStr})`, [table])
@@ -392,8 +393,8 @@ function getOfertaData(table, id) {
             reject(error);
         })
     });
-}
-
+} */
+/* 
 function ReadClientes() {
     return new Promise((resolve, reject) => {
         connection.query('SELECT id,name, correo, tlf, image, provincia, codpostal, posanterior, empresa, duracion, educacion, perfil, habilidad, video, curriculum, curriculumName FROM clientes WHERE active = true', function (error, results) {
@@ -404,10 +405,10 @@ function ReadClientes() {
             }
         });
     });
-}
+} */
 
 
-function UpdateOferta(table, data, id) {
+/* function UpdateOferta(table, data, id) {
     return new Promise((resolve, reject) => {
         const updatedQueries = [];
 
@@ -430,10 +431,10 @@ function UpdateOferta(table, data, id) {
         });}
 
     });
-}
+} */
 
 
-function getInfo(id, table) {
+/* function getInfo(id, table) {
     return new Promise((resolve, reject) => {
         const columnsToSelect = (table === 'clientes') 
             ? ('id, user, active, name, correo, tlf, image, calle, ciudad, provincia, codpostal,' +
@@ -473,9 +474,9 @@ function getProfileInfo(id, table) {
             reject(error);
         });
     });
-}
+} */
 
-async function IncrementAttemps (id, table) {
+/* async function IncrementAttemps (id, table) {
     await connection.promise().query('UPDATE ?? SET failedPassword  = failedPassword + 1 WHERE id = ?', [table, id]);
     const [rows] = await connection.promise().query('SELECT failedPassword FROM ?? WHERE id = ?', [table, id]);
     const updatedFailedPassword = rows[0].failedPassword;
@@ -513,9 +514,9 @@ function unlockAccount(table, id) {
         .catch(error => {
             console.error('Error al desbloquear la cuenta automáticamente:', error);
         });
-}
+} */
 
-function Read_Ofertas_id(table, id) {
+/* function Read_Ofertas_id(table, id) {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT oferta_empleo.*, empresas.name AS
         nombre_empresa FROM ?? JOIN empresas ON oferta_empleo.id_empresa
@@ -543,8 +544,8 @@ async function getNumberOfertsByDay() {
         throw error;
     }
 }
-
-async function getSecretKeyAdmin(table, username) {
+ */
+/* async function getSecretKeyAdmin(table, username) {
     try {
         const [rows] = await connection.promise().query(`SELECT secret_key, Validado FROM ?? WHERE user=?`, [table, username]);
         if (rows.length > 0) {
@@ -611,9 +612,9 @@ function getInfoAdmin(table) {
         })
     });
 }
+ */
 
-
-async function countOfertas() {
+/* async function countOfertas() {
     try {
         const [rows] = await connection.promise().query('SELECT COUNT(*) AS numOfertas FROM oferta_empleo');
         return rows[0].numOfertas;
@@ -643,10 +644,10 @@ async function countEmpresas() {
         throw error;
     }
 }
+ */
 
 
-
-module.exports = {
+/* module.exports = {
     ReadAll,
     ReadOne,
     Update,
@@ -695,4 +696,4 @@ module.exports = {
     ReadAllNombre,
     RemoveFavById,
     DeleteByIdEmpresa
-}
+} */

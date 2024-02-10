@@ -1,5 +1,11 @@
 const express = require('express');
-const db = require('../db');
+const dbCRUD = require('../database/CRUD.js');
+const dbMail = require('../database/mail.js');
+const dbCount = require('../database/count.js');
+const dbAdmin = require('../database/admin.js');
+const dbOfertas = require('../database/ofertas.js');
+const dbChat = require('../database/chat.js');
+const dbLogin = require('../database/login.js');
 const router = express.Router();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
@@ -20,14 +26,14 @@ router.post('/register-admin', async function(req, res) {
         correo: req.body.correo,
         password: hashPassword,
     }
-    db.Create('admin', data)
+    dbCRUD.Create('admin', data)
       .then(async result => {
         console.log('DATOS GUARDADOS EN LA BASE');
         const title = `Solicitud de Registro como Administrador`;
         const subtitle = `El usuario ${data.user}, con correo ${data.correo} desea registrarse como Administrador.`;
         const textBoton = 'Aceptar Solicitud';
         const textBoton2 = 'Cancelar Solicitud';
-        const id = await db.ReadFromMail('admin', data.correo);
+        const id = await dbMail.GetIdByMail('admin', data.correo);
         const link = url.format({
             protocol: req.protocol,
             host: 'backend-empleoinclusivo.onrender.com',
@@ -54,9 +60,9 @@ router.post('/register-admin', async function(req, res) {
 
 router.get('/get-num', async function(req, res) {
   try {
-    const numOfertas = await db.countOfertas();
-    const numClientes = await db.countClientes();
-    const numEmpresas = await db.countEmpresas();
+    const numOfertas = await dbCount.countOfertas();
+    const numClientes = await dbCount.countClientes();
+    const numEmpresas = await dbCount.countEmpresas();
     res.json({success:true, numOfertas: numOfertas, numClientes:numClientes, numEmpresas:numEmpresas});
   } catch (error) {
     console.log('Error al obtener el numero de registros:', error);
@@ -68,7 +74,7 @@ router.get('/get-num', async function(req, res) {
 
 router.get('/get-by-fecha', async function(req, res) {
   try {
-    const ofertasPorFecha = await db.getNumberOfertsByDay();
+    const ofertasPorFecha = await dbOfertas.getNumberOfertsByDay();
     console.log(ofertasPorFecha);
     const fechas = ofertasPorFecha.map(oferta => oferta.fecha);
     const numOfertasPorFecha = ofertasPorFecha.map(oferta => oferta.num_ofertas);
@@ -81,21 +87,51 @@ router.get('/get-by-fecha', async function(req, res) {
 
 });
 
+router.post('/get-messages', async(req, res) => {
+  const id = req.body.id;
+  const table = req.body.table;
+  const token = req.body.token;
+  const result = await dbAdmin.checkAdmin(id, token);
+  if (result) {
+    try {
+      const ids = await dbChat.getUniqueIdChat(table);
+      if (ids) {
+        let data = await (table === 'chat_messages' ? dbLogin.getHeaderDataIds('clientes', ids) : dbLogin.getHeaderDataIds('empresas', ids));
+        res.json({ success: true, data: data });
+      } else{
+        res.json({ success: false, data: null });
+      }
+    } catch(error) {
+        console.log('Error al get mensaje', error);
+        res.status(500).json({ success: false, message: 'Error interno del Servidor' });
+    }
+  } else {
+    res.status(403).json({ success: false, message: 'No autorizado' });
+  }
+  const timeout = setTimeout(() => {
+    console.log('Tiempo de espera excedido');
+    res.status(504).json({ success: false, message: 'Tiempo de espera excedido' });
+  }, 30000);
+
+  res.on('finish', () => {
+    clearTimeout(timeout);
+  });
+});
 
 router.post('/get-all', async function(req, res) {
     const id = req.body.id;
     const table = req.body.table;
     const token = req.body.token;
-    const result = db.checkAdmin(id, token);
+    const result = dbAdmin.checkAdmin(id, token);
     if (result) {
         try {
             let results;
             if (table === 'oferta_empleo') {
-              results = await db.ReadAllNombre(table);
+              results = await dbOfertas.ReadAllNombre(table);
             } else if (table === 'oferta_empleo-id') {
-              results = await db.Read_Ofertas_id('oferta_empleo', req.body.id_empresa);
+              results = await dbOfertas.Read_Ofertas_id('oferta_empleo', req.body.id_empresa);
             } else {
-              results = await db.getInfoAdmin(table);
+              results = await dbAdmin.getInfoAdmin(table);
             }
             res.json({ success: true, data: results});
 
@@ -116,12 +152,12 @@ router.post('/admin-delete', async function(req, res) {
   const table = req.body.table;
   const token = req.body.token;
   try {
-  const result = db.checkAdmin(id, token);
+  const result = dbAdmin.checkAdmin(id, token);
   if (result) {
     if (req.body.table === 'empresas') {
-      await db.DeleteByIdEmpresa(req.body.id);
+      await dbOfertas.DeleteByIdEmpresa(req.body.id);
   }
-    const deleteResult = await db.Delete(table, id_delete);
+    const deleteResult = await dbCRUD.Delete(table, id_delete);
     if (deleteResult.affectedRows > 0) {
       if (result.affectedRows > 0) {
       res.json(true);

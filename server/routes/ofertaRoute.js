@@ -1,5 +1,9 @@
 const express = require('express');
-const db = require('../db');
+const dbCRUD = require('../database/CRUD');
+const dbPublish = require('../database/publish');
+const dbOfertas = require('../database/ofertas');
+const dbMail = require('../database/mail');
+const dbFav = require('../database/fav');
 const router = express.Router();
 const multer = require('multer');
 
@@ -10,9 +14,7 @@ const { sendMail, generateRegistrationEmail } = require('./sendmail');
 router.post('/save-data3', upload.fields([
     { name: 'imageInput', maxCount: 1 },
   ]), function(req, res) {
-    
     const imageFile = req.files['imageInput'] ? req.files['imageInput'][0] : '';
-  
     const imageHash = imageFile ? imageFile.filename : '';
   
     const data = {
@@ -35,8 +37,7 @@ router.post('/save-data3', upload.fields([
         
         };
      
-     
-        db.Create('oferta_empleo', data)
+        dbCRUD.Create('oferta_empleo', data)
         .then(result => {
           console.log('DATOS GUARDADOS EN LA BASE');
           res.json({ success: true});
@@ -54,10 +55,9 @@ router.post('/save-data3', upload.fields([
 
   router.post('/get-ofertas', async(req, res) => {
     id_empresa = req.body.id_empresa;
-    console.log(id_empresa);
     if (id_empresa) {
         try {
-            const results = await db.Read_Ofertas_id('oferta_empleo',id_empresa);
+            const results = await dbOfertas.Read_Ofertas_id('oferta_empleo',id_empresa);
             if (results.length > 0) {
                 res.json({ success: true, data: results});
             } else {
@@ -77,8 +77,7 @@ router.post('/save-data3', upload.fields([
 
 router.get('/get-all-ofertas', async(req, res) => {
   try {
-      const results = await db.ReadPublished();
-      console.log(results);
+      const results = await dbPublish.GetPublish();
       if (results && results.length > 0) {
           res.json({ success: true, data: results });
       } else {
@@ -92,15 +91,11 @@ router.get('/get-all-ofertas', async(req, res) => {
 
 
 router.post('/operation-ofertas', async(req, res)  => {
-  console.log('BIENVENIDO A operation');
   const id_oferta= req.body.id;
   const action = req.body.action;
-  console.log(id_oferta);
-  console.log(action);
   if (action === 'delete') {
-    console.log('ELIMINACION');
     try {
-      const results = await db.Delete('oferta_empleo',id_oferta);
+      const results = await dbCRUD.Delete('oferta_empleo',id_oferta);
       if (results.length > 0) {
           res.json({ success: true, data: results});
       } else {
@@ -111,13 +106,12 @@ router.post('/operation-ofertas', async(req, res)  => {
           res.status(500).json({error: 'Error Interno Del Servidor'});
       }
   } else if (action === 'publish'){
-    console.log('PUBLICACION');
     try {
-      const results = await db.PublishOferta(id_oferta);
+      const results = await dbPublish.SetPublish(id_oferta);
       if (results.length > 0) {
-        const published = await db.GetPublish(id_oferta);
+        const published = await dbPublish.GetPublishById(id_oferta);
         if (published.publish === 1) {
-            const correo = await db.GetMail('empresas', req.body.idEmpresa);
+            const correo = await dbMail.GetMail('empresas', req.body.idEmpresa);
             if (correo) {
                 const title = `Publicación`;
                 const subtitle = `Una de las Ofertas de Empleo de su Empresa ha sido publicada, <br\>
@@ -130,7 +124,7 @@ router.post('/operation-ofertas', async(req, res)  => {
                 sendMail(correo, subject, htmlText)
             }
         } else {
-            await db.RemoveFavById('favoritos',id_oferta);
+            await dbFav.RemoveFavById('favoritos',id_oferta);
         }
           res.json({ success: true, data: results});
       } else {
@@ -147,18 +141,15 @@ router.post('/operation-ofertas', async(req, res)  => {
 
 
 router.post('/get-one-oferta', async(req, res) => {
-    id_oferta = req.body.id_oferta;
-    console.log(id_oferta);
-    console.log("hola");
+    const id_oferta = req.body.id_oferta;
     if (id_oferta) {
         try {
-            const results = await db.ReadOne('oferta_empleo',id_oferta);
+            const results = await dbCRUD.ReadOne('oferta_empleo',id_oferta);
             if (results.length > 0) {
                 res.json({ success: true, data: results});
             } else {
                 res.json({ success: false, message: 'Error de la base de datos' });
             }
-
         } catch (error) {
             console.log('Error al obtener los datos', error);
             res.status(500).json({error: 'Error Interno Del Servidor'});
@@ -176,19 +167,11 @@ router.post('/update-data-oferta',  upload.fields([
     try {
           const modifiedFields = JSON.parse(req.body.modifiedFields);
           const deleteImage = JSON.parse(req.body.deleteImage);
-  
           const imageFile = req.files['imageInput'] ? req.files['imageInput'][0] : '';
-  
           const imageHash = imageFile ? imageFile.filename : '';
-  
-  
-          console.log(modifiedFields);
-     
-            const id = req.body.id_oferta;
-    
-  
+          const id = req.body.id_oferta;
+
           const data = {
-              
               id_empresa: modifiedFields.id_empresa === true? req.body.id_empresa : undefined,
               publish: modifiedFields.publish === true? req.body.publish : undefined,
               titulo_oferta: modifiedFields.titulo_oferta === true? req.body.titulo_oferta : undefined,
@@ -211,18 +194,12 @@ router.post('/update-data-oferta',  upload.fields([
               data.image = '';
             }
             
-
-
-            console.log(data);
-            db.UpdateOferta('oferta_empleo', data, id)
+            dbOfertas.UpdateOferta('oferta_empleo', data, id)
             const dataNew =  await db.getOfertaData('oferta_empleo',id);
-            console.log(dataNew);
             res.json({success: true, dataNew: dataNew});
       }
       catch (error) {
             console.error("Error:", error);
-  
-            // Enviar una respuesta de error al cliente
             res.status(500).json({ success: false, error: "Internal Server Error" });
     }
   });
