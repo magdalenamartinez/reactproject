@@ -66,7 +66,7 @@ function BeneficiosInclusion() {
            su máximo potencial y contribuir significativamente al bienestar colectivo.</p>
       </section>
       {/* Sección 4 */}
-      <section className={`section ${sectionsVisible.section4 ? 'visible' : ''}`} id="section3">
+      <section className={`section ${sectionsVisible.section4 ? 'visible' : ''}`} id="section4">
       <h2 className="title_container">Cuota de Reserva de empleo</h2>
         <p className="paragraph_beneficios" id="paragraph1">
           Las empresas con una plantilla superior a un determinado tamaño están obligadas a reservar un 
@@ -76,7 +76,7 @@ function BeneficiosInclusion() {
            pero suele ser alrededor del 2 al 7%.</p>
       </section>
       {/* Sección 5 */}
-      <section className={`section ${sectionsVisible.section5 ? 'visible' : ''}`} id="section3">
+      <section className={`section ${sectionsVisible.section5 ? 'visible' : ''}`} id="section5">
       <h2 className="title_container">Mejora de Imagen y Reputación</h2>
         <p className="paragraph_beneficios" id="paragraph1">
         La adopción de prácticas inclusivas refleja valores corporativos de responsabilidad social y equidad, 
