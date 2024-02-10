@@ -65,7 +65,7 @@
 @media only screen and (max-width: 1000px) {
     .dashboard_container {
         flex-direction: column;
-    }a
+    }
     .cuadro_contador {
         margin-bottom: 20px;
     }

@@ -2,7 +2,7 @@ import React from "react";
 
 const getConversationsAdmin = async(id, token, table, setConversaciones) => {
     try {
-        const response = await fetch('/adminRoute/get-messages', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/adminRoute/get-messages', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: id, token: token, table:table}),
