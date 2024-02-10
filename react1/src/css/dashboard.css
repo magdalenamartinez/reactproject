@@ -13,7 +13,7 @@
 .sidebar {
     margin-top: 40px;
     width: 200px;
-    height: 300px;
+    height: 400px;
     background: linear-gradient(to bottom, #480e7e88, #1e7f974b);
     justify-content: space-around;
     display: flex;
@@ -65,7 +65,7 @@
 @media only screen and (max-width: 1000px) {
     .dashboard_container {
         flex-direction: column;
-    }
+    }a
     .cuadro_contador {
         margin-bottom: 20px;
     }
