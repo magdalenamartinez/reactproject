@@ -11,7 +11,6 @@ const getConversationsAdmin = async(id, token, table, setConversaciones) => {
           const responseData = await response.json();
           if (responseData.success) {
                 setConversaciones(responseData.data);
-                console.log(responseData.data);
           }
         }
       } catch (error) {

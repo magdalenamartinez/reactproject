@@ -66,7 +66,6 @@ function OfertasCreadas() {
                 ...prevStates,
                 [idOfertaOperation]: !prevStates[idOfertaOperation],
             }));
-            console.log(idOfertaOperation);
             await sendChangesToServer(idOfertaOperation, action, idEmpresa);
         }
     };

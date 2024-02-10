@@ -25,7 +25,6 @@ function AdminOfertas() {
     const {userData} = useUser();
     const getData = async() => {
         await getAllAdmin(userData, 'oferta_empleo', setData, setObtainedData, setDeleteStates);
-        console.log(data);
     }
     useEffect(() => {
         getData();

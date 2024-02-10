@@ -25,7 +25,6 @@ function OfertasPorEmpresa() {
     const [deleteStates, setDeleteStates] = useState({});
     const {userData} = useUser();
     const getData = async() => {
-        console.log(empresaName, empresaId);
         await getAllAdmin(userData, 'oferta_empleo-id', setData, setObtainedData, setDeleteStates, empresaId);
     }
     useEffect(() => {

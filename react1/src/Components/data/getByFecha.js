@@ -9,9 +9,6 @@ const getByFecha = async (setNumOfertasPorFecha, setFechas) => {
       if (response.ok) {
         const responseData = await response.json();
         if (responseData.success) {
-            console.log(responseData);
-            console.log(responseData.numofertasporfecha);
-            console.log(responseData.fechas);
           setNumOfertasPorFecha(responseData.numofertasporfecha);
           setFechas(responseData.fechas);
         }

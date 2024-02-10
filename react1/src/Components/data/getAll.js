@@ -8,7 +8,6 @@ const getInfo = async(id, tableName, setData, token) => {
         if (response.ok) {
             const responseData = await response.json();
             if (responseData.success) {
-               console.log(responseData.data);
                setData(responseData.data);
             }
         }

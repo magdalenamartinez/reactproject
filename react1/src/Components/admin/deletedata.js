@@ -14,7 +14,6 @@ const deleteData = async(id, userData, table) => {
             }
         }
     } catch (error) {
-        // Manejar errores
         console.error('Error:', error);
     }
 }

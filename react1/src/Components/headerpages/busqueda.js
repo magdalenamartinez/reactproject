@@ -12,7 +12,7 @@ function Busqueda({handleSearch}) {
 
     const handleKey = async(event) => {
         if (event.key === 'Enter') {
-            handleChange(event);
+            handleChange();
         }
     }
 

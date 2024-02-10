@@ -9,19 +9,16 @@ const checkUserName = async(username, tableName) => {
         try {
             const user = document.getElementById(username);
             if (user) {
-                 const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-username?username=${user.value}&table=${tableName}`);
-            const existencia = await res.json();
-            if (existencia === true) {
-                //Si ya existe tenemos que pedirle que cambie el usuario
-                existsUser = true;
-            } else {
-                existsUser = false;
-
+                const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-username?username=${user.value}&table=${tableName}`);
+                const existencia = await res.json();
+                if (existencia === true) {
+                    existsUser = true;
+                } else {
+                    existsUser = false;
+                }
             }
-            }
-
-        } catch (error) {
-            console.error('Error al verificar el nombre de usuario:', error);
+            } catch (error) {
+                console.error('Error al verificar el nombre de usuario:', error);
         }
 
 };
@@ -34,16 +31,12 @@ const checkMail = async(correo, tableName) => {
         if (mail) {
             const res = await fetch(`https://backend-empleoinclusivo.onrender.com/checkUserRoute/check-mail?correo=${mail.value}&table=${tableName}`);
             const existencia = await res.json();
-            console.log(existencia);
-        if (existencia === true) {
-            //Si ya existe tenemos que pedirle que cambie el usuario
-            existsMail = true;
-        } else {
-            existsMail = false;
-
+            if (existencia === true) {
+                existsMail = true;
+            } else {
+                existsMail = false;
+            }
         }
-        }
-
     } catch (error) {
         console.error('Error al verificar el correo:', error);
     }

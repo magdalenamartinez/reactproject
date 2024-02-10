@@ -118,7 +118,7 @@ function RegistroEmpresa() {
                         <h1 className="title_container">Vídeo de Presentación de la Empresa</h1>
                         <label className="form_label" htmlFor="video">Si lo desea puede subir un vídeo que explique cómo funciona su Empresa</label>
                         <Video handleDeleteVideo={handleDeleteVideo} onChange={() => InputChange('inputVideo', 'videoPlayer')}
-                            style={{display: 'none'}} style_button={{ display: 'none' }}/>
+                            stylec={{display: 'none'}} style_button={{ display: 'none' }}/>
                     </div>
                     <button className="submit_button" type="submit">Terminar Registro de la Empresa</button>
                 </form>

@@ -8,7 +8,6 @@ const handleLogin = async (event, table, user, password, recaptchaToken, login, 
             const responseData = await response.json();
             if (responseData.success) {
                 const userData = { typeUser: responseData.typeUser, id: responseData.id, user: responseData.user, image: responseData.image, token: responseData.token };
-                console.log(userData);
                 login(userData);
                 if (userData.typeUser === 1) {
                     navigate('/perfilUsuario');
@@ -17,7 +16,6 @@ const handleLogin = async (event, table, user, password, recaptchaToken, login, 
                 } else if (userData.typeUser === 3) {
                     navigate('/dashboard_admin');
                 }
-                // hacer el navigate
             } else if (!responseData.success && responseData.number === 0) {
                 return { messageType: 'error', errorType: 'login'};
             } else if (!responseData.success && responseData.number === 1) {
@@ -27,12 +25,9 @@ const handleLogin = async (event, table, user, password, recaptchaToken, login, 
                 return { messageType: 'error', errorType: 'block'};
             } 
         } else {
-            // Manejar errores de red o de la solicitud
             console.error("Error de red o en la solicitud");
             return { messageType: 'error', errorType: 'network'};
         }
-        
-        
     } catch (error) {
         console.error("Se ha producido un error: ", error);
     }
