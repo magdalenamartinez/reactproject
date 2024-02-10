@@ -103,3 +103,16 @@
     background: linear-gradient(to bottom, #4a076b88, #1e7f974b);
   }
   
+  .verLeidos {
+    text-align: right;
+    text-decoration: none;
+    text-decoration: underline;
+    cursor: pointer;
+    align-items: right;
+    background-color: none;
+    
+}
+
+.verLeidos:hover {
+    color: lightblue;
+}
