@@ -30,11 +30,11 @@ const DropDownChat = ({ openclass, userData }) => {
   }, [messages]);
 
   useEffect(() => {
-    if (data) {
+  
     const interval = setInterval(() => {
         getAllMessages();
     }, 5000);
-    return () => clearInterval(interval);}
+    return () => clearInterval(interval);
   }, []);
 
   const scrollToBottom = () => {
