@@ -3,6 +3,7 @@ const mysql = require('mysql2'); // Importa la versión de la biblioteca que sop
 const config = require('./config');
 const path = require('path');
 const dbAdmin = require('./database/admin.js');
+const dbToken = require('./database/token.js');
 const dbCRUD = require('./database/CRUD.js');
 const crypto = require('crypto');
 const { sendMail, generateRegistrationEmail } = require('./routes/sendmail');
@@ -69,7 +70,7 @@ app.get('/download/:filename', async (req, res) => {
 
 app.use('/reset-password', async(req, res) => {
     try {
-        const id = await db.ReadToken(req.query.t, req.query.token);
+        const id = await dbToken.ReadToken(req.query.t, req.query.token);
         if (id) {
             let t;
             if (req.query.t === 'clientes') {
