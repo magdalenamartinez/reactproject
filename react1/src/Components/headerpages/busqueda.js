@@ -10,6 +10,11 @@ function Busqueda({handleSearch}) {
       busquedaDark: style.darkMode ? 'busquedaDark' : '',
     };
 
+    const handleKey = async(event) => {
+        if (event.key === 'Enter') {
+            handleChange(event);
+        }
+    }
 
     const handleChange = (e) => {
         const search = document.getElementById('searchText').value;
@@ -20,7 +25,8 @@ function Busqueda({handleSearch}) {
         <div className="contenedor formc">
             <div className='busqueda_izq'>
                 <form action="/busqueda" method="get" className={`form_search `}>
-                            <input type="text" className={`texto_barra ${st.busquedaContrast} ${st.busquedaDark}`} name="searchText" id="searchText" placeholder="Buscar..." />
+                            <input type="text" className={`texto_barra ${st.busquedaContrast} ${st.busquedaDark}`} name="searchText" id="searchText" placeholder="Buscar..." 
+                            onKeyDown={handleKey}/>
                             <button className="button_class" type="button" onClick={handleChange}>
                                 <img className="image_search" src="/images/lupa2.png" alt=""/>
                             </button>

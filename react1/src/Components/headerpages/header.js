@@ -123,7 +123,6 @@ function Header2() {
             <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} logout={handleLogout} admin={true} setDropDown={setDropDown}/> 
         </div>
         {(() => {
-            chatStyleRef.current = 'chat'
             inicioSesionLinkRef.current = '/inicioSesion'
             favs.current = '/favoritosEmpresa'
 

@@ -47,8 +47,7 @@ handleOperation, setShowPopUp, setOptionText, searchTerm, searchState, term}) {
                             </div>
                         </li>
                         {isOferta && detalles[data.id] && <DetallesOferta oferta={data} />}
-                        {isCliente && detalles[data.id] && (data.video != '' || data.educacion != '' || data.perfil != '' || data.habilidad != '' || data.curriculum != '') &&
-                         <DetallesCliente cliente={data}/>}
+                        {isCliente && detalles[data.id] && <DetallesCliente cliente={data}/>}
                     </div>
                 ))
             ) : (

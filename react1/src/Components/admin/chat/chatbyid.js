@@ -24,7 +24,7 @@ function ChatById() {
 
     useEffect(()=> {
         if (id && type && !data) {
-            if (type === 1) {
+            if (type === 1 || type === '1') {
                 setLink('/chatClientes/mensajesClientes/chat_messages/1');
             } else {
                 setLink('/chatEmpresas/mensajesEmpresas/chat_messages_empresa/2');

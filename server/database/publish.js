@@ -21,7 +21,12 @@ function GetPublishById(id) {
 
 function GetPublish() {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM oferta_empleo WHERE publish=1`, function (error, results) {
+        connection.query(`
+            SELECT oferta_empleo.*, empresas.name AS nombre_empresa
+            FROM oferta_empleo
+            JOIN empresas ON oferta_empleo.id_empresa = empresas.id
+            WHERE oferta_empleo.publish = 1
+        `, function (error, results) {
             if (error) {
                 reject(error);
             } else {
@@ -30,6 +35,7 @@ function GetPublish() {
         });
     });
 }
+
 
 module.exports = {
     SetPublish,

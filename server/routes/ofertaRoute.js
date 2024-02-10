@@ -195,7 +195,7 @@ router.post('/update-data-oferta',  upload.fields([
             }
             
             dbOfertas.UpdateOferta('oferta_empleo', data, id)
-            const dataNew =  await db.getOfertaData('oferta_empleo',id);
+            const dataNew =  await dbOfertas.getOfertaData('oferta_empleo',id);
             res.json({success: true, dataNew: dataNew});
       }
       catch (error) {
