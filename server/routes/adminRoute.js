@@ -4,6 +4,7 @@ const dbMail = require('../database/mail.js');
 const dbCount = require('../database/count.js');
 const dbAdmin = require('../database/admin.js');
 const dbOfertas = require('../database/ofertas.js');
+const dbToken = require('../database/token.js');
 const dbChat = require('../database/chat.js');
 const dbLogin = require('../database/login.js');
 const router = express.Router();
@@ -92,7 +93,7 @@ router.post('/get-messages', async(req, res) => {
   const table = req.body.table;
   const token = req.body.token;
   console.log(id,'',table,'token', token);
-  const result = await dbAdmin.checkAdmin(id, token);
+  const result = await dbToken.verifySessionToken(id, token, 'admin');
   console.log('admin checked ', result);
   if (result) {
     try {
@@ -126,7 +127,7 @@ router.post('/get-all', async function(req, res) {
     const id = req.body.id;
     const table = req.body.table;
     const token = req.body.token;
-    const result = dbAdmin.checkAdmin(id, token);
+    const result = await dbToken.verifySessionToken(id, token, 'admin');
     if (result) {
         try {
             let results;
@@ -156,7 +157,7 @@ router.post('/admin-delete', async function(req, res) {
   const table = req.body.table;
   const token = req.body.token;
   try {
-  const result = dbAdmin.checkAdmin(id, token);
+  const result = await dbToken.verifySessionToken(id, token, 'admin');
   if (result) {
     if (req.body.table === 'empresas') {
       await dbOfertas.DeleteByIdEmpresa(req.body.id);
