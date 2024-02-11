@@ -1,6 +1,6 @@
 
 
-function RenderMessages({messages, type}) {
+function RenderMessages({messages, type, changeMessage}) {
   const formatTimestamp = (timestamp) => {
     const currentDate = new Date();
     const messageDate = new Date(timestamp);
