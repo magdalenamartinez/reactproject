@@ -15,12 +15,12 @@ function ChatEmpresaCliente() {
     const messagesEndRef = useRef(null);
 
     const {userData} = useUser();
-
+    const getAllMessages= async()=> {
+        await getMessagesApply(idCliente, idEmpresa, type, setMessages); //en caso de q la conversacion ya este iniciada.
+        setData(true);
+    }
     useEffect(() => {
-        const getAllMessages= async()=> {
-            await getMessagesApply(idCliente, idEmpresa, type, setMessages); //en caso de q la conversacion ya este iniciada.
-            setData(true);
-        }
+        
         if (idEmpresa && idCliente && user && type) {
             getAllMessages();
         }
