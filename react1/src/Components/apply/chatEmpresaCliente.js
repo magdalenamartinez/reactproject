@@ -43,6 +43,12 @@ function ChatEmpresaCliente() {
     setInputText(event.target.value);
     };
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getAllMessages();
+        }, 5000);
+    return () => clearInterval(interval);
+    }, []);
 
     const handleSendMessage = async () => {
         if (inputText.trim() !== '' && userData) {

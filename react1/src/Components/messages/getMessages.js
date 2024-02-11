@@ -12,7 +12,6 @@ const getMessages = async(id, senderType, setMessages, admin) => {
           const responseData = await response.json();
           if (responseData.success) {
                 setMessages(responseData.data);
-                console.log(responseData.data);
           }
         }
       } catch (error) {
