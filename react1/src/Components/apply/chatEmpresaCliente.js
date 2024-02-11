@@ -74,7 +74,8 @@ function ChatEmpresaCliente() {
     return (
         <div className="contenedor"> 
         <div className="chatEmpresaUser"> 
-        <Link className='back_link' to='/ofertasCreadas'><i className="fa-solid fa-circle-chevron-left"></i></Link>
+        {type === 'empresa'? (<Link className='back_link' to='/ofertasCreadas'><i className="fa-solid fa-circle-chevron-left"></i></Link>):(<Link className='back_link' to='/perfilUsuario'><i className="fa-solid fa-circle-chevron-left"></i></Link>)}
+        
         <h1><i className="fa-solid fa-comments"></i>  Chat con el Usuario {user}</h1>
         <div className="chat-messagesempresauser">
             <RenderMessages messages={messages} type={type} changeMessage={true}/>
