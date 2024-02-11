@@ -92,6 +92,7 @@ function EnterpriseProfile() {
                                 <video controls className="videoPresentacion form_video" id="videoPlayer" src={`https://backend-empleoinclusivo.onrender.com/uploads/${data.video}`}></video>
                         )}
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} style={{height:'500px'}} to="/ofertasCreadas">Ver Ofertas de<br/> Trabajo Creadas</Link>
+                        <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} to="/conversaciones/empresa">Ver Conversaciones<br/>Con Solicitantes</Link>
                         <Link className={`button_big ${st.botonContrastBig} ${st.botonDark}`} style={{height:'500px'}} to='/buscarEmpleados'>Búsqueda de<br/>Empleados</Link>
                     </div>
                     <div className='right'>
