@@ -14,7 +14,8 @@ function RenderMessages({messages, type}) {
   
   return(
     messages.map((message, index) => (
-      <div key={index} className={`message ${message.sender_type === type ? 'sent' : 'received'}`}>
+      <div key={index} className={`message ${changeMessage ? (message.sender_type === type ? 'sent2' : 'received2') : 
+      (message.sender_type === type ? 'sent' : 'received')}`}>
         <div>{message.message}</div>
         <div className="time">{formatTimestamp(message.timestamp)}</div>
       </div>))
