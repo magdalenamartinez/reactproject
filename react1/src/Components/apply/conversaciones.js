@@ -64,7 +64,7 @@ function Conversaciones() {
     }
 
     const deleteConver = async(id) => {
-        //await deleteConversation(id, 'chat_messages', setDeleteStates);
+        await deleteConversationApply(id, userData.id, type, setDeleteStates);
     }
       
     return (

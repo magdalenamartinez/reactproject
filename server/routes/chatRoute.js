@@ -157,5 +157,28 @@ router.post('/save-message-apply', async(req, res) => {
 });
 
 
+router.post('/delete-conversation', async (req, res) => {
+    try {
+        const id = req.body.id;
+        const userid = req.body.userid;
+        const type = req.body.type;
+            try {
+                if (type === 'empresa') {
+                    //el id sera el idCliente y el iduser el id de la empresa
+                    await dbChat.DeleteChatApply(id, userid);                    
+                } else {
+                    //id es la empresa e iduser el cliente 
+                    await dbChat.DeleteChatApply(userid,id);                    
+                }
+                res.json({ success: true});
+            } catch (error) {
+                console.error('Error al obtener mensajes:', error);
+                res.status(500).json({ success: false, message: 'Error interno del Servidor' });
+            }
+    } catch (error) {
+        console.log('Error al añadir mensaje', error);
+        res.status(500).json({ success: false, message: 'Error interno del Servidor' });
+    }
+  });
 
 module.exports = router;

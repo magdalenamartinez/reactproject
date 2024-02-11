@@ -88,8 +88,15 @@ function DeleteChat(table, id) {
     return connection.promise().query('DELETE FROM ?? WHERE sender_id = ?', [table, id]);
 }
 
+
+function DeleteChatApply(id, id2) {
+    return connection.promise().query('DELETE FROM chat_messages_solicitantes WHERE sender_id = ? AND id_empresa=?', [id, id2]);
+}
+
+
 module.exports = {
     getUniqueIdChat,
+    DeleteChatApply,
     getUniqueIdEmpresaChatApply,
     getUniqueIdChatApply,
     getMessages,
