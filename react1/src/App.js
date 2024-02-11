@@ -40,6 +40,10 @@ const ChatClientes = lazy(() => import('./Components/admin/chat/chatClientes.js'
 const ChatEmpresas = lazy(() => import('./Components/admin/chat/chatEmpresas.js'));
 const ChatById = lazy(() => import('./Components/admin/chat/chatbyid.js'));
 const BeneficiosInclusion = lazy(() => import('./Components/profile/beneficios.js'));
+const SolicitantesOferta = lazy(() => import('./Components/apply/solicitantesOferta.js'));
+const ChatEmpresaCliente = lazy(() => import('./Components/apply/chatEmpresaCliente.js'));
+const Conversaciones = lazy(() => import('./Components/apply/conversaciones.js'));
+
 
 function App() {
   const {userData, logout} = useUser();
@@ -79,9 +83,15 @@ function App() {
             <Route path="/perfilEmpresa" element={<EnterpriseProfile />} />
             <Route path="/registroOfertaTrabajo" element={<RegistroOferta />} />
             <Route path="/ofertasCreadas" element={<OfertasCreadas />} />
+            <Route path="/solicitantesOferta/:id_oferta" element={<SolicitantesOferta />} />
             <Route path="/editOferta" element={<EditOferta />} />
             <Route path="/buscarEmpleados" element={<BusquedaEmpleados />} />
             <Route path="/BeneficiosInclusion" element={<BeneficiosInclusion />} />
+          </Route>
+          {/*RUTAS PARA EMPRESA Y CLIENTE*/}
+          <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && (userData.typeUser === 1|| userData.typeUser === 2)}/>}>
+            <Route path="/conversaciones/:type" element={<Conversaciones />} />
+            <Route path="/chatEmpresaCliente/:idEmpresa/:idCliente/:user/:type" element={<ChatEmpresaCliente />} />
           </Route>
           {/*RUTAS SOLO PARA SESION INICIADA DE CLIENTE*/}
           <Route element={<ProtectedRoute redirectPath="/" condition={userData !== null && userData.typeUser === 1}/>}>
