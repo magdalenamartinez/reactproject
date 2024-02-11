@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from "react";
 import { useUser } from "../funcionalidades/userContext";
 import Spinner from "../spinner";
 import { useParams } from "react-router-dom";
-import RenderMessages from "../dropDown/rendermessages";
+import RenderMessages from "../messages/rendermessages";
 import sendMessageDBApply from "./sendMessage";
 import { Link } from "react-router-dom";
 import getMessagesApply from "./getMessagesApply";
