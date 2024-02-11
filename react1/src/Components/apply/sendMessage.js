@@ -4,7 +4,7 @@ import React from "react";
 
 const sendMessageDBApply = async(message, idEmpresa, idCliente, senderType) => {
     try {
-        const response = await fetch('/chatRoute/save-message-apply', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/chatRoute/save-message-apply', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sender_id: idCliente, id_empresa: idEmpresa, message: message, type: senderType}),

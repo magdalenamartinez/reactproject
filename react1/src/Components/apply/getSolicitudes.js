@@ -1,6 +1,6 @@
 const getSolicitudesByIdOferta = async (id_oferta, tableName, tableToSearch, setHeartState, setOfertas) => {
     try {
-        const response = await fetch('/applyRoute/get-clientes-by-idOferta', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/chatRoute/get-clientes-by-idOferta', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id_oferta: id_oferta, table:tableName, tableToSearch: tableToSearch}),

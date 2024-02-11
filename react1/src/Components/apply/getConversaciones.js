@@ -2,7 +2,7 @@ import React from "react";
 
 const getConversacionesApply = async(id, type, setConversaciones, setDeleteStates) => {
     try {
-        const response = await fetch('/chatRoute/get-conversaciones', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/chatRoute/get-conversaciones', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: id, type: type }),

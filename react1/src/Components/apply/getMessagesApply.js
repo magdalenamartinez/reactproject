@@ -2,7 +2,7 @@ import React from "react";
 
 const getMessagesApply = async(idCliente, idEmpresa, senderType, setMessages) => {
     try {
-        const response = await fetch('/chatRoute/get-messages-apply', {
+        const response = await fetch('https://backend-empleoinclusivo.onrender.com/chatRoute/get-messages-apply', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sender_id: idCliente, type: senderType, id_empresa:idEmpresa}),
