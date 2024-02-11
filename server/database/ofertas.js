@@ -29,6 +29,24 @@ function getOfertasFavs(table, ids) {
     })
 }
 
+function Read_Ofertas_id_num(id_empresa) {
+    return new Promise((resolve, reject) => {
+        connection.query(`
+            SELECT oferta_empleo.*, COUNT(clientes_interesados_oferta.ID_Favorito) AS numApply
+            FROM oferta_empleo
+            LEFT JOIN clientes_interesados_oferta ON oferta_empleo.id = clientes_interesados_oferta.ID_Selected
+            WHERE oferta_empleo.id_empresa = ?
+            GROUP BY oferta_empleo.id;
+        `, [id_empresa], function(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
   
   
 
@@ -110,6 +128,7 @@ module.exports = {
     getOfertasFavs,
     UpdateOferta,
     Read_Ofertas_id,
+    Read_Ofertas_id_num,
     getNumberOfertsByDay,
     DeleteByIdEmpresa
 }

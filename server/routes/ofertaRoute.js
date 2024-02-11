@@ -53,11 +53,13 @@ router.post('/save-data3', upload.fields([
   });
 
 
+  
   router.post('/get-ofertas', async(req, res) => {
     id_empresa = req.body.id_empresa;
+    console.log(id_empresa);
     if (id_empresa) {
         try {
-            const results = await dbOfertas.Read_Ofertas_id('oferta_empleo',id_empresa);
+            const results = await db.Read_Ofertas_id_num(id_empresa);
             if (results.length > 0) {
                 res.json({ success: true, data: results});
             } else {
