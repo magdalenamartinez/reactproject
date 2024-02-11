@@ -59,7 +59,7 @@ router.post('/save-data3', upload.fields([
     console.log(id_empresa);
     if (id_empresa) {
         try {
-            const results = await db.Read_Ofertas_id_num(id_empresa);
+            const results = await dbOfertas.Read_Ofertas_id_num(id_empresa);
             if (results.length > 0) {
                 res.json({ success: true, data: results});
             } else {
