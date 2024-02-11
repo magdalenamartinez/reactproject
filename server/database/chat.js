@@ -14,6 +14,34 @@ const getUniqueIdChat = (table) => {
     });
 };
 
+const getUniqueIdEmpresaChatApply = (table,id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT DISTINCT id_empresa FROM ?? where sender_id = ?', [table,id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                // Extraer solo los valores de sender_id y devolverlos como un array
+                const senderIds = results.map(result => result.id_empresa);
+                resolve(senderIds);
+            }
+        });
+    });
+};
+
+const getUniqueIdChatApply = (table,id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT DISTINCT sender_id FROM ?? where id_empresa = ?', [table,id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                // Extraer solo los valores de sender_id y devolverlos como un array
+                const senderIds = results.map(result => result.sender_id);
+                resolve(senderIds);
+            }
+        });
+    });
+};
+
 
 
 function getMessages(id, table) {
@@ -62,9 +90,11 @@ function DeleteChat(table, id) {
 
 module.exports = {
     getUniqueIdChat,
+    getUniqueIdEmpresaChatApply,
+    getUniqueIdChatApply,
     getMessages,
     saveMessage,
     changeRead,
     changeReadToFalse,
-    DeleteChat
+    DeleteChat,
 }
