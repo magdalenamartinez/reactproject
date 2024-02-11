@@ -84,7 +84,7 @@ function Header2() {
         <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
         userExist={true} sesionLink={"#"} textInicioSesion={`Hola ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
         <div ref={dropDownRef}> 
-            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={handleLogout} favoritos={'/misFavoritos'} setDropDown={setDropDown}/> 
+            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={inicioSesionLinkRef.current} logout={handleLogout} chat={'/conversaciones/user'} favoritos={'/misFavoritos'} setDropDown={setDropDown}/> 
         </div>
         {(() => {
             chatStyleRef.current = 'chat' 
@@ -102,7 +102,7 @@ function Header2() {
         <Login setDropDown={setDropDown} setDropDownChat={setDropDownChat} dropDown={dropDown} dropDownChat={dropDownChat}
         userExist={true} sesionLink={"#"} textInicioSesion={`Cuenta de ${userData.user}`} srcImage={userData.image? `https://backend-empleoinclusivo.onrender.com/uploads/${userData.image}`:'/images/user.png'}/>
         <div ref={dropDownRef}> 
-            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={'/perfilEmpresa'} logout={handleLogout} favoritos={'/favoritosEmpresa'} setDropDown={setDropDown}/> 
+            <DropDownMenu openclass={`drop_down_menu ${dropDown? 'active':'inactive'} ${st.menu} ${st.dark}`} profile={'/perfilEmpresa'} logout={handleLogout} chat={'/conversaciones/empresa'}  favoritos={'/favoritosEmpresa'} setDropDown={setDropDown}/> 
         </div>
         {(() => {
             chatStyleRef.current = 'chat'

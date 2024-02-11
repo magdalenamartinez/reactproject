@@ -14,6 +14,7 @@ function BusquedaDeEmpleo() {
     const [currentPagina, setCurrentPagina] = useState(1);
     const [detalles, setDetalles] = useState({});
     const [userExist, setUserExist] = useState(false);
+    const [applyStates, setApplyState] = useState({});
     const [heartStates, setHeartState] = useState({});
     const [fav, setFav] = useState(false);
     
@@ -35,7 +36,7 @@ function BusquedaDeEmpleo() {
           }
         };
         const getOffers = async() => {
-          await getAllData(setData, fav, userData, setHeartState, setObtainedData, setFav,
+          await getAllData(setData, fav, userData, setHeartState, setApplyState, setObtainedData, setFav,
             'https://backend-empleoinclusivo.onrender.com/ofertaRoute/get-all-ofertas', 'favoritos', navigate);
         }
         chooseData();
@@ -54,6 +55,9 @@ function BusquedaDeEmpleo() {
       const favHandle = (id, select_id, table) => {
         addFav(id, select_id, table, setHeartState)
       }
+      const applyHandle = (id_cliente, id_oferta) => {
+        addFav(id_cliente, id_oferta, 'clientes_interesados_oferta',setApplyState);
+      }
 
       const handleSearchFunction = (value) => {
         handleSearch(value, setSearchState, setSearchTerm, 'titulo_oferta', setNumDatos, setCurrentData,
@@ -71,7 +75,7 @@ function BusquedaDeEmpleo() {
         <Busqueda handleSearch={handleSearchFunction}/>
         <div className="contenedor">
           <Bloque currentData={currentData} setDetalles={setDetalles} heartStates={heartStates} favHandle={favHandle} userExist={userExist} detalles={detalles} userData={userData} favTable={'favoritos'} isOferta={true} searchTerm={searchTerm} searchState={searchState}
-          term={'titulo_oferta'}/>
+          term={'titulo_oferta'} applyStates={applyStates} applyHandle={applyHandle}/>
           <div className="form_group">
               <button className="form_button disabled_button" onClick={() => prevPage(currentPagina, setCurrentPagina)} disabled={currentPagina === 1}>Anterior</button>
               <button className="form_button disabled_button" onClick={() => nextPage(currentPagina, setCurrentPagina, dataPorPagina, data)} disabled={currentPagina === Math.ceil(numDatos / dataPorPagina)}>Siguiente</button>

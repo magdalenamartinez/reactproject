@@ -1,6 +1,6 @@
 import getFavs from "../fav/getFav";
 
-const getAllData = async (setData, fav, userData, setHeartState, setObtainedData, setFav,
+const getAllData = async (setData, fav, userData, setHeartState, setApplyState, setObtainedData, setFav,
   route, favroute, navigate) => {
     try {
       const response = await fetch(route, {
@@ -14,6 +14,7 @@ const getAllData = async (setData, fav, userData, setHeartState, setObtainedData
           setData(responseData.data);
           if (!fav && userData) {
               await getFavs(userData.id, favroute, setHeartState);
+              await getFavs(userData.id, 'clientes_interesados_oferta', setApplyState);
               setFav(true);
             }
             setObtainedData(true);
