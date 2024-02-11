@@ -26,7 +26,8 @@ handleOperation, setShowPopUp, setOptionText, searchTerm, searchState, term, app
         navigate(`/solicitantesOferta/${idOferta}`);
     }
     const chatHandle = (idEmpresa,idCliente, user) => {
-        navigate(`/chatEmpresaCliente/${idEmpresa}/${idCliente}/${user}`);
+        const userType = userData.typeUser == 2? 'empresa':'user';
+        navigate(`/chatEmpresaCliente/${idEmpresa}/${idCliente}/${user}/${userType}`);
     }
     return(
         <ul className="ul_class">
