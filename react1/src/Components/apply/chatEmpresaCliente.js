@@ -46,7 +46,7 @@ function ChatEmpresaCliente() {
     useEffect(() => {
         const interval = setInterval(() => {
             getAllMessages();
-        }, 5000);
+        }, 2000);
     return () => clearInterval(interval);
     }, []);
 

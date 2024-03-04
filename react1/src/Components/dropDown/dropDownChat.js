@@ -33,7 +33,7 @@ const DropDownChat = ({ openclass, userData }) => {
   
     const interval = setInterval(() => {
         getAllMessages();
-    }, 5000);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 

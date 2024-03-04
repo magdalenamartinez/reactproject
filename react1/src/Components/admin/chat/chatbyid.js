@@ -41,7 +41,7 @@ function ChatById() {
     useEffect(() => {
         const interval = setInterval(() => {
             getAllMessages();
-        }, 5000);
+        }, 2000);
        
     return () => clearInterval(interval);
     }, []);
@@ -92,7 +92,7 @@ function ChatById() {
                     value={inputText}
                     onChange={handleInput}
                     placeholder="Escribe un mensaje..."
-                    className="texto_barra"
+                    className="texto_barra leftEspacio"
                     onKeyDown={handleKey}
                     />
                     <button className="button_class" onClick={handleSendMessageAdmin}>
