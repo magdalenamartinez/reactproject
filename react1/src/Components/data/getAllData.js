@@ -14,7 +14,9 @@ const getAllData = async (setData, fav, userData, setHeartState, setApplyState, 
           setData(responseData.data);
           if (!fav && userData) {
               await getFavs(userData.id, favroute, setHeartState);
-              await getFavs(userData.id, 'clientes_interesados_oferta', setApplyState);
+              if (userData.typeUser !== 2) {
+                await getFavs(userData.id, 'clientes_interesados_oferta', setApplyState);
+              }
               setFav(true);
             }
             setObtainedData(true);
