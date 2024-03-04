@@ -39,7 +39,7 @@ function BusquedaEmpleados() {
         };
       
         const getClientes = async () => {
-          await getAllData(setData, fav, userData, setHeartState, null, setObtainedData, setFav,
+          await getAllData(setData, fav, userData, setHeartState, setHeartState, setObtainedData, setFav,
              'https://backend-empleoinclusivo.onrender.com/clientRoute/get-clientes' ,'favoritosempresa', navigate);
         }
         if (userData && userData.typeUser === 2) {
