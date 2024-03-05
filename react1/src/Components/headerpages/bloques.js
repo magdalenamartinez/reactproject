@@ -54,7 +54,7 @@ handleOperation, setShowPopUp, setOptionText, searchTerm, searchState, term, app
                                     }
                                 <DetailsButton onClick={() => setDetallesById(data.id, setDetalles)}/>
                                 {userExist && <FavButton id="FavButton" onClick={()=>favHandle(userData.id, data.id, favTable)} classT={heartStates[data.id] ? 'heartClicked' : 'heart'}/>}
-                                {userExist && userData.typeUser === 1 && <ApplyButton id="FavButton" onClick={()=>applyHandle(userData.id, data.id)} classT={applyStates[data.id] ? 'applyClicked' : 'heart'}/>}
+                                {userExist && userData.typeUser === 1 && !fav && <ApplyButton id="FavButton" onClick={()=>applyHandle(userData.id, data.id)} classT={applyStates[data.id] ? 'applyClicked' : 'heart'}/>}
                                 {userExist && solicitud && <OpenChat id="FavButton" onClick={()=>chatHandle(userData.id, data.id, data.user)} />}
                                 </div>
                             </div>
